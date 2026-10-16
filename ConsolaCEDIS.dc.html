@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }};font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+    <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+    <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">consola · Embotelladora del Nayar · CEDIS Tepic</span>
+  </div>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ cols }};grid-template-rows:{{ rows }}">
+    <nav aria-label="Módulos de la consola" style="background:#0A0A0A;color:#FAFAFA;display:flex;flex-direction:{{ navDir }};gap:2px;padding:{{ navPad }};overflow:auto;scrollbar-width:none">
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:3px;padding:6px 10px 16px"><span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:6px;background:#fff"><img src="assets/logos/nayar.png" alt="Grupo Embotellador Nayar" style="height:18px;width:auto;display:block"></span><span style="font:700 15px/1.2 Satoshi,sans-serif;margin-top:8px">Consola CEDIS</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#A3A3A3">Tepic · martes 16 oct</span></div>
+      </sc-if>
+      <sc-for list="{{ mods }}" as="m" hint-placeholder-count="7">
+        <button type="button" aria-current="{{ m.cur }}" onClick="{{ m.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;font:500 13.5px/1.2 Inter,sans-serif;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}" style-focus="outline:2px solid #8AF3FF;outline-offset:1px">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"></path></svg>
+          <span style="flex:1">{{ m.label }}</span>
+          <sc-if value="{{ m.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#0031EC;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ m.badge }}</span></sc-if>
+        </button>
+      </sc-for>
+    </nav>
+    <div data-scroll-top="consola-cedis" style="min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px">
+        <h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">{{ modTitle }}</h3>
+        <span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">{{ modSub }}</span>
+      </div>
+
+      <sc-if value="{{ mResumen }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))">
+          <sc-for list="{{ kpis }}" as="k">
+            <div style="padding:14px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ k.l }}</span>
+              <span style="font:600 30px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:{{ k.c }}">{{ k.v }}</span>
+              <span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ k.s }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+          <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px">
+            <span style="font:700 14px/1.2 Satoshi,sans-serif">Pedidos digitales por hora · Ruta 14</span>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:140px">
+              <sc-for list="{{ horas }}" as="b">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+                  <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ b.v }}</span>
+                  <span style="width:100%;border-radius:4px 4px 0 0;transition:height 300ms;height:{{ b.hh }};background:{{ b.c }}"></span>
+                  <span style="font:500 11px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.t }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:2px">
+            <span style="font:700 14px/1.2 Satoshi,sans-serif;padding-bottom:8px">Actividad en vivo</span>
+            <sc-for list="{{ events }}" as="e"><div style="display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;padding:7px 0;border-top:1px solid #F0F0F0;font-size:13px;line-height:1.4"><span style="font:600 12px/1.4 'Plus Jakarta Sans',sans-serif;color:#666">{{ e.t }}</span><span>{{ e.text }}</span></div></sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mPedidos }}">
+        <div role="radiogroup" aria-label="Filtro de canal" style="display:flex;gap:6px;flex-wrap:wrap">
+          <sc-for list="{{ filtros }}" as="f"><button type="button" role="radio" aria-checked="{{ f.on }}" onClick="{{ f.pick }}" style="all:unset;cursor:pointer;height:30px;padding:0 12px;border-radius:999px;font:600 12.5px/30px Inter,sans-serif;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }}">{{ f.label }}</button></sc-for>
+        </div>
+        <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;overflow-x:auto">
+          <div style="min-width:640px">
+            <div style="display:grid;grid-template-columns:90px minmax(0,1.6fr) 80px 60px 90px minmax(0,1.2fr) 56px;gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #EBEBEB"><span>Pedido</span><span>Tienda</span><span>Canal</span><span>Cajas</span><span>Total</span><span>Estado</span><span>Hora</span></div>
+            <sc-for list="{{ pedidos }}" as="p">
+              <button type="button" onClick="{{ p.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:90px minmax(0,1.6fr) 80px 60px 90px minmax(0,1.2fr) 56px;gap:10px;padding:11px 14px;border-bottom:1px solid #F3F3F3;font-size:13px;align-items:center;background:{{ p.bg }}" style-hover="background:#F4F6FE">
+                <span style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ p.id }}</span>
+                <span style="font-weight:{{ p.w }}">{{ p.tienda }}</span>
+                <span>{{ p.canal }}</span>
+                <span style="font-variant-numeric:tabular-nums">{{ p.cajas }}</span>
+                <span style="font-variant-numeric:tabular-nums">{{ p.total }}</span>
+                <span><span style="padding:3px 8px;border-radius:999px;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;background:{{ p.stBg }};color:{{ p.stFg }}">{{ p.estado }}</span></span>
+                <span style="font:500 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ p.hora }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ showDetail }}">
+          <div style="padding:16px;border-radius:8px;background:#fff;border:1.5px solid #0031EC;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font:700 15px/1.2 Satoshi,sans-serif">{{ d.tienda }}</span><span style="font:500 12px/1 Inter,sans-serif;color:#525252">{{ d.sub }}</span><span style="flex:1"></span><sc-if value="{{ d.attention }}"><span style="padding:4px 8px;border-radius:999px;background:#0A0A0A;color:#fff;font:600 11px/1 'Plus Jakarta Sans',sans-serif">Requiere atención</span></sc-if></div>
+            <sc-for list="{{ d.lines }}" as="l"><div style="display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:8px;font-size:13.5px"><span style="font:700 13px/1.4 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ l.q }}×</span><span>{{ l.n }}</span><span style="font-variant-numeric:tabular-nums">{{ l.sub }}</span></div></sc-for>
+            <sc-if value="{{ d.empty }}"><span style="font-size:13px;color:#525252">La tienda aún no agrega productos.</span></sc-if>
+            <div style="display:flex;flex-wrap:wrap;gap:8px 24px;padding-top:10px;border-top:1px solid #EBEBEB;font-size:13px">
+              <span>Total <strong style="font-family:'Plus Jakarta Sans',sans-serif">{{ d.total }}</strong></span>
+              <span>Ticket vs. promedio <strong style="font-family:'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ d.delta }}</strong></span>
+              <span>Mezcla no carbonatados <strong style="font-family:'Plus Jakarta Sans',sans-serif">{{ d.mix }}</strong></span>
+              <span>Pago <strong>{{ d.pay }}</strong></span>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ mRutas }}">
+        <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))">
+          <div style="padding:0 0 14px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:4px;overflow:hidden"><div style="position:relative;height:96px;margin-bottom:8px"><img src="assets/img/reparto.jpg" alt="Unidad de reparto (ilustración)" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Ilustración</span></div><span style="padding:0 14px;font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Unidad</span><span style="padding:0 14px;font:700 16px/1.2 Satoshi,sans-serif">NAY-14 · Ramón</span><span style="padding:0 14px;font-size:12px;color:#525252">Salida 6:30 · 18 paradas</span></div>
+          <div style="padding:14px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Avance de la ruta</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ rutaAvance }}</span><div style="height:6px;border-radius:3px;background:#EFEFEF;overflow:hidden"><div style="height:6px;background:#0031EC;transition:width 300ms;width:{{ rutaPct }}"></div></div></div>
+          <div style="padding:14px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:4px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Pedidos digitales en la ruta</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ rutaDig }}</span><span style="font-size:12px;color:#525252">no requirieron captura del vendedor</span></div>
+        </div>
+        <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+          <sc-for list="{{ paradas }}" as="p">
+            <div style="display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid #F3F3F3;background:{{ p.bg }}">
+              <span style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 10.5px/1 'Plus Jakarta Sans',sans-serif;background:{{ p.dot }};color:{{ p.dotFg }};border:1.5px solid {{ p.ring }}">{{ p.n }}</span>
+              <span style="display:flex;flex-direction:column;gap:2px"><span style="font:{{ p.font }}">{{ p.tienda }}</span><span style="font-size:11.5px;color:#666">{{ p.det }}</span></span>
+              <span style="font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;color:{{ p.stColor }}">{{ p.estado }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mTiendas }}">
+        <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+          <div style="padding:18px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:12px;align-items:center"><img src="assets/img/dona-lupe.jpg" alt="Doña Lupe" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none"><span style="display:flex;flex-direction:column;gap:3px;flex:1"><span style="font:700 17px/1.2 Satoshi,sans-serif">Abarrotes La Esperanza</span><span style="font-size:12.5px;color:#525252">Doña Lupe · Centro, Tepic · cliente 10-4471</span></span><sc-if value="{{ attention }}"><span style="padding:4px 8px;border-radius:999px;background:#0A0A0A;color:#fff;font:600 11px/1 'Plus Jakarta Sans',sans-serif">Requiere atención</span></sc-if></div>
+            <sc-for list="{{ ficha }}" as="f"><div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;padding:8px 0;border-top:1px solid #F3F3F3;font-size:13.5px"><span style="color:#525252">{{ f.k }}</span><span style="font-weight:500">{{ f.v }}</span></div></sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 14px/1.2 Satoshi,sans-serif">Ticket de las últimas semanas</span>
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end;height:110px">
+                <sc-for list="{{ tickets }}" as="b"><div style="display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end"><span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ b.v }}</span><span style="width:100%;border-radius:4px 4px 0 0;height:{{ b.hh }};background:{{ b.c }}"></span><span style="font:500 10.5px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.t }}</span></div></sc-for>
+              </div>
+            </div>
+            <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px">
+              <span style="font:700 14px/1.2 Satoshi,sans-serif">Refrigerador RF-20931</span>
+              <span style="font-size:13px;color:#333">{{ refriTxt }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mPromos }}">
+        <sc-for list="{{ promos }}" as="p">
+          <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid {{ p.border }};display:grid;gap:12px;grid-template-columns:{{ promoCols }};align-items:center">
+            <span style="display:flex;flex-direction:column;gap:4px"><span style="font:700 15px/1.3 Satoshi,sans-serif">{{ p.t }}</span><span style="font-size:12.5px;color:#525252">{{ p.zona }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666">Vistas hoy</span><span style="font:600 20px/1 'Plus Jakarta Sans',sans-serif">{{ p.vistas }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666">Aplicadas hoy</span><span style="font:600 20px/1 'Plus Jakarta Sans',sans-serif;color:{{ p.apColor }}">{{ p.aplicadas }}</span></span>
+            <button type="button" role="switch" aria-checked="{{ p.onAria }}" aria-label="Activar {{ p.t }}" onClick="{{ p.toggle }}" style="all:unset;cursor:pointer;justify-self:end;width:40px;height:24px;border-radius:12px;position:relative;transition:background 200ms;background:{{ p.swBg }}"><span style="position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 200ms;left:{{ p.swLeft }}"></span></button>
+          </div>
+        </sc-for>
+        <span style="font-size:12.5px;color:#525252">Promociones ficticias. En el piloto las define la gestión de ingresos (P-07) por zona y tipo de tienda.</span>
+      </sc-if>
+
+      <sc-if value="{{ mServicio }}">
+        <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;overflow-x:auto">
+          <div style="min-width:560px">
+            <div style="display:grid;grid-template-columns:80px minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #EBEBEB"><span>Folio</span><span>Tienda</span><span>Falla</span><span>Estado</span></div>
+            <sc-for list="{{ folios }}" as="f"><div style="display:grid;grid-template-columns:80px minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:10px;padding:11px 14px;border-bottom:1px solid #F3F3F3;font-size:13px;background:{{ f.bg }}"><span style="font:700 12px/1.3 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ f.id }}</span><span style="font-weight:{{ f.w }}">{{ f.tienda }}</span><span>{{ f.falla }}</span><span>{{ f.estado }}</span></div></sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ noLiveFolio }}"><span style="font-size:13px;color:#525252">Cuando la tienda reporte una falla desde {{ canalTxt }}, el folio aparece aquí.</span></sc-if>
+      </sc-if>
+
+      <sc-if value="{{ mMapa }}">
+        <span style="font-size:14px;color:#333">Porcentaje de pedidos digitales por colonia, CEDIS Tepic</span>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;max-width:640px">
+          <sc-for list="{{ colonias }}" as="c"><div style="aspect-ratio:1.6;border-radius:6px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;transition:background 400ms;outline-offset:2px;background:{{ c.bg }};color:{{ c.color }};outline:{{ c.outline }}"><span style="font:600 12.5px/1.25 Inter,sans-serif">{{ c.n }}</span><span style="font:600 24px/1 'Plus Jakarta Sans',sans-serif">{{ c.pct }}</span></div></sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font:500 12px/1 Inter,sans-serif;color:#525252;flex-wrap:wrap"><span>0%</span><span style="width:200px;height:8px;border-radius:4px;background:linear-gradient(90deg,#F2F4FE,#0031EC)"></span><span>60%</span><span>Recuadro negro: colonia de la tienda de la demo</span></div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:760},&quot;data&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;jump&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;height&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;720px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;width&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1000,&quot;tsType&quot;:&quot;number&quot;}}">
+const MODS = [['resumen', 'Resumen', 'M2 14h12M4 12V8M8 12V4M12 12V6'], ['pedidos', 'Pedidos', 'M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3'], ['rutas', 'Rutas', 'M3 13a2 2 0 1 0 0-.1M13 5a2 2 0 1 0 0-.1M3 11V7a3 3 0 0 1 3-3h5'], ['tiendas', 'Tiendas', 'M2 6l1-3.5h10L14 6M2 6v8h12V6M2 6h12M6 14v-4h4v4'], ['promos', 'Promociones', 'M2 8.5l6.5-6.5H14v5.5L7.5 14zM11 5h.01'], ['servicio', 'Servicio', 'M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5'], ['mapa', 'Vista gerente', 'M1.5 3.5l4-1.5 5 2 4-1.5v10l-4 1.5-5-2-4 1.5zM5.5 2v10M10.5 4v10']];
+const TITLE = { resumen: ['Resumen del día', 'Ruta 14 · CEDIS Tepic · datos ficticios'], pedidos: ['Pedidos', 'Hoy · todos los canales'], rutas: ['Ruta 14', 'Entrega de mañana, miércoles'], tiendas: ['Ficha de la tienda', 'Abarrotes La Esperanza'], promos: ['Promociones activas', 'Ruta 14 · semana en curso'], servicio: ['Servicio de refrigeradores', 'Folios abiertos y recientes'], mapa: ['Vista gerente', 'Adopción digital por colonia'] };
+const OTROS = [['N-48212', 'Super Morelos', 'Chat', 12, 2116, 'Confirmado', '7:38'], ['N-48211', 'Cremería La Vaca', 'App', 6, 1050, 'Confirmado', '7:31'], ['N-48210', 'Abarrotes Mary', 'Vendedor', 8, 1380, 'En captura', '7:25'], ['N-48209', 'Tienda Don Beto', 'Chat', 14, 2430, 'Confirmado', '7:21'], ['N-48207', 'Miscelánea El Sol', 'App', 9, 1612, 'Confirmado', '7:12'], ['N-48206', 'Depósito El Güero', 'Vendedor', 22, 4080, 'Confirmado', '6:58']];
+const PARADAS = ['Depósito El Güero', 'Miscelánea El Sol', 'Tienda Don Beto', 'Cremería La Vaca', 'Abarrotes Mary', 'Abarrotes La Esperanza', 'Super Morelos', 'Tienda Lucy', 'Abarrotes San José', 'Miscelánea Lupita', 'Tienda El Arco', 'Abarrotes Juárez', 'Depósito Los Pinos', 'Tienda Mi Ranchito', 'Miscelánea Centro', 'Abarrotes El Faro', 'Tienda La Palma', 'Abarrotes Dos Hermanos'];
+const PROMOS = [['10% en la quinta caja de no carbonatados', 'Todas las colonias · tiendas tradicionales', 42, 11], ['Agua natural 1 L: segunda caja a mitad de precio', 'Ruta 14 · solo martes', 37, 9], ['Paquete calor: 3 isotónicos y 2 aguas minerales', 'Centro y Ciudad del Valle', 18, 3]];
+const COLONIAS = [['Centro', 41], ['Los Fresnos', 28], ['Mololoa', 35], ['Lázaro Cárdenas', 22], ['Los Sauces', 18], ['Jardines', 31], ['San José', 12], ['Ciudad del Valle', 47], ['Indeco', 25]];
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+const ST = { 'Confirmado': ['#0031EC', '#fff'], 'En captura': ['#F2F2F2', '#333'], 'Armando carrito': ['#E8ECFD', '#001D9B'], 'Navegando': ['#F2F2F2', '#333'], 'Conversación abierta': ['#F2F2F2', '#333'], 'Armando pedido': ['#E8ECFD', '#001D9B'], 'Preparado en CEDIS': ['#0A0A0A', '#fff'], 'En ruta': ['#0A0A0A', '#fff'], 'Entregado': ['#0A0A0A', '#fff'] };
+
+class Component extends DCLogic {
+  state = { mod: 'resumen', filtro: 'Todos', sel: 'live', promoOff: {} };
+  componentDidMount() { this.componentDidUpdate(); }
+  componentDidUpdate() {
+    const j = this.props.jump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.m && MODS.some(m => m[0] === j.m)) this.setState({ mod: j.m }); }
+    if (this._lm !== this.state.mod) { this._lm = this.state.mod; requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="consola-cedis"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  renderVals() {
+    const st = this.state, d = this.props.data || {}, wide = (this.props.width || 1000) >= 760;
+    const lines = d.lines || [], hasLive = lines.length > 0 || d.confirmed;
+    const liveStatus = d.status || 'Navegando';
+    const liveRow = { id: d.confirmed ? 'N-48213' : 'En curso', tienda: 'Abarrotes La Esperanza', canal: d.canal || 'App', cajas: d.cajas || 0, total: d.totalNum || 0, estado: liveStatus, hora: '7:40', live: true };
+    const rows = [liveRow, ...OTROS.map(r => ({ id: r[0], tienda: r[1], canal: r[2], cajas: r[3], total: r[4], estado: r[5], hora: r[6] }))]
+      .filter(r => st.filtro === 'Todos' || (st.filtro === 'Digitales' ? r.canal !== 'Vendedor' : r.canal === 'Vendedor'));
+    const digital = d.digital || 37;
+    const horasBase = [['6', 4], ['7', 9], ['8', 12], ['9', 8], ['10', 3], ['11', 1], ['12', 0]];
+    const maxH = 13;
+    const track = typeof d.track === 'number' ? d.track : -1;
+    const delivered = track >= 3 ? 6 : track >= 2 ? 5 : 0;
+    const badge = { pedidos: hasLive && !d.confirmed ? '1' : '', servicio: d.folio ? '1' : '', tiendas: d.attention ? '!' : '' };
+    const promosApl = d.promos || [];
+    return {
+      h: this.props.height || '720px', wide,
+      cols: wide ? '210px minmax(0,1fr)' : 'minmax(0,1fr)', rows: wide ? 'minmax(0,1fr)' : 'auto minmax(0,1fr)',
+      navDir: wide ? 'column' : 'row', navPad: wide ? '14px 10px' : '8px',
+      mods: MODS.map(([id, label, dd]) => { const on = st.mod === id; return { label, d: dd, cur: on ? 'page' : 'false', badge: badge[id] || '', pick: () => this.setState({ mod: id }), bg: on ? '#1F1F1F' : 'transparent', color: on ? '#FFFFFF' : '#C8C8C8' }; }),
+      modTitle: TITLE[st.mod][0], modSub: TITLE[st.mod][1],
+      mResumen: st.mod === 'resumen', mPedidos: st.mod === 'pedidos', mRutas: st.mod === 'rutas', mTiendas: st.mod === 'tiendas', mPromos: st.mod === 'promos', mServicio: st.mod === 'servicio', mMapa: st.mod === 'mapa',
+      split: wide ? 'minmax(0,1.3fr) minmax(0,1fr)' : 'minmax(0,1fr)', promoCols: wide ? 'minmax(0,2fr) 90px 90px 50px' : 'minmax(0,1fr) auto auto auto',
+      kpis: [
+        { l: 'Pedidos digitales hoy', v: digital + ' de 112', s: 'Ruta 14', c: d.confirmed ? '#0031EC' : '#0A0A0A' },
+        { l: 'Ticket del pedido en curso', v: d.total || '$0', s: 'vs. promedio ' + (d.delta || '+0%'), c: '#0A0A0A' },
+        { l: 'Mezcla no carbonatados', v: d.mix || '0%', s: 'del pedido en curso', c: '#0A0A0A' },
+        { l: 'Folios de servicio abiertos', v: String(1 + (d.folio ? 1 : 0)), s: d.folio ? 'incluye ' + d.folio : 'en la ruta', c: d.folio ? '#0031EC' : '#0A0A0A' }
+      ],
+      horas: horasBase.map(([t, v]) => { const vv = t === '7' && d.confirmed ? v + 1 : v; return { t: t + 'h', v: vv, hh: Math.max(2, vv / maxH * 100) + '%', c: t === '7' ? '#0031EC' : '#D6DDFB' }; }),
+      events: (d.events || []).slice(0, 8),
+      filtros: ['Todos', 'Digitales', 'Vendedor'].map(label => { const on = st.filtro === label; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ filtro: label }), border: on ? '#0A0A0A' : '#D4D4D4', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; }),
+      pedidos: rows.map(r => { const c = ST[r.estado] || ['#F2F2F2', '#333']; return { id: r.id, tienda: r.tienda, canal: r.canal, cajas: r.cajas, total: fmt(r.total), estado: r.estado, hora: r.hora, stBg: c[0], stFg: c[1], bg: r.live ? '#F4F6FE' : '#fff', w: r.live ? 700 : 400, open: () => this.setState({ sel: r.live ? 'live' : r.id }) }; }),
+      showDetail: st.sel === 'live',
+      d: { tienda: 'Abarrotes La Esperanza', sub: 'Doña Lupe · canal: ' + (d.canal || 'App').toLowerCase() + ' · ' + liveStatus.toLowerCase(), lines, empty: !lines.length, total: d.total || '$0', delta: d.delta || '+0%', mix: d.mix || '0%', pay: d.payLabel || '—', attention: !!d.attention },
+      rutaAvance: delivered + ' de 18', rutaPct: (delivered / 18 * 100) + '%', rutaDig: (d.confirmed ? 7 : 6) + ' de 18',
+      paradas: PARADAS.map((t, i) => {
+        const n = i + 1, live = n === 6;
+        let estado = track < 2 ? 'Programada' : n < 6 ? 'Entregado' : live ? (track >= 3 ? 'Entregado' : 'En curso') : 'Pendiente';
+        if (live && !d.confirmed) estado = 'Sin pedido aún';
+        const done = estado === 'Entregado', curr = estado === 'En curso';
+        return { n, tienda: t, det: live ? (d.confirmed ? 'Pedido N-48213 · ' + (d.cajas || 0) + ' cajas · ' + (d.canal || 'App').toLowerCase() : 'Pedido por confirmar') + (d.folio ? ' · técnico ' + d.folio : '') : ['App', 'Chat', 'Vendedor'][i % 3] + ' · ' + (6 + (i * 7) % 15) + ' cajas', estado,
+          dot: done ? '#0A0A0A' : curr ? '#0031EC' : '#fff', dotFg: done || curr ? '#fff' : '#525252', ring: done ? '#0A0A0A' : curr ? '#0031EC' : '#D4D4D4', stColor: curr ? '#0031EC' : done ? '#0A0A0A' : '#666', font: live ? "700 13.5px/1.3 Satoshi,sans-serif" : "500 13px/1.3 Inter,sans-serif", bg: live ? '#F4F6FE' : 'transparent' };
+      }),
+      attention: !!d.attention,
+      ficha: [
+        { k: 'Canal preferido', v: d.canal === 'Chat' ? 'Chat · también usa la app' : 'App · también recibe el sugerido por chat' },
+        { k: 'Ticket promedio', v: '$1,850 · último ' + (d.total || '$0') },
+        { k: 'Frecuencia', v: 'Semanal · martes' },
+        { k: 'Vendedor', v: 'Juan Pérez · visita los jueves' + (d.attention ? ' · avisado' : '') },
+        { k: 'Crédito', v: '$5,000 disponibles' },
+        { k: 'Calificación de entrega', v: d.rating || 'Sin calificar' }
+      ],
+      tickets: [['17 sep', 1760], ['24 sep', 1760], ['1 oct', 1920], ['8 oct', 1790], ['Hoy', d.totalNum || 0]].map(([t, v]) => ({ t, v: v ? fmt(v) : '—', hh: Math.max(2, v / 3200 * 100) + '%', c: t === 'Hoy' ? '#0031EC' : '#D4D4D4' })),
+      refriTxt: d.folio ? 'Folio ' + d.folio + ' · ' + (d.issueLabel || 'falla reportada') + ' · técnico asignado a la Ruta 14, visita mañana' : 'Enfriando bien · 4 °C · última lectura 7:35',
+      promos: PROMOS.map(([t, zona, v, a], i) => { const off = !!st.promoOff[i], applied = promosApl.includes(i); return { t, zona, vistas: v + (hasLive ? 1 : 0), aplicadas: a + (applied ? 1 : 0), apColor: applied ? '#0031EC' : '#0A0A0A', border: applied ? '#0031EC' : '#EBEBEB', onAria: off ? 'false' : 'true', swBg: off ? '#D4D4D4' : '#0031EC', swLeft: off ? '3px' : '19px', toggle: () => this.setState(s => ({ promoOff: { ...s.promoOff, [i]: !s.promoOff[i] } })) }; }),
+      folios: [...(d.folio ? [{ id: d.folio, tienda: 'Abarrotes La Esperanza', falla: d.issueLabel || 'Falla reportada', estado: 'Técnico asignado · visita mañana con la ruta', bg: '#F4F6FE', w: 700 }] : []), { id: 'SR-2203', tienda: 'Miscelánea El Sol', falla: 'No enfría', estado: 'Técnico en camino', bg: '#fff', w: 400 }, { id: 'SR-2201', tienda: 'Tienda Don Beto', falla: 'La puerta no cierra', estado: 'Resuelto ayer', bg: '#fff', w: 400 }],
+      noLiveFolio: !d.folio, canalTxt: d.canal === 'Chat' ? 'el chat' : 'la app',
+      colonias: COLONIAS.map(([n, p]) => { const pct = n === 'Centro' && d.confirmed ? p + 1 : p; const a = Math.min(1, pct / 60); return { n, pct: pct + '%', bg: 'rgba(0,49,236,' + (0.06 + a * 0.94).toFixed(2) + ')', color: a > 0.45 ? '#fff' : '#0A0A0A', outline: n === 'Centro' ? '2px solid #0A0A0A' : 'none' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

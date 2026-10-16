@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#fff">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:18px 20px;background:#F4F6FE;display:flex;flex-direction:column;gap:10px">
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5">
+        <li>El portal reparte cada pedido a los sistemas de Embotelladora, Polo Sur y Fletes por túneles sellados; ningún sistema queda expuesto al hotel.</li>
+        <li>Cada empresa ve solo su parte del pedido; el estado de cuenta consolidado solo lo ve el área de cuentas clave.</li>
+        <li>Los usuarios del hotel entran con su rol (compras, cocina, eventos) y cada acción queda registrada.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showUser }}" hint-placeholder-val="{{ true }}">
+    <div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">horeca · Grupo Álica · Riviera Nayarit</span>
+      </div>
+      <div style="flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:12px clamp(14px,2vw,22px);border-bottom:1px solid #EBEBEB">
+        <img src="assets/img/andres.jpg" alt="Andrés Rivas" style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none"><span style="display:flex;flex-direction:column;gap:2px"><span style="font:700 17px/1.1 Satoshi,sans-serif">Portal HORECA Riviera</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#525252">Hotel Las Palomas · Nuevo Nayarit · cliente piloto del grupo · compras: Andrés Rivas</span></span><img src="assets/logos/las-palomas.png" alt="Hotel Las Palomas" style="height:40px;width:auto;flex:none;display:block">
+        <span style="flex:1"></span>
+        <nav role="tablist" aria-label="Secciones del portal" style="display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:100%">
+          <sc-for list="{{ uTabs }}" as="t" hint-placeholder-count="5"><button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="all:unset;cursor:pointer;flex:none;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:6px;font:600 13px/1 Inter,sans-serif;background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}<sc-if value="{{ t.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#0031EC;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ t.badge }}</span></sc-if></button></sc-for>
+        </nav>
+      </div>
+      <div data-scroll-top="horeca-user" style="flex:1;min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+
+        <sc-if value="{{ sInicio }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative;height:clamp(120px,16vw,170px);border-radius:10px;overflow:hidden;flex:none"><img src="assets/img/hotel-las-palomas.jpg" alt="Alberca del Hotel Las Palomas, Nuevo Nayarit" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Hotel Las Palomas · Nuevo Nayarit · foto del sitio oficial</span></div>
+          <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+            <div style="padding:20px;border-radius:10px;background:#0031EC;color:#fff;display:flex;flex-direction:column;gap:10px">
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C7D2FF">Sugerido por ocupación</span>
+              <span style="font:700 22px/1.25 Satoshi,sans-serif">Ocupación esperada de 91% este fin de semana</span>
+              <span style="font-size:13.5px;line-height:1.45;color:#E3E8FF">Le sugerimos 20% más hielo y agua que un fin de semana normal, y refrigerado para el evento del sábado.</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><button type="button" onClick="{{ addSugerido }}" style="all:unset;cursor:pointer;height:40px;padding:0 16px;border-radius:6px;background:#fff;color:#0031EC;font:700 14px/40px Satoshi,sans-serif">{{ sugLabel }}</button><button type="button" onClick="{{ goCatalogo }}" style="all:unset;cursor:pointer;height:40px;padding:0 16px;border-radius:6px;border:1px solid #8FA4FF;color:#fff;font:700 14px/38px Satoshi,sans-serif;box-sizing:border-box">Ver catálogo</button></div>
+            </div>
+            <div style="padding:18px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif">Próximas entregas</span>
+              <sc-for list="{{ proximas }}" as="p"><div style="display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid #F3F3F3;font-size:13px"><span style="width:10px;height:10px;border-radius:50%;background:{{ p.c }}"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600">{{ p.e }}</span><span style="color:#525252;font-size:12px">{{ p.d }}</span></span><span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif">{{ p.w }}</span></div></sc-for>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+            <sc-for list="{{ resumen }}" as="k"><div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ k.l }}</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ k.v }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ k.s }}</span></div></sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sCatalogo }}">
+          <div role="tablist" aria-label="Empresa" style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ cats }}" as="c"><button type="button" role="tab" aria-selected="{{ c.on }}" onClick="{{ c.pick }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;font:600 13px/1 Inter,sans-serif;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }}"></span>{{ c.label }}</button></sc-for>
+          </div>
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))">
+            <sc-for list="{{ productos }}" as="p">
+              <div style="padding:14px;border-radius:10px;background:#fff;border:1px solid {{ p.border }};display:flex;flex-direction:column;gap:8px">
+                <div style="position:relative;height:110px;border-radius:8px;background:#F5F5F5;overflow:hidden"><sc-if value="{{ p.iBotella }}"><img src="assets/img/botella.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iLata }}"><img src="assets/img/lata.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iHielo5 }}"><img src="assets/img/hielo-5kg.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iHielo20 }}"><img src="assets/img/hielo-20kg.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iReparto }}"><img src="assets/img/reparto.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if></div>
+                <span style="display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#525252"><sc-if value="{{ p.lEmb }}"><img src="assets/logos/nayar.png" alt="" style="height:14px;width:auto;display:block"></sc-if><sc-if value="{{ p.lPolo }}"><img src="assets/logos/polo-sur.png" alt="" style="height:20px;width:auto;display:block"></sc-if><sc-if value="{{ p.lFletes }}"><img src="assets/logos/fletes.png" alt="" style="height:20px;width:auto;display:block"></sc-if>{{ p.empresa }}</span>
+                <span style="font:700 15px/1.25 Satoshi,sans-serif">{{ p.n }}</span>
+                <span style="font-size:12px;color:#525252">{{ p.pres }}</span>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto">
+                  <span style="font:700 15px/1 'Plus Jakarta Sans',sans-serif">{{ p.price }}</span>
+                  <sc-if value="{{ p.none }}"><button type="button" onClick="{{ p.plus }}" style="all:unset;cursor:pointer;height:32px;padding:0 14px;border-radius:999px;background:#0031EC;color:#fff;font:600 12.5px/32px Inter,sans-serif">Agregar</button></sc-if>
+                  <sc-if value="{{ p.some }}"><div style="display:flex;align-items:center;border-radius:999px;background:#0031EC;color:#fff"><button type="button" aria-label="Menos" onClick="{{ p.minus }}" style="all:unset;cursor:pointer;width:30px;height:32px;text-align:center;font:600 15px/32px Inter,sans-serif">−</button><span style="min-width:22px;text-align:center;font:700 13px/32px 'Plus Jakarta Sans',sans-serif">{{ p.q }}</span><button type="button" aria-label="Más" onClick="{{ p.plus }}" style="all:unset;cursor:pointer;width:30px;height:32px;text-align:center;font:600 15px/32px Inter,sans-serif">+</button></div></sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ hasCart }}"><button type="button" onClick="{{ goCarrito }}" style="all:unset;cursor:pointer;align-self:flex-end;height:44px;padding:0 18px;border-radius:6px;background:#0A0A0A;color:#fff;font:700 14px/44px Satoshi,sans-serif">Ver carrito · {{ cartN }} productos de {{ empresasN }} empresas · {{ total }}</button></sc-if>
+        </sc-if>
+
+        <sc-if value="{{ sCarrito }}">
+          <sc-if value="{{ cartEmpty }}"><div style="padding:24px;border-radius:10px;background:#fff;border:1px dashed #D4D4D4;font-size:14px;color:#525252">El carrito está vacío. Empiece por el sugerido de la semana o por el catálogo.</div></sc-if>
+          <sc-if value="{{ hasCart }}">
+            <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ grupos }}" as="g">
+                  <div style="border-radius:10px;background:#fff;border:1px solid #EBEBEB;overflow:hidden">
+                    <div style="display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:12px 16px;border-bottom:1px solid #F0F0F0;background:#FAFAFA"><span style="display:inline-flex;align-items:center;gap:8px;font:700 14px/1.2 Satoshi,sans-serif"><span style="width:10px;height:10px;border-radius:50%;background:{{ g.dot }}"></span>{{ g.e }}</span><span style="font-size:12px;color:#525252;flex:1">{{ g.ventana }}</span><span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif">{{ g.sub }}</span></div>
+                    <sc-for list="{{ g.lines }}" as="l"><div style="display:grid;grid-template-columns:minmax(0,1fr) auto 80px;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid #F7F7F7;font-size:13px"><span>{{ l.n }}</span><div style="display:flex;align-items:center;border:1px solid #D4D4D4;border-radius:999px;overflow:hidden"><button type="button" aria-label="Menos" onClick="{{ l.minus }}" style="all:unset;cursor:pointer;width:26px;height:26px;text-align:center;font:600 14px/26px Inter,sans-serif">−</button><span style="min-width:22px;text-align:center;font:700 12px/26px 'Plus Jakarta Sans',sans-serif">{{ l.q }}</span><button type="button" aria-label="Más" onClick="{{ l.plus }}" style="all:unset;cursor:pointer;width:26px;height:26px;text-align:center;font:600 14px/26px Inter,sans-serif">+</button></div><span style="text-align:right;font-variant-numeric:tabular-nums">{{ l.sub }}</span></div></sc-for>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:18px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px;align-self:start">
+                <span style="font:700 15px/1.2 Satoshi,sans-serif">Un solo pedido para {{ empresasN }} empresas</span>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Facturación</span>
+                  <sc-for list="{{ facturas }}" as="o"><button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:1.5px solid {{ o.border }};font-size:13px"><span style="width:15px;height:15px;border-radius:50%;box-sizing:border-box;flex:none;border:{{ o.dot }}"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600">{{ o.label }}</span><span style="font-size:11.5px;color:#525252">{{ o.sub }}</span></span></button></sc-for>
+                </div>
+                <div style="display:flex;justify-content:space-between;font:700 18px/1.3 'Plus Jakarta Sans',sans-serif;padding-top:8px;border-top:1px solid #EBEBEB"><span>Total</span><span>{{ total }}</span></div>
+                <span style="font-size:12px;color:#525252">Crédito del hotel: $180,000 disponibles · pago a 30 días</span>
+                <button type="button" onClick="{{ confirmar }}" style="all:unset;cursor:pointer;text-align:center;height:48px;border-radius:6px;background:#0031EC;color:#fff;font:700 15px/48px Satoshi,sans-serif">Confirmar pedido</button>
+              </div>
+            </div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ sEntregas }}">
+          <sc-if value="{{ noOrder }}"><div style="padding:24px;border-radius:10px;background:#fff;border:1px dashed #D4D4D4;font-size:14px;color:#525252">Confirme un pedido para ver sus entregas coordinadas.</div></sc-if>
+          <sc-if value="{{ hasOrder }}">
+            <div style="padding:14px 16px;border-radius:10px;background:#fff;border:1.5px solid #0031EC;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><span style="font:700 15px/1.2 Satoshi,sans-serif">Pedido H-3107 · {{ total }}</span><span style="font-size:13px;color:#525252">Se dividió en {{ empresasN }} entregas, una por empresa, coordinadas para no saturar el andén del hotel.</span></div>
+            <sc-for list="{{ entregas }}" as="e">
+              <div style="padding:16px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:grid;gap:12px;grid-template-columns:{{ entCols }};align-items:center">
+                <span style="display:flex;flex-direction:column;gap:3px"><span style="display:inline-flex;align-items:center;gap:8px;font:700 14.5px/1.2 Satoshi,sans-serif"><span style="width:10px;height:10px;border-radius:50%;background:{{ e.dot }}"></span>{{ e.e }}</span><span style="font-size:12.5px;color:#525252">{{ e.d }}</span></span>
+                <span style="font:600 13px/1.3 'Plus Jakarta Sans',sans-serif">{{ e.w }}</span>
+                <span style="justify-self:start;padding:4px 10px;border-radius:999px;font:600 11.5px/1.3 'Plus Jakarta Sans',sans-serif;background:{{ e.stBg }};color:{{ e.stFg }}">{{ e.st }}</span>
+                <span style="display:flex;gap:6px;justify-self:end;flex-wrap:wrap"><sc-if value="{{ e.canAdvance }}"><button type="button" onClick="{{ e.advance }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:4px;border:1px dashed #0031EC;color:#0031EC;font:600 12px/30px Inter,sans-serif;box-sizing:border-box">Simular avance</button></sc-if><sc-if value="{{ e.canReceive }}"><button type="button" onClick="{{ e.receive }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:4px;background:#0031EC;color:#fff;font:600 12px/32px Inter,sans-serif">Confirmar recepción</button></sc-if></span>
+              </div>
+            </sc-for>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ sCuenta }}">
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+            <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Saldo por pagar</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ saldo }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ saldoSub }}</span></div>
+            <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Proveedores del grupo</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ empresasHotel }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">en un solo estado de cuenta</span></div>
+          </div>
+          <div style="border-radius:10px;background:#fff;border:1px solid #EBEBEB;overflow-x:auto">
+            <div style="min-width:560px">
+              <div style="display:grid;grid-template-columns:100px minmax(0,1.3fr) 100px 110px 110px;gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #EBEBEB"><span>Factura</span><span>Empresa</span><span>Fecha</span><span>Importe</span><span>Estado</span></div>
+              <sc-for list="{{ facturasList }}" as="f"><div style="display:grid;grid-template-columns:100px minmax(0,1.3fr) 100px 110px 110px;gap:10px;padding:11px 14px;border-bottom:1px solid #F3F3F3;font-size:13px;background:{{ f.bg }}"><span style="font:700 12px/1.3 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ f.id }}</span><span>{{ f.e }}</span><span>{{ f.d }}</span><span style="font-variant-numeric:tabular-nums">{{ f.m }}</span><span style="font-weight:600;color:{{ f.c }}">{{ f.st }}</span></div></sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ canPay }}"><button type="button" onClick="{{ pagar }}" style="all:unset;cursor:pointer;align-self:flex-start;height:44px;padding:0 18px;border-radius:6px;background:#0031EC;color:#fff;font:700 14px/44px Satoshi,sans-serif">Pagar todo en una transferencia · {{ saldo }}</button></sc-if>
+          <sc-if value="{{ paid }}"><span style="padding:10px 14px;border-radius:8px;background:#F4F6FE;font-size:13.5px">Pago recibido. Se aplicó a cada empresa automáticamente.</span></sc-if>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showAdmin }}">
+    <div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">consola · Cuentas clave HORECA · Grupo Álica</span>
+      </div>
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ aCols }};grid-template-rows:{{ aRows }}">
+        <nav aria-label="Módulos" style="background:#0A0A0A;color:#FAFAFA;display:flex;flex-direction:{{ navDir }};gap:2px;padding:{{ navPad }};overflow:auto;scrollbar-width:none">
+          <sc-if value="{{ aWide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px;padding:6px 10px 16px"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:18px;width:auto;display:block;align-self:flex-start"><span style="font:700 15px/1.2 Satoshi,sans-serif;margin-top:10px">Consola HORECA</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#A3A3A3">Cuentas clave del grupo</span></div></sc-if>
+          <sc-for list="{{ aMods }}" as="m"><button type="button" aria-current="{{ m.cur }}" onClick="{{ m.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;font:500 13.5px/1.2 Inter,sans-serif;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"></path></svg><span style="flex:1">{{ m.label }}</span><sc-if value="{{ m.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#0031EC;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ m.badge }}</span></sc-if></button></sc-for>
+        </nav>
+        <div data-scroll-top="horeca-admin" style="min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px"><h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif">{{ aTitle }}</h3><span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">{{ aSub }}</span></div>
+
+          <sc-if value="{{ aCuentas }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+              <sc-for list="{{ aKpis }}" as="k"><div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ k.l }}</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif;color:{{ k.c }}">{{ k.v }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ k.s }}</span></div></sc-for>
+            </div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;overflow-x:auto">
+              <div style="min-width:620px">
+                <div style="display:grid;grid-template-columns:minmax(0,1.4fr) 110px repeat(3,70px) 90px;gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #EBEBEB"><span>Cuenta</span><span>Zona</span><span>Bebidas</span><span>Hielo</span><span>Fletes</span><span>Empresas</span></div>
+                <sc-for list="{{ cuentas }}" as="c"><div style="display:grid;grid-template-columns:minmax(0,1.4fr) 110px repeat(3,70px) 90px;gap:10px;padding:11px 14px;border-bottom:1px solid #F3F3F3;font-size:13px;align-items:center;background:{{ c.bg }}"><span style="font-weight:{{ c.w }}">{{ c.n }}</span><span style="color:#525252">{{ c.z }}</span><sc-for list="{{ c.cells }}" as="x"><span style="width:14px;height:14px;border-radius:3px;background:{{ x }}"></span></sc-for><span style="font:700 13px/1 'Plus Jakarta Sans',sans-serif;color:{{ c.nc }}">{{ c.k }} de 3</span></div></sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aPedidos }}">
+            <sc-if value="{{ noOrder }}"><div style="padding:22px;border-radius:8px;background:#fff;border:1px dashed #D4D4D4;font-size:14px;color:#525252">Sin pedidos nuevos del Hotel Las Palomas. Cuando el hotel confirme, aquí se ve cómo se reparte entre empresas.</div></sc-if>
+            <sc-if value="{{ hasOrder }}">
+              <div style="padding:16px;border-radius:8px;background:#fff;border:1.5px solid #0031EC;display:flex;flex-direction:column;gap:6px"><span style="font:700 15px/1.2 Satoshi,sans-serif">Pedido H-3107 · Hotel Las Palomas · {{ total }}</span><span style="font-size:13px;color:#525252">Un pedido del hotel, {{ empresasN }} pedidos internos. Cada uno entra al sistema de su empresa sin recaptura.</span></div>
+              <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+                <sc-for list="{{ split3 }}" as="s">
+                  <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:8px">
+                    <span style="display:inline-flex;align-items:center;gap:8px;font:700 14px/1.2 Satoshi,sans-serif"><span style="width:10px;height:10px;border-radius:50%;background:{{ s.dot }}"></span>{{ s.e }}</span>
+                    <span style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ s.id }} · {{ s.sys }}</span>
+                    <sc-for list="{{ s.lines }}" as="l"><span style="font-size:12.5px;line-height:1.4">{{ l.q }} × {{ l.n }}</span></sc-for>
+                    <span style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #F0F0F0;font:600 13px/1 'Plus Jakarta Sans',sans-serif"><span>{{ s.st }}</span><span>{{ s.sub }}</span></span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ aProgramacion }}">
+            <p style="margin:0;font-size:13.5px;line-height:1.5;color:#333;max-width:720px">Las entregas de las tres empresas se programan juntas por zona, para no mandar tres camiones al mismo andén a la misma hora.</p>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <sc-for list="{{ agenda }}" as="a"><div style="display:grid;grid-template-columns:120px 10px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid #F3F3F3;font-size:13px;background:{{ a.bg }}"><span style="font:600 12.5px/1.3 'Plus Jakarta Sans',sans-serif">{{ a.w }}</span><span style="width:10px;height:10px;border-radius:50%;background:{{ a.dot }}"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:{{ a.fw }}">{{ a.t }}</span><span style="font-size:11.5px;color:#666">{{ a.s }}</span></span><span style="font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ a.st }}</span></div></sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aCobranza }}">
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Cartera HORECA</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ cartera }}</span><span style="font-size:11.5px;color:#525252">61 cuentas · 3 empresas</span></div>
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Días de cartera</span><span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif">{{ dias }}</span><span style="font-size:11.5px;color:#525252">un estado de cuenta por hotel</span></div>
+            </div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <span style="display:block;padding:10px 0 6px;font:700 14px/1.2 Satoshi,sans-serif">Hotel Las Palomas</span>
+              <sc-for list="{{ facturasList }}" as="f"><div style="display:grid;grid-template-columns:90px minmax(0,1fr) 100px 100px;gap:10px;padding:9px 0;border-top:1px solid #F3F3F3;font-size:13px"><span style="font:700 12px/1.3 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ f.id }}</span><span>{{ f.e }}</span><span>{{ f.m }}</span><span style="font-weight:600;color:{{ f.c }}">{{ f.st }}</span></div></sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aOportunidades }}">
+            <p style="margin:0;font-size:13.5px;line-height:1.5;color:#333;max-width:720px">Cuentas que compran a una sola empresa del grupo y lo que podrían sumar. Ordenadas por ocupación esperada.</p>
+            <sc-for list="{{ oportunidades }}" as="o">
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:grid;gap:10px;grid-template-columns:{{ oppCols }};align-items:center">
+                <span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 14.5px/1.2 Satoshi,sans-serif">{{ o.n }}</span><span style="font-size:12px;color:#525252">{{ o.z }} · ocupación esperada {{ o.oc }}</span></span>
+                <span style="font-size:13px">Compra: {{ o.compra }}</span>
+                <span style="font-size:13px;color:#0031EC;font-weight:600">Ofrecer: {{ o.ofrecer }}</span>
+                <sc-if value="{{ o.pend }}"><button type="button" onClick="{{ o.go }}" style="all:unset;cursor:pointer;justify-self:end;height:32px;padding:0 12px;border-radius:4px;border:1px solid #0A0A0A;font:600 12px/30px Inter,sans-serif;box-sizing:border-box">Enviar oferta</button></sc-if>
+                <sc-if value="{{ o.sent }}"><span style="justify-self:end;font:600 12px/1 Inter,sans-serif;color:#0031EC">Oferta enviada</span></sc-if>
+              </div>
+            </sc-for>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;forceView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cliente&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;cliente&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;consoleHeight&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;760px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;stageWidth&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1100,&quot;tsType&quot;:&quot;number&quot;}}">
+const EMP = { emb: { n: 'Embotelladora del Nayar', dot: '#0031EC', ventana: 'Martes y viernes, 8:00 a 11:00', sys: 'ERP Embotelladora' }, polo: { n: 'Polo Sur', dot: '#0A0A0A', ventana: 'Diario, 6:00 a 7:00', sys: 'Sistema Polo Sur' }, fletes: { n: 'Fletes Álica', dot: '#9DAEF5', ventana: 'Sábado 12:00 · evento en la terraza', sys: 'Programación de Fletes' } };
+const PROD = [
+  { id: 'cola355', e: 'emb', n: 'Refresco cola 355 ml vidrio', pres: 'Caja con 24', p: 310 },
+  { id: 'agua600', e: 'emb', n: 'Agua natural 600 ml', pres: 'Caja con 24', p: 120 },
+  { id: 'mineral355', e: 'emb', n: 'Agua mineral 355 ml vidrio', pres: 'Caja con 24', p: 290 },
+  { id: 'lata', e: 'emb', n: 'Refresco sin azúcar lata 355 ml', pres: 'Caja con 24', p: 300 },
+  { id: 'jugo', e: 'emb', n: 'Jugo de naranja 1 L', pres: 'Caja con 12', p: 260 },
+  { id: 'hielo5', e: 'polo', n: 'Hielo en cubo 5 kg', pres: 'Bolsa', p: 38 },
+  { id: 'hielo20', e: 'polo', n: 'Hielo en cubo 20 kg', pres: 'Bolsa', p: 120 },
+  { id: 'frappe', e: 'polo', n: 'Hielo frappé 5 kg', pres: 'Bolsa', p: 45 },
+  { id: 'barra', e: 'polo', n: 'Barra de hielo 25 kg', pres: 'Pieza', p: 110 },
+  { id: 'evento', e: 'fletes', n: 'Traslado de mercancía a evento', pres: 'Hasta 3 toneladas', p: 2800 },
+  { id: 'refri', e: 'fletes', n: 'Unidad refrigerada por día', pres: 'Con operador', p: 3600 },
+  { id: 'urgente', e: 'fletes', n: 'Entrega urgente el mismo día', pres: 'Zona Riviera', p: 950 }
+];
+const PM = Object.fromEntries(PROD.map(p => [p.id, p]));
+const IMGF = p => { const k = p.e === 'fletes' ? 'reparto' : p.id === 'lata' ? 'lata' : ['hielo20', 'barra'].includes(p.id) ? 'hielo20' : p.e === 'polo' ? 'hielo5' : 'botella'; return { iBotella: k === 'botella', iLata: k === 'lata', iHielo5: k === 'hielo5', iHielo20: k === 'hielo20', iReparto: k === 'reparto' }; };
+const SUGERIDO = { agua600: 12, mineral355: 6, cola355: 10, hielo20: 40, hielo5: 60, refri: 1 };
+const UTABS = [['inicio', 'Inicio'], ['catalogo', 'Catálogo'], ['carrito', 'Carrito'], ['entregas', 'Entregas'], ['cuenta', 'Estado de cuenta']];
+const AMODS = [['cuentas', 'Cuentas', 'M2 6l1-3.5h10L14 6M2 6v8h12V6M2 6h12M6 14v-4h4v4'], ['pedidos', 'Pedidos repartidos', 'M8 2v4M8 6L3 10M8 6l5 4M3 10v4M13 10v4'], ['programacion', 'Programación', 'M2.5 3.5h11v10h-11zM2.5 6.5h11M5.5 2v3M10.5 2v3'], ['cobranza', 'Cobranza', 'M1.5 4h13v8h-13zM1.5 7h13M4 10h2'], ['oportunidades', 'Oportunidades', 'M2 12l4-4 3 3 5-6M10 5h4v4']];
+const ATITLE = { cuentas: ['Cuentas HORECA', 'Penetración del grupo por cuenta'], pedidos: ['Pedidos repartidos', 'Un pedido del hotel, un pedido por empresa'], programacion: ['Programación', 'Entregas de las tres empresas, coordinadas'], cobranza: ['Cobranza consolidada', 'Un estado de cuenta por cuenta'], oportunidades: ['Oportunidades', 'Venta cruzada entre empresas del grupo'] };
+const CUENTAS = [['Hotel Playa Escondida', 'Bucerías', [1, 1, 1]], ['Resort Punta Sol', 'Punta de Mita', [1, 1, 0]], ['Restaurante La Marea', 'Sayulita', [1, 0, 0]], ['Hotel Vista Bahía', 'Nuevo Nayarit', [1, 1, 0]], ['Club de Playa Arena', 'La Cruz', [0, 1, 0]]];
+const OPS = [['Restaurante La Marea', 'Sayulita', '88%', 'bebidas', 'hielo diario de Polo Sur'], ['Club de Playa Arena', 'La Cruz', '84%', 'hielo', 'bebidas y agua mineral'], ['Resort Punta Sol', 'Punta de Mita', '93%', 'bebidas y hielo', 'refrigerado para eventos con Fletes']];
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+const EST = ['Programada', 'En preparación', 'En camino', 'Entregada'];
+
+class Component extends DCLogic {
+  state = this.fresh();
+  fresh() { return { screen: 'inicio', cat: 'todas', cart: {}, factura: 'unica', confirmed: false, est: { emb: 0, polo: 0, fletes: 0 }, recibido: {}, paid: false, amod: 'cuentas', protect: false, sent: {} }; }
+  componentDidMount() { this.componentDidUpdate(); }
+  componentDidUpdate() {
+    const st = this.state, j = this.props.jump, aj = this.props.adminJump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.screen && UTABS.some(t => t[0] === j.screen)) this.setState({ screen: j.screen }); }
+    if (aj && aj.n !== this._ajn) { this._ajn = aj.n; if (aj.m && AMODS.some(m => m[0] === aj.m)) this.setState({ amod: aj.m }); }
+    if (this._rep !== st.screen) { this._rep = st.screen; if (typeof this.props.onStep === 'function') this.props.onStep(st.screen); requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="horeca-user"]').forEach(el => { el.scrollTop = 0; })); }
+    if (this._ram !== st.amod) { this._ram = st.amod; requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="horeca-admin"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  setQ(id, q) { this.setState(s => { const c = { ...s.cart }; if (q <= 0) delete c[id]; else c[id] = q; return { cart: c }; }); }
+  renderVals() {
+    const st = this.state, fv = this.props.forceView, wideA = (this.props.stageWidth || 1000) >= 760;
+    const lines = PROD.filter(p => st.cart[p.id]).map(p => ({ ...p, q: st.cart[p.id] }));
+    const byE = {}; lines.forEach(l => { (byE[l.e] = byE[l.e] || []).push(l); });
+    const emps = Object.keys(byE);
+    const total = lines.reduce((a, l) => a + l.q * l.p, 0);
+    const empresasHotel = new Set(['emb', ...(st.confirmed ? emps : [])]).size;
+    const multi = empresasHotel > 1;
+    const stepIdx = UTABS.findIndex(t => t[0] === st.screen);
+    const facturas = [{ id: 'H-3091', e: 'Embotelladora del Nayar', d: '2 oct', m: 18420, st: st.paid ? 'Pagada' : 'Por pagar' }, ...(st.confirmed ? emps.map((e, i) => ({ id: 'H-3107-' + (i + 1), e: EMP[e].n, d: 'Hoy', m: byE[e].reduce((a, l) => a + l.q * l.p, 0), st: st.paid ? 'Pagada' : 'Por pagar', live: true })) : [])];
+    const saldo = facturas.filter(f => f.st !== 'Pagada').reduce((a, f) => a + f.m, 0);
+    const radio = on => ({ border: on ? '#0031EC' : '#E5E5E5', dot: on ? '4.5px solid #0031EC' : '1.5px solid #A3A3A3', on: on ? 'true' : 'false' });
+    const sugAdded = Object.keys(SUGERIDO).every(k => (st.cart[k] || 0) >= SUGERIDO[k]);
+    return {
+      stepLabel: fv === 'empresa' ? 'Administrador · ' + ATITLE[st.amod][0] : 'Paso ' + (stepIdx + 1) + ' de 5 · ' + UTABS[stepIdx][1],
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5', toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.setState(this.fresh()),
+      showUser: fv !== 'empresa', showAdmin: fv === 'empresa' || !fv, h: this.props.consoleHeight || '720px',
+      split: wideA ? 'minmax(0,1.3fr) minmax(0,1fr)' : 'minmax(0,1fr)', entCols: wideA ? 'minmax(0,1.4fr) minmax(0,1fr) auto auto' : 'minmax(0,1fr)', oppCols: wideA ? 'minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr) auto' : 'minmax(0,1fr)',
+      uTabs: UTABS.map(([id, label]) => { const on = st.screen === id; return { label, on: on ? 'true' : 'false', badge: id === 'carrito' && lines.length && !st.confirmed ? String(lines.length) : '', pick: () => this.setState({ screen: id }), bg: on ? '#0A0A0A' : 'transparent', color: on ? '#fff' : '#333' }; }),
+      sInicio: st.screen === 'inicio', sCatalogo: st.screen === 'catalogo', sCarrito: st.screen === 'carrito', sEntregas: st.screen === 'entregas', sCuenta: st.screen === 'cuenta',
+      addSugerido: () => { this.setState(s => { const c = { ...s.cart }; Object.entries(SUGERIDO).forEach(([k, q]) => { c[k] = Math.max(c[k] || 0, q); }); return { cart: c, screen: 'carrito' }; }); },
+      sugLabel: sugAdded ? 'Sugerido en el carrito' : 'Agregar sugerido', goCatalogo: () => this.setState({ screen: 'catalogo' }), goCarrito: () => this.setState({ screen: 'carrito' }),
+      proximas: [{ e: 'Embotelladora del Nayar', d: 'Pedido H-3091 · 38 cajas', w: 'Viernes 8:00', c: EMP.emb.dot }, ...(st.confirmed ? emps.map(e => ({ e: EMP[e].n, d: 'Pedido H-3107', w: EMP[e].ventana.split(',')[0], c: EMP[e].dot })) : [{ e: 'Polo Sur', d: 'Sin pedido · el hotel compra hielo a otro proveedor', w: '—', c: EMP.polo.dot }])],
+      resumen: [{ l: 'Empresas del grupo que lo atienden', v: empresasHotel + ' de 3', s: 'bebidas, hielo y transporte' }, { l: 'Saldo por pagar', v: fmt(saldo), s: 'un solo estado de cuenta' }, { l: 'Crédito disponible', v: '$180,000', s: 'pago a 30 días' }],
+      cats: [['todas', 'Todo', '#0A0A0A'], ['emb', 'Bebidas', EMP.emb.dot], ['polo', 'Hielo', EMP.polo.dot], ['fletes', 'Transporte', EMP.fletes.dot]].map(([id, label, dot]) => { const on = st.cat === id; return { label, dot, on: on ? 'true' : 'false', pick: () => this.setState({ cat: id }), border: on ? '#0A0A0A' : '#D4D4D4', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; }),
+      productos: PROD.filter(p => st.cat === 'todas' || p.e === st.cat).map(p => { const q = st.cart[p.id] || 0; return { ...IMGF(p), lEmb: p.e === 'emb', lPolo: p.e === 'polo', lFletes: p.e === 'fletes', n: p.n, pres: p.pres, price: fmt(p.p), empresa: EMP[p.e].n, dot: EMP[p.e].dot, q, none: !q, some: q > 0, border: q ? '#0031EC' : '#EBEBEB', plus: () => this.setQ(p.id, q + (p.e === 'fletes' ? 1 : p.e === 'polo' ? 10 : 2)), minus: () => this.setQ(p.id, q - (p.e === 'fletes' ? 1 : p.e === 'polo' ? 10 : 2)) }; }),
+      hasCart: lines.length > 0, cartEmpty: !lines.length, cartN: lines.length, empresasN: emps.length, total: fmt(total),
+      grupos: emps.map(e => ({ e: EMP[e].n, dot: EMP[e].dot, ventana: EMP[e].ventana, sub: fmt(byE[e].reduce((a, l) => a + l.q * l.p, 0)), lines: byE[e].map(l => ({ n: l.n, q: l.q, sub: fmt(l.q * l.p), plus: () => this.setQ(l.id, l.q + (l.e === 'fletes' ? 1 : l.e === 'polo' ? 10 : 2)), minus: () => this.setQ(l.id, l.q - (l.e === 'fletes' ? 1 : l.e === 'polo' ? 10 : 2)) })) })),
+      facturas: [['unica', 'Una factura del grupo', 'Un solo documento con el detalle por empresa'], ['empresa', 'Una factura por empresa', 'Cada empresa factura su parte']].map(([id, label, sub]) => ({ label, sub, ...radio(st.factura === id), pick: () => this.setState({ factura: id }) })),
+      confirmar: () => this.setState({ confirmed: true, screen: 'entregas', est: { emb: 0, polo: 0, fletes: 0 } }),
+      hasOrder: st.confirmed, noOrder: !st.confirmed,
+      entregas: emps.map(e => { const s = st.est[e]; return { e: EMP[e].n, dot: EMP[e].dot, d: byE[e].map(l => l.q + ' × ' + l.n).join(' · '), w: EMP[e].ventana, st: st.recibido[e] ? 'Recibida por el hotel' : EST[s], stBg: st.recibido[e] ? '#0031EC' : s === 3 ? '#0A0A0A' : '#F2F2F2', stFg: st.recibido[e] || s === 3 ? '#fff' : '#333', canAdvance: s < 3, canReceive: s === 3 && !st.recibido[e], advance: () => this.setState(z => ({ est: { ...z.est, [e]: z.est[e] + 1 } })), receive: () => this.setState(z => ({ recibido: { ...z.recibido, [e]: true } })) }; }),
+      saldo: fmt(saldo), saldoSub: facturas.length + ' facturas de ' + new Set(facturas.map(f => f.e)).size + ' empresas', empresasHotel: String(empresasHotel),
+      facturasList: facturas.map(f => ({ id: f.id, e: f.e, d: f.d, m: fmt(f.m), st: f.st, c: f.st === 'Pagada' ? '#0031EC' : '#0A0A0A', bg: f.live ? '#F4F6FE' : '#fff' })),
+      canPay: saldo > 0, paid: st.paid, pagar: () => this.setState({ paid: true }),
+      aWide: wideA, aCols: wideA ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', aRows: wideA ? 'minmax(0,1fr)' : 'auto minmax(0,1fr)', navDir: wideA ? 'column' : 'row', navPad: wideA ? '14px 10px' : '8px',
+      aMods: AMODS.map(([id, label, dd]) => { const on = st.amod === id; return { label, d: dd, cur: on ? 'page' : 'false', badge: id === 'pedidos' && st.confirmed ? '1' : '', pick: () => this.setState({ amod: id }), bg: on ? '#1F1F1F' : 'transparent', color: on ? '#fff' : '#C8C8C8' }; }),
+      aTitle: ATITLE[st.amod][0], aSub: ATITLE[st.amod][1],
+      aCuentas: st.amod === 'cuentas', aPedidos: st.amod === 'pedidos', aProgramacion: st.amod === 'programacion', aCobranza: st.amod === 'cobranza', aOportunidades: st.amod === 'oportunidades',
+      aKpis: [{ l: 'Cuentas atendidas por más de una empresa', v: (23 + (multi ? 1 : 0)) + ' de 61', s: 'KPI principal del portal', c: multi ? '#0031EC' : '#0A0A0A' }, { l: 'Pedidos por el portal hoy', v: String(14 + (st.confirmed ? 1 : 0)), s: 'Riviera Nayarit', c: '#0A0A0A' }, { l: 'Ticket promedio por cuenta', v: '$24,600', s: 'últimos 30 días', c: '#0A0A0A' }],
+      cuentas: [['Hotel Las Palomas', 'Nuevo Nayarit', [1, st.confirmed && byE.polo ? 1 : 0, st.confirmed && byE.fletes ? 1 : 0], true], ...CUENTAS].map(([n, z, cells, live]) => { const k = cells.reduce((a, x) => a + x, 0); return { n, z, k, cells: cells.map(x => x ? '#0031EC' : '#EFEFEF'), nc: k > 1 ? '#0031EC' : '#0A0A0A', bg: live ? '#F4F6FE' : '#fff', w: live ? 700 : 500 }; }),
+      split3: emps.map((e, i) => ({ e: EMP[e].n, dot: EMP[e].dot, id: 'H-3107-' + (i + 1), sys: EMP[e].sys, lines: byE[e].map(l => ({ q: l.q, n: l.n })), st: st.recibido[e] ? 'Recibido' : EST[st.est[e]], sub: fmt(byE[e].reduce((a, l) => a + l.q * l.p, 0)) })),
+      agenda: [['Miércoles 6:00', 'polo', 'Hotel Vista Bahía', 'Hielo · 50 bolsas'], ['Miércoles 6:30', 'polo', 'Hotel Playa Escondida', 'Hielo · 30 bolsas'], ['Miércoles 8:00', 'emb', 'Resort Punta Sol', 'Bebidas · 64 cajas'], ['Viernes 8:00', 'emb', 'Hotel Las Palomas', 'Bebidas · pedido H-3091'], ['Sábado 10:00', 'fletes', 'Hotel Playa Escondida', 'Traslado a evento']].map(([w, e, t, s]) => ({ w, t, s, dot: EMP[e].dot, st: 'Programada', bg: '#fff', fw: 500 })).concat(st.confirmed ? emps.map(e => ({ w: EMP[e].ventana.split(',')[0].replace('Diario', 'Mañana'), t: 'Hotel Las Palomas · H-3107', s: EMP[e].n + ' · ' + byE[e].length + ' productos', dot: EMP[e].dot, st: st.recibido[e] ? 'Recibida' : EST[st.est[e]], bg: '#F4F6FE', fw: 700 })) : []),
+      cartera: '$1.48 M', dias: '27',
+      oportunidades: OPS.map(([n, z, oc, compra, ofrecer], i) => ({ n, z, oc, compra, ofrecer, pend: !st.sent[i], sent: !!st.sent[i], go: () => this.setState(s => ({ sent: { ...s.sent, [i]: true } })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

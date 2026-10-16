@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#FFFFFF">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252;font-variant-numeric:tabular-nums">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:16px;background:#F4F6FE">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+        <sc-for list="{{ flow }}" as="f">
+          <span style="display:inline-flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:6px;background:#fff;border:1px solid #D6DDFB;min-width:130px"><span style="font:700 13.5px/1.2 Satoshi,sans-serif">{{ f.t }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ f.s }}</span></span>
+          <sc-if value="{{ f.tunnel }}"><span style="display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC;letter-spacing:.06em;text-transform:uppercase"><span style="width:28px;border-top:2px dashed #0031EC"></span>túnel sellado<span style="width:28px;border-top:2px dashed #0031EC"></span></span></sc-if>
+        </sc-for>
+      </div>
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5;color:#1A1A1A">
+        <li>La app no habla directo con el ERP: cada pedido viaja por un túnel sellado hasta el servicio de pedidos del CEDIS.</li>
+        <li>La telemetría del refrigerador sale del equipo por un túnel propio; el equipo no queda visible en internet.</li>
+        <li>Si un celular se pierde, se revoca su acceso sin tocar la red de planta ni a otras empresas del grupo.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showSwitch }}">
+    <div role="tablist" aria-label="Vista" style="display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:8px;background:#F2F2F2;gap:4px">
+      <sc-for list="{{ views }}" as="v">
+        <button type="button" role="tab" aria-selected="{{ v.on }}" onClick="{{ v.pick }}" style="all:unset;cursor:pointer;text-align:center;height:40px;border-radius:6px;font:600 14px/40px Inter,sans-serif;background:{{ v.bg }};color:{{ v.color }};box-shadow:{{ v.shadow }}">{{ v.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <div style="display:grid;gap:24px;align-items:start;justify-content:center;grid-template-columns:{{ cols }}">
+    <sc-if value="{{ showClient }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="position:relative;width:100%;max-width:390px;height:{{ phoneH }};border:10px solid #0A0A0A;border-radius:48px;overflow:hidden;display:flex;flex-direction:column;background:#F6F6F6;box-shadow:0 18px 50px rgba(0,0,0,.14)">
+          <div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;background:#fff"><span>7:40</span><span style="width:84px;height:20px;border-radius:12px;background:#0A0A0A"></span><span>5G</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px 10px;background:#fff;border-bottom:1px solid #EBEBEB;min-height:52px">
+            <sc-if value="{{ hasBack }}"><button type="button" aria-label="Atrás" onClick="{{ back }}" style="all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:-6px" style-hover="background:#F2F2F2"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"></path></svg></button></sc-if>
+            <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:32px"><img src="assets/logos/nayar.png" alt="Grupo Embotellador Nayar" style="height:20px;width:auto;display:block"></span></sc-if>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1"><span style="font:700 16px/1.2 Satoshi,sans-serif">{{ title }}</span><span style="font:500 11px/1.2 Inter,sans-serif;color:#525252">Abarrotes La Esperanza · Ruta 14</span></span>
+            <button type="button" onClick="{{ goCarrito }}" aria-label="Carrito, {{ cartCount }} cajas" style="all:unset;cursor:pointer;position:relative;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center" style-hover="background:#F2F2F2"><svg width="19" height="19" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2h2l1.6 8h7.4l1.5-5.5H4.3"></path><circle cx="6.5" cy="13" r="1"></circle><circle cx="11.5" cy="13" r="1"></circle></svg><sc-if value="{{ hasCart }}"><span style="position:absolute;top:2px;right:0;min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:8px;background:#0031EC;color:#fff;font:700 9.5px/16px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ cartCount }}</span></sc-if></button>
+          </div>
+
+          <div data-scroll-top="nayar-app" style="flex:1;overflow-y:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px">
+
+            <sc-if value="{{ sInicio }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative;height:118px;border-radius:14px;overflow:hidden;flex:none"><img src="assets/img/tiendita.jpg" alt="Tiendita de abarrotes (ilustración)" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Ilustración</span></div>
+              <div style="display:flex;align-items:center;gap:12px"><img src="assets/img/dona-lupe.jpg" alt="Doña Lupe" style="width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none"><div style="display:flex;flex-direction:column;gap:2px"><span style="font:700 21px/1.2 Satoshi,sans-serif">Buenos días, Doña Lupe</span><span style="font-size:13px;color:#525252">Martes · su ruta pasa mañana entre 9:00 y 12:00</span></div></div>
+              <div style="border-radius:14px;background:#0031EC;color:#fff;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C7D2FF">Su pedido sugerido de esta semana</span>
+                <span style="font:700 26px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums">{{ sugTotal }}</span>
+                <span style="font-size:13px;line-height:1.4;color:#E3E8FF">{{ sugCajas }} cajas · basado en sus últimas 4 semanas y en lo que pide su colonia</span>
+                <div style="display:flex;gap:8px;margin-top:2px">
+                  <button type="button" onClick="{{ goSugerido }}" style="all:unset;cursor:pointer;flex:1;text-align:center;height:40px;border-radius:8px;background:#fff;color:#0031EC;font:700 14px/40px Satoshi,sans-serif">Revisar</button>
+                  <button type="button" onClick="{{ repetir }}" style="all:unset;cursor:pointer;flex:1;text-align:center;height:40px;border-radius:8px;border:1px solid #8FA4FF;color:#fff;font:700 14px/38px Satoshi,sans-serif;box-sizing:border-box">Repetir el anterior</button>
+                </div>
+              </div>
+              <sc-if value="{{ hasOrder }}">
+                <button type="button" onClick="{{ goPedidos }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;gap:12px;align-items:center;border:1px solid #0A0A0A">
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l6-3 6 3v6l-6 3-6-3zM2 5l6 3 6-3M8 8v6"></path></svg>
+                  <span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:700 14px/1.2 Satoshi,sans-serif">Pedido N-48213</span><span style="font-size:12.5px;color:#525252">{{ trackLabel }}</span></span>
+                  <span style="font:600 12px/1 Inter,sans-serif;color:#0031EC">Ver</span>
+                </button>
+              </sc-if>
+              <button type="button" onClick="{{ goPromos }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:8px">
+                <span style="display:flex;justify-content:space-between;gap:8px"><span style="font:700 14px/1.25 Satoshi,sans-serif">{{ promo1Title }}</span><span style="font:600 12px/1.25 Inter,sans-serif;color:#0031EC;flex:none">Ver promociones</span></span>
+                <div style="height:6px;border-radius:3px;background:#EFEFEF;overflow:hidden"><div style="height:6px;background:#0031EC;transition:width 300ms;width:{{ promo1Pct }}"></div></div>
+                <span style="font-size:12.5px;color:#525252">{{ promo1Sub }}</span>
+              </button>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <button type="button" onClick="{{ goCatalogo }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:92px"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="#0031EC" stroke-width="1.3"><path d="M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5v4.5H9zM2.5 9h4.5v4.5H2.5zM9 9h4.5v4.5H9z"></path></svg><span style="font:700 14px/1.2 Satoshi,sans-serif">Catálogo</span></button>
+                <button type="button" onClick="{{ goRefri }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:92px"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="#0031EC" stroke-width="1.3" stroke-linecap="round"><path d="M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5"></path></svg><span style="display:flex;flex-direction:column;gap:2px"><span style="font:700 14px/1.2 Satoshi,sans-serif">Refrigerador</span><span style="font-size:12px;color:{{ refriColor }}">{{ refriShort }}</span></span></button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sSugerido }}">
+              <p style="margin:0;font-size:13.5px;line-height:1.45;color:#333">Armamos este pedido con sus últimas 4 semanas y con lo que piden las tiendas de su colonia. Ajuste lo que quiera.</p>
+              <sc-for list="{{ sugLines }}" as="l">
+                <div style="border-radius:12px;background:#fff;padding:12px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;border:1px solid {{ l.border }}">
+                  <div style="width:52px;height:52px;border-radius:8px;background:#F5F5F5;overflow:hidden"><sc-if value="{{ l.iBotella }}"><img src="assets/img/botella.jpg" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></sc-if><sc-if value="{{ l.iLata }}"><img src="assets/img/lata.jpg" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></sc-if><sc-if value="{{ l.iGarrafon }}"><img src="assets/img/garrafon.jpg" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></sc-if></div>
+                  <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+                    <span style="font:700 14px/1.25 Satoshi,sans-serif">{{ l.n }}</span>
+                    <sc-if value="{{ l.isSug }}"><span style="align-self:flex-start;padding:2px 7px;border-radius:999px;background:#E8ECFD;color:#001D9B;font:600 10.5px/1.4 'Plus Jakarta Sans',sans-serif">Sugerencia nueva</span></sc-if>
+                    <span style="font-size:12px;line-height:1.35;color:#525252">{{ l.why }}</span>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                      <span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums">{{ l.price }}</span>
+                      <div style="display:flex;align-items:center;border:1px solid #D4D4D4;border-radius:999px;overflow:hidden">
+                        <button type="button" aria-label="Menos" onClick="{{ l.minus }}" style="all:unset;cursor:pointer;width:32px;height:30px;text-align:center;font:600 16px/30px Inter,sans-serif">−</button>
+                        <span style="min-width:24px;text-align:center;font:700 13px/30px 'Plus Jakarta Sans',sans-serif">{{ l.q }}</span>
+                        <button type="button" aria-label="Más" onClick="{{ l.plus }}" style="all:unset;cursor:pointer;width:32px;height:30px;text-align:center;font:600 16px/30px Inter,sans-serif">+</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+              <button type="button" onClick="{{ addSug }}" style="all:unset;cursor:pointer;text-align:center;height:48px;border-radius:10px;background:#0031EC;color:#fff;font:700 15px/48px Satoshi,sans-serif">Agregar todo al carrito · {{ sugTotal }}</button>
+            </sc-if>
+
+            <sc-if value="{{ sCatalogo }}">
+              <div style="display:flex;align-items:center;gap:8px;height:42px;border-radius:10px;background:#fff;border:1px solid #E5E5E5;padding:0 12px">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#666" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path></svg>
+                <input value="{{ search }}" onChange="{{ onSearch }}" aria-label="Buscar producto" placeholder="Buscar producto" style="flex:1;min-width:0;border:0;outline:none;font:400 14px Inter,sans-serif;background:transparent"></input>
+              </div>
+              <div role="tablist" aria-label="Categorías" style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -14px;padding:0 14px">
+                <sc-for list="{{ cats }}" as="c">
+                  <button type="button" role="tab" aria-selected="{{ c.on }}" onClick="{{ c.pick }}" style="all:unset;cursor:pointer;flex:none;height:32px;padding:0 12px;border-radius:999px;font:600 12.5px/32px Inter,sans-serif;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }}">{{ c.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <sc-for list="{{ productos }}" as="p">
+                  <div style="border-radius:12px;background:#fff;padding:10px;display:flex;flex-direction:column;gap:8px">
+                    <div style="position:relative;height:78px;border-radius:8px;background:#F5F5F5;display:flex;align-items:flex-end;padding:8px;box-sizing:border-box;overflow:hidden"><sc-if value="{{ p.iBotella }}"><img src="assets/img/botella.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iLata }}"><img src="assets/img/lata.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><sc-if value="{{ p.iGarrafon }}"><img src="assets/img/garrafon.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></sc-if><span style="position:relative;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,.88);font:700 11px/1 'Plus Jakarta Sans',sans-serif;color:#333">{{ p.size }}</span><sc-if value="{{ p.hasBadge }}"><span style="position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:4px;background:#0A0A0A;color:#fff;font:600 9.5px/1.4 'Plus Jakarta Sans',sans-serif">{{ p.badge }}</span></sc-if></div>
+                    <span style="font:700 13px/1.25 Satoshi,sans-serif;min-height:32px">{{ p.n }}</span>
+                    <span style="font-size:11.5px;color:#525252">{{ p.pres }}</span>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+                      <span style="font:700 13.5px/1 'Plus Jakarta Sans',sans-serif">{{ p.price }}</span>
+                      <sc-if value="{{ p.none }}"><button type="button" aria-label="Agregar {{ p.n }}" onClick="{{ p.plus }}" style="all:unset;cursor:pointer;width:32px;height:32px;border-radius:50%;background:#0031EC;color:#fff;text-align:center;font:600 18px/32px Inter,sans-serif">+</button></sc-if>
+                      <sc-if value="{{ p.some }}">
+                        <div style="display:flex;align-items:center;border-radius:999px;background:#0031EC;color:#fff">
+                          <button type="button" aria-label="Menos" onClick="{{ p.minus }}" style="all:unset;cursor:pointer;width:26px;height:30px;text-align:center;font:600 15px/30px Inter,sans-serif">−</button>
+                          <span style="min-width:16px;text-align:center;font:700 12.5px/30px 'Plus Jakarta Sans',sans-serif">{{ p.q }}</span>
+                          <button type="button" aria-label="Más" onClick="{{ p.plus }}" style="all:unset;cursor:pointer;width:26px;height:30px;text-align:center;font:600 15px/30px Inter,sans-serif">+</button>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ noProducts }}"><span style="text-align:center;padding:20px;font-size:13.5px;color:#525252">No encontramos ese producto. Pruebe con «agua» o «sin azúcar».</span></sc-if>
+            </sc-if>
+
+            <sc-if value="{{ sPromos }}">
+              <sc-for list="{{ promos }}" as="p">
+                <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px;border:1px solid {{ p.border }}">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><span style="font:700 15px/1.25 Satoshi,sans-serif">{{ p.t }}</span><span style="flex:none;padding:3px 8px;border-radius:999px;font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;background:{{ p.stBg }};color:{{ p.stColor }}">{{ p.st }}</span></div>
+                  <span style="font-size:12.5px;line-height:1.4;color:#525252">{{ p.d }}</span>
+                  <div style="height:6px;border-radius:3px;background:#EFEFEF;overflow:hidden"><div style="height:6px;background:#0031EC;transition:width 300ms;width:{{ p.pct }}"></div></div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font:600 12px/1.3 Inter,sans-serif">{{ p.progress }}</span><sc-if value="{{ p.hasCta }}"><button type="button" onClick="{{ p.cta }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:999px;border:1px solid #0031EC;color:#0031EC;font:600 12.5px/30px Inter,sans-serif;box-sizing:border-box">{{ p.ctaLabel }}</button></sc-if></div>
+                </div>
+              </sc-for>
+              <span style="font-size:11.5px;color:#666;text-align:center">Promociones ficticias. En el piloto las define la gestión de ingresos por zona.</span>
+            </sc-if>
+
+            <sc-if value="{{ sCarrito }}">
+              <sc-if value="{{ cartEmpty }}">
+                <div style="padding:30px 12px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><span style="font:700 17px/1.2 Satoshi,sans-serif">Su carrito está vacío</span><span style="font-size:13px;color:#525252">Empiece por su pedido sugerido o explore el catálogo.</span><button type="button" onClick="{{ goSugerido }}" style="all:unset;cursor:pointer;height:42px;padding:0 18px;border-radius:10px;background:#0031EC;color:#fff;font:700 14px/42px Satoshi,sans-serif">Ver pedido sugerido</button></div>
+              </sc-if>
+              <sc-if value="{{ hasCart }}">
+                <div style="border-radius:12px;background:#fff;padding:4px 12px">
+                  <sc-for list="{{ cartLines }}" as="l">
+                    <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:10px 0;border-bottom:1px solid #F0F0F0;align-items:center">
+                      <span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 13.5px/1.25 Inter,sans-serif">{{ l.n }}</span><span style="font-size:11.5px;color:#525252">{{ l.unit }} por caja · {{ l.sub }}</span></span>
+                      <div style="display:flex;align-items:center;border:1px solid #D4D4D4;border-radius:999px;overflow:hidden">
+                        <button type="button" aria-label="Menos" onClick="{{ l.minus }}" style="all:unset;cursor:pointer;width:28px;height:28px;text-align:center;font:600 15px/28px Inter,sans-serif">−</button>
+                        <span style="min-width:20px;text-align:center;font:700 12.5px/28px 'Plus Jakarta Sans',sans-serif">{{ l.q }}</span>
+                        <button type="button" aria-label="Más" onClick="{{ l.plus }}" style="all:unset;cursor:pointer;width:28px;height:28px;text-align:center;font:600 15px/28px Inter,sans-serif">+</button>
+                      </div>
+                    </div>
+                  </sc-for>
+                  <div style="padding:10px 0;display:flex;flex-direction:column;gap:6px;font-size:13px">
+                    <div style="display:flex;justify-content:space-between"><span style="color:#525252">Subtotal</span><span style="font-variant-numeric:tabular-nums">{{ subtotal }}</span></div>
+                    <sc-for list="{{ discounts }}" as="d"><div style="display:flex;justify-content:space-between;gap:8px;color:#0031EC"><span>{{ d.t }}</span><span style="font-variant-numeric:tabular-nums">−{{ d.v }}</span></div></sc-for>
+                    <div style="display:flex;justify-content:space-between;font:700 16px/1.3 'Plus Jakarta Sans',sans-serif;padding-top:6px;border-top:1px solid #EBEBEB"><span>Total</span><span style="font-variant-numeric:tabular-nums">{{ total }}</span></div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Entrega</span>
+                  <sc-for list="{{ ventanas }}" as="o"><button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;background:#fff;border:1.5px solid {{ o.border }};font-size:13.5px"><span style="width:15px;height:15px;border-radius:50%;box-sizing:border-box;flex:none;border:{{ o.dot }}"></span>{{ o.label }}</button></sc-for>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Forma de pago</span>
+                  <sc-for list="{{ pagos }}" as="o"><button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;background:#fff;border:1.5px solid {{ o.border }};font-size:13.5px"><span style="width:15px;height:15px;border-radius:50%;box-sizing:border-box;flex:none;border:{{ o.dot }}"></span><span style="flex:1">{{ o.label }}</span><span style="font-size:11.5px;color:#525252">{{ o.sub }}</span></button></sc-for>
+                </div>
+                <button type="button" onClick="{{ confirmar }}" style="all:unset;cursor:pointer;text-align:center;height:50px;border-radius:10px;background:#0031EC;color:#fff;font:700 15px/50px Satoshi,sans-serif">Confirmar pedido · {{ total }}</button>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ sConfirmado }}">
+              <div style="padding:24px 8px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+                <span style="width:64px;height:64px;border-radius:50%;background:#0031EC;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"></path></svg></span>
+                <span style="font:700 22px/1.2 Satoshi,sans-serif">Pedido confirmado</span>
+                <span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#525252">N-48213</span>
+                <span style="font-size:13.5px;line-height:1.45;color:#333;max-width:280px">{{ confirmText }}</span>
+              </div>
+              <div style="border-radius:12px;background:#fff;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:13px">
+                <div style="display:flex;justify-content:space-between"><span style="color:#525252">Cajas</span><span>{{ orderCajas }}</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#525252">Pago</span><span>{{ payLabel }}</span></div>
+                <div style="display:flex;justify-content:space-between;font:700 15px/1.3 'Plus Jakarta Sans',sans-serif"><span>Total</span><span>{{ orderTotal }}</span></div>
+              </div>
+              <button type="button" onClick="{{ goPedidos }}" style="all:unset;cursor:pointer;text-align:center;height:48px;border-radius:10px;background:#0031EC;color:#fff;font:700 15px/48px Satoshi,sans-serif">Ver seguimiento</button>
+              <button type="button" onClick="{{ goInicio }}" style="all:unset;cursor:pointer;text-align:center;height:44px;border-radius:10px;border:1px solid #D4D4D4;background:#fff;font:600 14px/42px Inter,sans-serif;box-sizing:border-box">Volver al inicio</button>
+            </sc-if>
+
+            <sc-if value="{{ sPedidos }}">
+              <sc-if value="{{ hasOrder }}">
+                <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:700 15px/1.2 Satoshi,sans-serif">Pedido N-48213</span><span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif">{{ orderTotal }}</span></div>
+                  <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
+                    <sc-for list="{{ track }}" as="t">
+                      <li style="display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding-bottom:12px">
+                        <span style="display:flex;flex-direction:column;align-items:center"><span style="width:14px;height:14px;border-radius:50%;box-sizing:border-box;margin-top:2px;background:{{ t.dot }};border:2px solid {{ t.ring }}"></span><sc-if value="{{ t.line }}"><span style="flex:1;width:2px;min-height:16px;background:{{ t.lineColor }};margin-top:2px"></span></sc-if></span>
+                        <span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 13.5px/1.3 Inter,sans-serif;color:{{ t.color }}">{{ t.t }}</span><span style="font-size:11.5px;color:#666">{{ t.s }}</span></span>
+                      </li>
+                    </sc-for>
+                  </ol>
+                  <sc-if value="{{ canAdvance }}"><button type="button" onClick="{{ advance }}" style="all:unset;cursor:pointer;text-align:center;height:40px;border-radius:8px;border:1px dashed #0031EC;color:#0031EC;font:600 13px/38px Inter,sans-serif;box-sizing:border-box">Simular siguiente estado (demo)</button></sc-if>
+                  <sc-if value="{{ askRating }}">
+                    <div style="display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px solid #EBEBEB">
+                      <span style="font:700 14px/1.3 Satoshi,sans-serif">¿Cómo estuvo su entrega?</span>
+                      <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ ratings }}" as="r"><button type="button" onClick="{{ r.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;border:1px solid #0031EC;color:#0031EC;font:600 12.5px/1.2 Inter,sans-serif">{{ r.label }}</button></sc-for></div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ rated }}"><span style="font-size:13px;color:#333;padding-top:8px;border-top:1px solid #EBEBEB">Gracias. Su calificación: {{ rating }}.</span></sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ noOrder }}"><div style="border-radius:12px;background:#fff;padding:16px;font-size:13.5px;color:#525252">No tiene pedidos en curso. Confirme uno desde el carrito.</div></sc-if>
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666;padding-top:4px">Pedidos anteriores</span>
+              <sc-for list="{{ pasados }}" as="p">
+                <div style="border-radius:12px;background:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px">
+                  <span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:600 13.5px/1.2 Inter,sans-serif">{{ p.f }} · {{ p.n }}</span><span style="font-size:12px;color:#525252">{{ p.c }} cajas · {{ p.t }}</span></span>
+                  <button type="button" onClick="{{ repetir }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:999px;border:1px solid #0031EC;color:#0031EC;font:600 12.5px/30px Inter,sans-serif;box-sizing:border-box">Repetir</button>
+                </div>
+              </sc-for>
+            </sc-if>
+
+            <sc-if value="{{ sRefri }}">
+              <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><span style="display:flex;flex-direction:column;gap:2px"><span style="font:700 15px/1.2 Satoshi,sans-serif">Enfriador de 2 puertas</span><span style="font-size:12px;color:#525252">Serie RF-20931 · en comodato</span></span><span style="padding:3px 8px;border-radius:999px;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;background:{{ refriBg }};color:{{ refriFg }}">{{ refriShort }}</span></div>
+                <div style="display:flex;align-items:baseline;gap:8px"><span style="font:600 38px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em">4 °C</span><span style="font-size:12px;color:#525252">última lectura 7:35 · telemetría del equipo</span></div>
+              </div>
+              <sc-if value="{{ noFolio }}">
+                <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px">
+                  <span style="font:700 15px/1.2 Satoshi,sans-serif">Reportar una falla</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ issues }}" as="i"><button type="button" aria-pressed="{{ i.on }}" onClick="{{ i.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;font:600 12.5px/1.2 Inter,sans-serif;border:1px solid {{ i.border }};background:{{ i.bg }};color:{{ i.color }}">{{ i.label }}</button></sc-for>
+                  </div>
+                  <button type="button" onClick="{{ enviarFalla }}" disabled="{{ noIssue }}" style="all:unset;cursor:pointer;text-align:center;height:44px;border-radius:10px;font:700 14px/44px Satoshi,sans-serif;background:{{ fallaBg }};color:{{ fallaFg }}">Enviar reporte</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ folio }}">
+                <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:6px;border:1px solid #0A0A0A">
+                  <span style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">Folio {{ folio }}</span>
+                  <span style="font:700 15px/1.3 Satoshi,sans-serif">Reporte recibido: {{ issueLabel }}</span>
+                  <span style="font-size:13px;line-height:1.45;color:#333">Un técnico pasa mañana junto con su pedido. Le avisamos por la app cuando vaya en camino.</span>
+                </div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ sCuenta }}">
+              <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font:700 16px/1.2 Satoshi,sans-serif">Abarrotes La Esperanza</span><span style="font-size:12.5px;color:#525252">Doña Lupe · Tepic · cliente 10-4471 (ficticio)</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11.5px;color:#525252">Ticket promedio</span><span style="font:700 18px/1 'Plus Jakarta Sans',sans-serif">$1,850</span></div>
+                <div style="border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11.5px;color:#525252">Crédito disponible</span><span style="font:700 18px/1 'Plus Jakarta Sans',sans-serif">$5,000</span></div>
+              </div>
+              <div style="border-radius:12px;background:#fff;padding:14px;display:flex;align-items:center;gap:12px">
+                <img src="assets/img/opt/juan.jpg" alt="Juan, su vendedor" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none">
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:700 14px/1.2 Satoshi,sans-serif">Juan, su vendedor</span><span style="font-size:12px;color:#525252">Visita los jueves</span></span>
+                <button type="button" onClick="{{ vendedor }}" style="all:unset;cursor:pointer;height:34px;padding:0 12px;border-radius:999px;background:#0031EC;color:#fff;font:600 12.5px/34px Inter,sans-serif">Escribirle</button>
+              </div>
+              <button type="button" role="switch" aria-checked="{{ waAria }}" onClick="{{ toggleWa }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;align-items:center;gap:12px">
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:600 13.5px/1.3 Inter,sans-serif">Recibir el pedido sugerido también por chat</span><span style="font-size:12px;color:#525252">Los martes a las 7:40</span></span>
+                <span style="width:40px;height:24px;border-radius:12px;position:relative;transition:background 200ms;background:{{ waBg }}"><span style="position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 200ms;left:{{ waLeft }}"></span></span>
+              </button>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ showCartBar }}">
+            <button type="button" onClick="{{ goCarrito }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;margin:0 10px 8px;height:48px;border-radius:12px;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font:600 13.5px/1 Inter,sans-serif"><span>{{ cartCount }} cajas · {{ total }}</span><span style="font:700 14px/1 Satoshi,sans-serif">Ver carrito →</span></button>
+          </sc-if>
+          <sc-if value="{{ hasToast }}"><div role="status" style="position:absolute;left:16px;right:16px;bottom:84px;padding:10px 14px;border-radius:10px;background:#0A0A0A;color:#fff;font:500 13px/1.35 Inter,sans-serif;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.2)">{{ toast }}</div></sc-if>
+          <nav aria-label="Navegación de la app" style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid #EBEBEB;padding:6px 4px 10px">
+            <sc-for list="{{ tabs }}" as="t">
+              <button type="button" aria-current="{{ t.cur }}" onClick="{{ t.go }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;color:{{ t.color }}"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.d }}"></path></svg><span style="font:600 10.5px/1 Inter,sans-serif">{{ t.label }}</span></button>
+            </sc-for>
+          </nav>
+        </div>
+        <span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">App de Pedido Nayar · también disponible por chat</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showCompany }}" hint-placeholder-val="{{ true }}">
+      <dc-import name="ConsolaCEDIS" data="{{ adminData }}" jump="{{ adminJump }}" height="{{ consoleH }}" width="{{ consoleW }}" hint-size="100%,720px"></dc-import>
+    </sc-if>
+    <sc-if value="{{ showBridge }}">
+      <div style="border:1px solid #E5E5E5;border-radius:10px;background:#fff;padding:18px;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Del lado del administrador</span>
+        <span style="font:700 16px/1.3 Satoshi,sans-serif">Lo que acaba de recibir la consola CEDIS</span>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ bridge }}" as="b"><div style="display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;padding:8px 0;border-top:1px solid #F0F0F0;font-size:13px;line-height:1.4"><span style="font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.t }}</span><span>{{ b.text }}</span></div></sc-for>
+        </div>
+        <button type="button" onClick="{{ openAdmin }}" style="all:unset;cursor:pointer;text-align:center;height:42px;border-radius:4px;color:#fff;font:700 14px/42px Satoshi,sans-serif;background:#0031EC">Abrir la consola CEDIS →</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:1000},&quot;narrow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;phoneHeight&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onStep&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(s: string) =&gt; void&quot;},&quot;jump&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{screen: string, n: number}&quot;}}">
+const CATS = ['Todo', 'Refrescos', 'Sin azúcar', 'Agua', 'Isotónicos', 'Jugos'];
+const TILE = { Refrescos: '#F1EEEA', 'Sin azúcar': '#EEF1F6', Agua: '#EAF2F6', 'Isotónicos': '#EEF3EC', Jugos: '#F6F0E6' };
+const PROD = [
+  { id: 'cola600', n: 'Refresco cola 600 ml', cat: 'Refrescos', size: '600 ml', pres: 'Caja con 24', p: 198, nc: false, badge: 'Más pedido' },
+  { id: 'colalata', n: 'Refresco cola lata 355 ml', cat: 'Refrescos', size: '355 ml', pres: 'Caja con 24', p: 300, nc: false, img: 'lata' },
+  { id: 'cola2l', n: 'Refresco cola 2 L', cat: 'Refrescos', size: '2 L', pres: 'Caja con 8', p: 210, nc: false },
+  { id: 'naranja600', n: 'Refresco de naranja 600 ml', cat: 'Refrescos', size: '600 ml', pres: 'Caja con 24', p: 176, nc: false },
+  { id: 'limon600', n: 'Refresco de limón 600 ml', cat: 'Refrescos', size: '600 ml', pres: 'Caja con 24', p: 176, nc: false },
+  { id: 'colasa', n: 'Refresco cola sin azúcar 600 ml', cat: 'Sin azúcar', size: '600 ml', pres: 'Caja con 24', p: 198, nc: true, badge: 'Sube en su colonia' },
+  { id: 'naranjasa', n: 'Refresco de naranja sin azúcar 600 ml', cat: 'Sin azúcar', size: '600 ml', pres: 'Caja con 24', p: 176, nc: true },
+  { id: 'agua1', n: 'Agua natural 1 L', cat: 'Agua', size: '1 L', pres: 'Caja con 12', p: 96, nc: true },
+  { id: 'agua600', n: 'Agua natural 600 ml', cat: 'Agua', size: '600 ml', pres: 'Caja con 24', p: 120, nc: true },
+  { id: 'garrafon', n: 'Garrafón de agua 20 L', cat: 'Agua', size: '20 L', pres: 'Pieza', p: 45, nc: true, img: 'garrafon' },
+  { id: 'mineral', n: 'Agua mineral 600 ml', cat: 'Agua', size: '600 ml', pres: 'Caja con 24', p: 168, nc: true },
+  { id: 'iso500', n: 'Isotónico 500 ml', cat: 'Isotónicos', size: '500 ml', pres: 'Caja con 12', p: 240, nc: true, badge: 'Temporada de calor' },
+  { id: 'iso1l', n: 'Isotónico 1 L', cat: 'Isotónicos', size: '1 L', pres: 'Caja con 8', p: 230, nc: true },
+  { id: 'mango', n: 'Néctar de mango 1 L', cat: 'Jugos', size: '1 L', pres: 'Caja con 12', p: 186, nc: true },
+  { id: 'jugo300', n: 'Jugo de naranja 300 ml', cat: 'Jugos', size: '300 ml', pres: 'Caja con 24', p: 150, nc: true }
+];
+const PM = Object.fromEntries(PROD.map(p => [p.id, p]));
+const IMGF = p => { const k = p.img || 'botella'; return { iBotella: k === 'botella', iLata: k === 'lata', iGarrafon: k === 'garrafon' }; };
+const BASE = { cola600: 6, agua1: 3, naranja600: 2 };
+const SUG = [['cola600', 6, 'Pidió 6 cajas cada semana del último mes'], ['agua1', 3, 'Sus ventas de agua suben con el calor'], ['naranja600', 2, 'Igual que la semana pasada'], ['colasa', 1, 'Las tiendas de su colonia piden más esta semana', true], ['iso500', 1, 'Completa la promoción de no carbonatados', true]];
+const PROM = 1850;
+const TITLES = { inicio: 'Pedido Nayar', sugerido: 'Pedido sugerido', catalogo: 'Catálogo', promos: 'Promociones', carrito: 'Carrito', confirmado: 'Confirmación', pedidos: 'Mis pedidos', refri: 'Refrigerador', cuenta: 'Mi cuenta' };
+const STEP = { inicio: 1, sugerido: 2, catalogo: 3, promos: 4, carrito: 5, confirmado: 5, pedidos: 6, refri: 7, cuenta: 0 };
+const TABS = [['inicio', 'Inicio', 'M2 7.5L8 2.5l6 5V14H10v-4H6v4H2z'], ['catalogo', 'Catálogo', 'M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5v4.5H9zM2.5 9h4.5v4.5H2.5zM9 9h4.5v4.5H9z'], ['pedidos', 'Pedidos', 'M2 5l6-3 6 3v6l-6 3-6-3zM2 5l6 3 6-3M8 8v6'], ['refri', 'Refri', 'M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5M6 2.8l2 1.6 2-1.6M6 13.2l2-1.6 2 1.6'], ['cuenta', 'Cuenta', 'M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2.5 14.5c.6-2.8 2.8-4.5 5.5-4.5s4.9 1.7 5.5 4.5']];
+const TRACK = [['Confirmado', 'Martes 7:46 · entró a la Ruta 14'], ['Preparado en el CEDIS', 'Miércoles 6:10 · cargado en la unidad'], ['En ruta', 'Miércoles 9:05 · parada 6 de 18'], ['Entregado', 'Miércoles 9:48 · recibido por Doña Lupe']];
+const ISSUES = ['No enfría', 'Hace ruido', 'Luz apagada', 'La puerta no cierra'];
+const VENTANAS = ['Mañana 9:00 a 12:00 · Ruta 14', 'Jueves 9:00 a 12:00 · Ruta 14'];
+const PAGOS = [['efectivo', 'Efectivo contra entrega', ''], ['transferencia', 'Transferencia', ''], ['credito', 'Crédito de la tienda', '$5,000 disponibles']];
+const PASADOS = [{ f: '8 oct', n: 'N-47980', c: 11, t: '$1,790' }, { f: '1 oct', n: 'N-47702', c: 12, t: '$1,920' }, { f: '24 sep', n: 'N-47455', c: 11, t: '$1,760' }];
+const COLONIAS = [['Centro', 41], ['Los Fresnos', 28], ['Mololoa', 35], ['Lázaro Cárdenas', 22], ['Los Sauces', 18], ['Jardines', 31], ['San José', 12], ['Ciudad del Valle', 47], ['Indeco', 25]];
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+
+class Component extends DCLogic {
+  state = this.fresh();
+  fresh() { return { screen: 'inicio', hist: [], cart: {}, sug: Object.fromEntries(SUG.map(s => [s[0], s[1]])), cat: 'Todo', search: '', confirmed: false, orderTotal: 0, orderCajas: 0, track: 0, rating: null, ventana: 0, pay: 'efectivo', issue: null, folio: null, attention: false, wa: true, toast: '', dashTab: 'ruta', protect: false, view: (this.state && this.state.view) || 'cliente', events: [{ t: '7:40', text: 'Abarrotes La Esperanza abrió la app' }], clock: 41 }; }
+  componentDidMount() { this.report(); }
+  componentWillUnmount() { clearTimeout(this._tt); }
+  componentDidUpdate() {
+    const st = this.state, j = this.props.jump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.screen && j.screen !== st.screen) this.go(j.screen); }
+    if (this._lastScreen !== st.screen) { this._lastScreen = st.screen; this.report(); requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="nayar-app"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  report() { if (typeof this.props.onStep === 'function') this.props.onStep(this.state.screen); }
+  log(text) { this.setState(s => ({ clock: s.clock + 1, events: [{ t: '7:' + String(s.clock).padStart(2, '0'), text }, ...s.events].slice(0, 8) })); }
+  toast(t) { clearTimeout(this._tt); this.setState({ toast: t }); this._tt = setTimeout(() => this.setState({ toast: '' }), 1700); }
+  go(screen) { this.setState(s => (s.screen === screen ? null : { screen, hist: [...s.hist, s.screen].slice(-10) })); }
+  back() { this.setState(s => { const h = [...s.hist]; const prev = h.pop() || 'inicio'; return { screen: prev, hist: h }; }); }
+  setQ(id, q, silent) {
+    const had = this.state.cart[id] || 0;
+    this.setState(s => { const c = { ...s.cart }; if (q <= 0) delete c[id]; else c[id] = q; return { cart: c }; });
+    if (!silent) { if (q > had) { if (!had) this.log('Agregó ' + PM[id].n); this.toast('Agregado: ' + PM[id].n); } else if (q === 0) this.log('Quitó ' + PM[id].n); }
+  }
+  repetir() { this.setState({ cart: { ...BASE } }); this.log('Repitió el pedido anterior · ' + fmt(this.totals({ ...BASE }).total)); this.go('carrito'); }
+  totals(c) {
+    const lines = PROD.filter(p => c[p.id]).map(p => ({ ...p, q: c[p.id] }));
+    const subtotal = lines.reduce((a, l) => a + l.q * l.p, 0);
+    const nc = lines.filter(l => l.nc).reduce((a, l) => a + l.q, 0);
+    const cajas = lines.reduce((a, l) => a + l.q, 0);
+    const discounts = [];
+    if (nc >= 5) { const cheapest = Math.min(...lines.filter(l => l.nc).map(l => l.p)); discounts.push({ t: '10% en la quinta caja de no carbonatados', v: cheapest * 0.1 }); }
+    if ((c.agua1 || 0) >= 2) discounts.push({ t: 'Agua natural 1 L: segunda caja a mitad de precio', v: Math.floor(c.agua1 / 2) * PM.agua1.p * 0.5 });
+    const packs = Math.min(Math.floor((c.iso500 || 0) / 3), Math.floor((c.mineral || 0) / 2));
+    if (packs) discounts.push({ t: 'Paquete calor', v: packs * 276 });
+    const disc = discounts.reduce((a, d) => a + d.v, 0);
+    return { lines, subtotal, discounts, total: subtotal - disc, nc, cajas };
+  }
+  confirmar() {
+    const t = this.totals(this.state.cart);
+    this.setState({ confirmed: true, orderTotal: t.total, orderCajas: t.cajas, track: 0, rating: null });
+    this.log('Pedido N-48213 confirmado · ' + fmt(t.total) + ' · ' + PAGOS.find(p => p[0] === this.state.pay)[1].toLowerCase());
+    this.go('confirmado');
+  }
+  adminData(v) {
+    const st = this.state, t = this.totals(st.cart), d = t.total ? Math.round((t.total / PROM - 1) * 100) : 0;
+    const packs = Math.min(Math.floor((st.cart.iso500 || 0) / 3), Math.floor((st.cart.mineral || 0) / 2));
+    return { canal: 'App', status: st.confirmed ? ['Confirmado', 'Preparado en CEDIS', 'En ruta', 'Entregado'][st.track] : t.cajas ? 'Armando carrito' : 'Navegando',
+      lines: t.lines.map(l => ({ n: l.n, q: l.q, sub: fmt(l.q * l.p) })), cajas: t.cajas, total: fmt(t.total), totalNum: t.total, delta: (d >= 0 ? '+' : '') + d + '%', mix: t.cajas ? Math.round(t.nc / t.cajas * 100) + '%' : '0%',
+      payLabel: PAGOS.find(p => p[0] === st.pay)[1], digital: 37 + (st.confirmed ? 1 : 0), confirmed: st.confirmed, track: st.confirmed ? st.track : -1, folio: st.folio, issueLabel: (st.issue || '').toLowerCase(), attention: st.attention, events: st.events, rating: st.rating,
+      promos: [t.nc >= 5 ? 0 : null, (st.cart.agua1 || 0) >= 2 ? 1 : null, packs ? 2 : null].filter(x => x !== null) };
+  }
+  bridge() { return this.state.events.slice(0, 4); }
+  renderVals() {
+    const v = this.renderVals0(), fv = this.props.forceView, nw = !!this.props.narrow;
+    if (fv) { v.showClient = fv === 'cliente'; v.showCompany = fv === 'empresa'; v.cols = fv === 'empresa' || nw ? 'minmax(0,1fr)' : 'minmax(320px,390px) minmax(260px,340px)'; }
+    v.showSwitch = nw && !fv; v.showBridge = fv === 'cliente' && !nw;
+    v.openAdmin = () => { if (typeof this.props.onView === 'function') this.props.onView('empresa'); };
+    v.adminJump = this.props.adminJump; v.consoleH = this.props.consoleHeight || '720px'; v.consoleW = this.props.stageWidth || 1000;
+    v.adminData = this.adminData(v); v.bridge = this.bridge(v);
+    return v;
+  }
+  renderVals0() {
+    const st = this.state, narrow = !!this.props.narrow, t = this.totals(st.cart);
+    const sugT = this.totals(st.sug);
+    const d = t.total ? Math.round((t.total / PROM - 1) * 100) : 0;
+    const ncNeed = Math.max(0, 5 - t.nc);
+    const radio = (on) => ({ border: on ? '#0031EC' : '#E5E5E5', dot: on ? '4.5px solid #0031EC' : '1.5px solid #A3A3A3', on: on ? 'true' : 'false' });
+    const sc = st.screen;
+    const status = st.confirmed ? ['Confirmado', 'Preparado en CEDIS', 'En ruta', 'Entregado'][st.track] : t.cajas ? 'Armando carrito' : 'Navegando';
+    const filtered = PROD.filter(p => (st.cat === 'Todo' || p.cat === st.cat) && (!st.search || p.n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(st.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))));
+    const packs = Math.min(Math.floor((st.cart.iso500 || 0) / 3), Math.floor((st.cart.mineral || 0) / 2));
+    const stepN = STEP[sc];
+    return {
+      narrow, cols: narrow ? 'minmax(0,1fr)' : 'minmax(320px,390px) minmax(0,1fr)',
+      phoneH: this.props.phoneHeight || (narrow ? '700px' : '780px'),
+      showClient: !narrow || st.view === 'cliente', showCompany: !narrow || st.view === 'empresa',
+      views: [['cliente', 'Vista del cliente'], ['empresa', 'Vista de la empresa']].map(([id, label]) => { const on = st.view === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ view: id }), bg: on ? '#fff' : 'transparent', color: on ? '#0A0A0A' : '#525252', shadow: on ? '0 1px 3px rgba(0,0,0,.1)' : 'none' }; }),
+      stepLabel: stepN ? 'Paso ' + stepN + ' de 7 · ' + TITLES[sc] : 'Fuera del recorrido · ' + TITLES[sc],
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5',
+      toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => { this.setState(this.fresh()); },
+      flow: [{ t: 'App de la tiendita', s: 'Pedido y servicio', tunnel: true }, { t: 'Servicio de pedidos', s: 'Reglas, promociones, sugerido', tunnel: true }, { t: 'ERP y rutas del CEDIS', s: 'Inventario, ruta, cobranza', tunnel: false }],
+      title: TITLES[sc], isHome: sc === 'inicio', hasBack: sc !== 'inicio', back: () => this.back(),
+      sInicio: sc === 'inicio', sSugerido: sc === 'sugerido', sCatalogo: sc === 'catalogo', sPromos: sc === 'promos', sCarrito: sc === 'carrito', sConfirmado: sc === 'confirmado', sPedidos: sc === 'pedidos', sRefri: sc === 'refri', sCuenta: sc === 'cuenta',
+      goSugerido: () => this.go('sugerido'), goCatalogo: () => this.go('catalogo'), goPromos: () => this.go('promos'), goCarrito: () => this.go('carrito'), goPedidos: () => this.go('pedidos'), goRefri: () => this.go('refri'), goInicio: () => this.setState({ screen: 'inicio', hist: [] }),
+      repetir: () => this.repetir(),
+      sugTotal: fmt(sugT.total), sugCajas: sugT.cajas,
+      sugLines: SUG.map(([id, , why, isSug]) => ({ ...IMGF(PM[id]), n: PM[id].n, why, isSug: !!isSug, size: PM[id].size, tile: TILE[PM[id].cat], q: st.sug[id], price: fmt(PM[id].p) + ' por caja', border: isSug ? '#9DAEF5' : '#fff', minus: () => this.setState(s => ({ sug: { ...s.sug, [id]: Math.max(0, s.sug[id] - 1) } })), plus: () => this.setState(s => ({ sug: { ...s.sug, [id]: s.sug[id] + 1 } })) })),
+      addSug: () => { const c = { ...st.cart }; Object.entries(st.sug).forEach(([k, q]) => { if (q > 0) c[k] = Math.max(c[k] || 0, q); }); this.setState({ cart: c }); this.log('Agregó el pedido sugerido · ' + fmt(this.totals(c).total)); this.go('carrito'); },
+      search: st.search, onSearch: e => this.setState({ search: e.target.value }),
+      cats: CATS.map(c => { const on = st.cat === c; return { label: c, on: on ? 'true' : 'false', pick: () => this.setState({ cat: c }), border: on ? '#0A0A0A' : '#E5E5E5', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; }),
+      productos: filtered.map(p => { const q = st.cart[p.id] || 0; return { ...IMGF(p), n: p.n, pres: p.pres, size: p.size, tile: TILE[p.cat], price: fmt(p.p), q, none: !q, some: q > 0, hasBadge: !!p.badge, badge: p.badge || '', plus: () => this.setQ(p.id, q + 1), minus: () => this.setQ(p.id, q - 1) }; }),
+      noProducts: !filtered.length,
+      promo1Title: ncNeed ? 'Le faltan ' + ncNeed + (ncNeed === 1 ? ' caja' : ' cajas') + ' de no carbonatados para su descuento' : 'Promoción de no carbonatados completa',
+      promo1Pct: Math.min(100, t.nc / 5 * 100) + '%', promo1Sub: '10% en la quinta caja de agua, sin azúcar, isotónico o jugo',
+      promos: [
+        { t: '10% en la quinta caja de no carbonatados', d: 'Agua, sin azúcar, isotónicos y jugos cuentan para la promoción.', pct: Math.min(100, t.nc / 5 * 100) + '%', progress: t.nc >= 5 ? 'Aplicada en su carrito' : t.nc + ' de 5 cajas', st: t.nc >= 5 ? 'Aplicada' : 'En curso', hasCta: t.nc < 5, ctaLabel: 'Agregar isotónico', cta: () => this.setQ('iso500', (st.cart.iso500 || 0) + 1) },
+        { t: 'Agua natural 1 L: segunda caja a mitad de precio', d: 'Solo los martes, para tiendas de la Ruta 14.', pct: Math.min(100, (st.cart.agua1 || 0) / 2 * 100) + '%', progress: (st.cart.agua1 || 0) >= 2 ? 'Aplicada en su carrito' : (st.cart.agua1 || 0) + ' de 2 cajas', st: (st.cart.agua1 || 0) >= 2 ? 'Aplicada' : 'Hoy', hasCta: (st.cart.agua1 || 0) < 2, ctaLabel: 'Agregar agua', cta: () => this.setQ('agua1', Math.max(2, (st.cart.agua1 || 0) + 1)) },
+        { t: 'Paquete calor: 3 isotónicos y 2 aguas minerales por $780', d: 'Ahorra $276 frente al precio por caja.', pct: packs ? '100%' : '0%', progress: packs ? 'Aplicado en su carrito' : 'Sin aplicar', st: packs ? 'Aplicado' : 'Nuevo', hasCta: !packs, ctaLabel: 'Agregar paquete', cta: () => { this.setState(s => ({ cart: { ...s.cart, iso500: Math.max(3, s.cart.iso500 || 0), mineral: Math.max(2, s.cart.mineral || 0) } })); this.log('Agregó el paquete calor'); this.toast('Paquete calor agregado'); } }
+      ].map(p => ({ ...p, border: p.st.startsWith('Aplicad') ? '#0031EC' : '#fff', stBg: p.st.startsWith('Aplicad') ? '#0031EC' : '#F2F2F2', stColor: p.st.startsWith('Aplicad') ? '#fff' : '#333' })),
+      hasCart: t.cajas > 0, cartEmpty: !t.cajas, cartCount: t.cajas,
+      cartLines: t.lines.map(l => ({ n: l.n, q: l.q, unit: fmt(l.p), sub: fmt(l.q * l.p), plus: () => this.setQ(l.id, l.q + 1), minus: () => this.setQ(l.id, l.q - 1) })),
+      subtotal: fmt(t.subtotal), discounts: t.discounts.map(x => ({ t: x.t, v: fmt(x.v) })), total: fmt(t.total),
+      ventanas: VENTANAS.map((label, i) => ({ label, ...radio(st.ventana === i), pick: () => this.setState({ ventana: i }) })),
+      pagos: PAGOS.map(([id, label, sub]) => ({ label, sub, ...radio(st.pay === id), pick: () => this.setState({ pay: id }) })),
+      confirmar: () => this.confirmar(),
+      confirmText: 'Llega ' + VENTANAS[st.ventana].replace(' · Ruta 14', '').toLowerCase() + ' con la Ruta 14. Le avisamos cuando su pedido vaya en camino.',
+      orderTotal: fmt(st.orderTotal), orderCajas: st.orderCajas, payLabel: PAGOS.find(p => p[0] === st.pay)[1],
+      hasOrder: st.confirmed, noOrder: !st.confirmed, trackLabel: st.confirmed ? TRACK[st.track][0] + ' · ' + TRACK[st.track][1] : '',
+      track: TRACK.map(([tt, s], i) => { const done = i <= st.track; return { t: tt, s: done ? s : 'Pendiente', dot: done ? '#0031EC' : '#fff', ring: done ? '#0031EC' : '#D4D4D4', color: done ? '#0A0A0A' : '#A3A3A3', line: i < TRACK.length - 1, lineColor: i < st.track ? '#0031EC' : '#E5E5E5' }; }),
+      canAdvance: st.confirmed && st.track < 3, advance: () => { const n = st.track + 1; this.setState({ track: n }); this.log('Pedido N-48213: ' + TRACK[n][0].toLowerCase()); },
+      askRating: st.confirmed && st.track === 3 && !st.rating, rated: !!st.rating, rating: st.rating || '',
+      ratings: ['Todo bien', 'Llegó incompleto', 'Llegó tarde'].map(label => ({ label, pick: () => { this.setState({ rating: label }); this.log('Calificó la entrega: ' + label.toLowerCase()); if (label !== 'Todo bien') this.setState({ attention: true }); } })),
+      pasados: PASADOS,
+      refriShort: st.folio ? 'Servicio programado' : 'Enfriando bien', refriColor: st.folio ? '#0A0A0A' : '#525252', refriBg: st.folio ? '#0A0A0A' : '#E8ECFD', refriFg: st.folio ? '#fff' : '#001D9B',
+      issues: ISSUES.map(label => { const on = st.issue === label; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ issue: label }), border: on ? '#0031EC' : '#D4D4D4', bg: on ? '#0031EC' : '#fff', color: on ? '#fff' : '#0A0A0A' }; }),
+      noIssue: !st.issue, fallaBg: st.issue ? '#0031EC' : '#EFEFEF', fallaFg: st.issue ? '#fff' : '#A3A3A3',
+      enviarFalla: () => { if (!st.issue) return; this.setState({ folio: 'SR-2207' }); this.log('Folio SR-2207 · refrigerador: ' + st.issue.toLowerCase()); },
+      noFolio: !st.folio, folio: st.folio, issueLabel: (st.issue || '').toLowerCase(),
+      vendedor: () => { this.setState({ attention: true }); this.log('Doña Lupe pidió hablar con Juan, su vendedor'); this.toast('Juan, su vendedor, le escribe en un momento'); },
+      waAria: st.wa ? 'true' : 'false', waBg: st.wa ? '#0031EC' : '#D4D4D4', waLeft: st.wa ? '19px' : '3px', toggleWa: () => this.setState(s => ({ wa: !s.wa })),
+      showCartBar: t.cajas > 0 && !['carrito', 'confirmado'].includes(sc), hasToast: !!st.toast, toast: st.toast,
+      tabs: TABS.map(([id, label, dd]) => { const on = sc === id || (id === 'inicio' && ['sugerido', 'promos', 'carrito', 'confirmado'].includes(sc)); return { label, d: dd, cur: on ? 'page' : 'false', color: on ? '#0031EC' : '#666', go: () => this.setState({ screen: id, hist: id === 'inicio' ? [] : [...st.hist, sc] }) }; }),
+      dashTabs: [['ruta', 'Ruta'], ['gerente', 'Vista gerente']].map(([id, label]) => { const on = st.dashTab === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ dashTab: id }), bg: on ? '#fff' : 'transparent', color: on ? '#0A0A0A' : '#525252' }; }),
+      tabRuta: st.dashTab === 'ruta', tabGerente: st.dashTab === 'gerente',
+      digital: 37 + (st.confirmed ? 1 : 0), digPct: ((37 + (st.confirmed ? 1 : 0)) / 112 * 100).toFixed(1) + '%', digColor: st.confirmed ? '#0031EC' : '#0A0A0A',
+      mix: t.cajas ? Math.round(t.nc / t.cajas * 100) + '%' : '0%', delta: (d >= 0 ? '+' : '') + d + '%',
+      status, statusBg: st.confirmed ? '#0031EC' : '#F2F2F2', statusColor: st.confirmed ? '#fff' : '#333',
+      orderBorder: st.attention ? '#0A0A0A' : t.cajas ? '#0031EC' : '#EBEBEB', attention: st.attention, events: st.events,
+      colonias: COLONIAS.map(([n, p]) => { const pct = n === 'Centro' && st.confirmed ? p + 1 : p; const a = Math.min(1, pct / 60); return { n, pct: pct + '%', bg: 'rgba(0,49,236,' + (0.06 + a * 0.94).toFixed(2) + ')', color: a > 0.45 ? '#fff' : '#0A0A0A', outline: n === 'Centro' ? '2px solid #0A0A0A' : 'none' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

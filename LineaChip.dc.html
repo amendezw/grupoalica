@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<sc-if value="{{ isCrea }}" hint-placeholder-val="{{ true }}"><span title="Crea · desarrollo a la medida, equipos dedicados, diseño de producto" style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:4px;border:1px solid #0031EC;background:#FFFFFF;color:#0031EC;font:600 11px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 2v8M2 6h8"></path></svg>Crea</span></sc-if>
+<sc-if value="{{ isOptimiza }}"><span title="Optimiza · hoja de ruta, arquitectura cloud, automatización, integración" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 8px;border-radius:4px;background:#E8ECFD;color:#001D9B;font:600 11px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 3.5h9M1.5 8.5h9"></path><circle cx="4" cy="3.5" r="1.5" fill="#E8ECFD"></circle><circle cx="8" cy="8.5" r="1.5" fill="#E8ECFD"></circle></svg>Optimiza</span></sc-if>
+<sc-if value="{{ isGestiona }}"><span title="Gestiona · GenAI y agentes, observabilidad, Hacknoid, Xiid zero trust" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 8px;border-radius:4px;background:#0031EC;color:#FFFFFF;font:600 11px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4.3"></circle><circle cx="6" cy="6" r="1.4" fill="currentColor"></circle></svg>Gestiona</span></sc-if>
+<sc-if value="{{ isEscala }}"><span title="Escala · super apps, ecosistemas digitales, Pulso, marketing, e-commerce" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 8px;border-radius:4px;background:#000A4F;color:#FFFFFF;font:600 11px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5l7-7M4.5 2.5h5v5"></path></svg>Escala</span></sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:140,&quot;height&quot;:40},&quot;linea&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Crea&quot;,&quot;Optimiza&quot;,&quot;Gestiona&quot;,&quot;Escala&quot;],&quot;default&quot;:&quot;Gestiona&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const l = this.props.linea || 'Crea';
+    return { isCrea: l === 'Crea', isOptimiza: l === 'Optimiza', isGestiona: l === 'Gestiona', isEscala: l === 'Escala' };
+  }
+}
+</script>
+</body>
+</html>

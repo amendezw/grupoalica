@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#FAFAFA">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252;font-variant-numeric:tabular-nums">Paso {{ step }} de 5</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:16px;background:#F4F6FE">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+        <sc-for list="{{ flow }}" as="f">
+          <span style="display:inline-flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:6px;background:#fff;border:1px solid #D6DDFB;min-width:130px"><span style="font:700 13.5px/1.2 Satoshi,sans-serif">{{ f.t }}</span><span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ f.s }}</span></span>
+          <sc-if value="{{ f.tunnel }}"><span style="display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC;letter-spacing:.06em;text-transform:uppercase"><span style="width:28px;border-top:2px dashed #0031EC"></span>túnel sellado<span style="width:28px;border-top:2px dashed #0031EC"></span></span></sc-if>
+        </sc-for>
+      </div>
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5;color:#1A1A1A">
+        <li>El chat no abre ningún puerto hacia el ERP: el agente habla con los sistemas del CEDIS por un túnel sellado de proceso a proceso.</li>
+        <li>Los datos de la tiendita, su historial y su forma de pago solo los lee el proceso autorizado de pedidos.</li>
+        <li>Si el canal de mensajería se compromete, no hay camino hacia la red de planta ni hacia otras empresas del grupo.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showSwitch }}">
+    <div role="tablist" aria-label="Vista" style="display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:8px;background:#F2F2F2;gap:4px">
+      <sc-for list="{{ views }}" as="v">
+        <button type="button" role="tab" aria-selected="{{ v.on }}" onClick="{{ v.pick }}" style="all:unset;cursor:pointer;text-align:center;height:40px;border-radius:6px;font:600 14px/40px Inter,sans-serif;background:{{ v.bg }};color:{{ v.color }};box-shadow:{{ v.shadow }}">{{ v.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <div style="display:grid;gap:24px;align-items:start;justify-content:center;grid-template-columns:{{ cols }}">
+    <sc-if value="{{ showClient }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="width:100%;max-width:390px;height:{{ phoneH }};border:10px solid #0A0A0A;border-radius:48px;overflow:hidden;display:flex;flex-direction:column;background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.14)">
+          <div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 12px/1 'Plus Jakarta Sans',sans-serif"><span>7:40</span><span style="width:84px;height:20px;border-radius:12px;background:#0A0A0A"></span><span>5G</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px 10px;border-bottom:1px solid #EBEBEB">
+            <span style="width:36px;height:36px;border-radius:50%;background:#0031EC;color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px/1 Satoshi,sans-serif">PN</span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:700 15px/1.2 Satoshi,sans-serif">Pedido Nayar</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#525252">Embotelladora del Nayar · en línea</span></span>
+          </div>
+          <div data-scroll-log="nayar-log" role="log" aria-live="polite" aria-label="Conversación" style="flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:8px;background:#F2F2F2">
+            <sc-for list="{{ msgs }}" as="m">
+              <sc-if value="{{ m.isNote }}"><span style="align-self:center;padding:4px 10px;border-radius:999px;background:#E5E5E5;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;color:#333;text-align:center;max-width:90%">{{ m.text }}</span></sc-if>
+              <sc-if value="{{ m.isAgent }}"><div style="align-self:flex-start;max-width:84%;padding:9px 12px;border-radius:4px 14px 14px 14px;background:#fff;font-size:14px;line-height:1.45;white-space:pre-line">{{ m.text }}</div></sc-if>
+              <sc-if value="{{ m.isUser }}"><div style="align-self:flex-end;max-width:84%;padding:9px 12px;border-radius:14px 4px 14px 14px;background:#0031EC;color:#fff;font-size:14px;line-height:1.45">{{ m.text }}</div></sc-if>
+              <sc-if value="{{ m.isCart }}">
+                <div style="align-self:flex-start;width:88%;border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:6px;border:1px solid #E5E5E5">
+                  <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ m.title }}</span>
+                  <sc-for list="{{ m.lines }}" as="l">
+                    <div style="display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:6px;font-size:13px;line-height:1.35"><span style="font:700 13px/1.35 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ l.q }}×</span><span>{{ l.n }}</span><span style="font-variant-numeric:tabular-nums">{{ l.sub }}</span></div>
+                  </sc-for>
+                  <div style="display:flex;justify-content:space-between;padding-top:6px;border-top:1px solid #EBEBEB;font:700 14px/1.3 'Plus Jakarta Sans',sans-serif"><span>Total</span><span style="font-variant-numeric:tabular-nums">{{ m.total }}</span></div>
+                  <sc-if value="{{ m.isSummary }}">
+                    <span style="font-size:12.5px;line-height:1.4;color:#333">Entrega mañana entre 9:00 y 12:00 con la Ruta 14</span>
+                    <div role="radiogroup" aria-label="Forma de pago" style="display:flex;flex-direction:column;gap:4px;margin-top:2px">
+                      <sc-for list="{{ payOpts }}" as="p">
+                        <button type="button" role="radio" aria-checked="{{ p.on }}" onClick="{{ p.pick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;border:1px solid {{ p.border }};font-size:13px"><span style="width:14px;height:14px;border-radius:50%;box-sizing:border-box;border:{{ p.dot }}"></span>{{ p.label }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </sc-for>
+            <sc-if value="{{ typing }}"><div aria-label="El agente está escribiendo" style="align-self:flex-start;padding:9px 14px;border-radius:4px 14px 14px 14px;background:#fff;font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#666;letter-spacing:.2em">• • •</div></sc-if>
+          </div>
+          <div style="flex:none;background:#fff;border-top:1px solid #EBEBEB;padding:10px 10px 12px;display:flex;flex-direction:column;gap:8px">
+            <sc-if value="{{ hasReplies }}">
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <sc-for list="{{ replies }}" as="r">
+                  <button type="button" onClick="{{ r.go }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;border:1px solid #0031EC;color:#0031EC;font:600 13px/1.25 Inter,sans-serif;max-width:100%;box-sizing:border-box" style-hover="background:#0031EC;color:#fff" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ r.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button type="button" onClick="{{ vendedor }}" style="all:unset;cursor:pointer;align-self:flex-start;font:600 12.5px/1 Inter,sans-serif;color:#333;padding:4px 2px;text-decoration:underline;text-underline-offset:3px" style-hover="color:#0031EC">Hablar con mi vendedor</button>
+            <form onSubmit="{{ submit }}" style="display:flex;gap:6px">
+              <input value="{{ text }}" onChange="{{ onText }}" aria-label="Escribir mensaje" placeholder="Escriba su pedido…" style="flex:1;min-width:0;height:42px;border-radius:999px;border:1px solid #E5E5E5;padding:0 14px;font:400 14px Inter,sans-serif;outline:none" style-focus="border-color:#0031EC"></input>
+              <button type="submit" aria-label="Enviar" style="all:unset;cursor:pointer;flex:none;width:42px;height:42px;border-radius:50%;background:#0031EC;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"></path></svg></button>
+            </form>
+          </div>
+        </div>
+        <span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">Funciona en WhatsApp y en la app</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showCompany }}" hint-placeholder-val="{{ true }}">
+      <dc-import name="ConsolaCEDIS" data="{{ adminData }}" jump="{{ adminJump }}" height="{{ consoleH }}" width="{{ consoleW }}" hint-size="100%,720px"></dc-import>
+    </sc-if>
+    <sc-if value="{{ showBridge }}">
+      <div style="border:1px solid #E5E5E5;border-radius:10px;background:#fff;padding:18px;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Del lado del administrador</span>
+        <span style="font:700 16px/1.3 Satoshi,sans-serif">Lo que acaba de recibir la consola CEDIS</span>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ bridge }}" as="b"><div style="display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;padding:8px 0;border-top:1px solid #F0F0F0;font-size:13px;line-height:1.4"><span style="font:600 11.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.t }}</span><span>{{ b.text }}</span></div></sc-for>
+        </div>
+        <button type="button" onClick="{{ openAdmin }}" style="all:unset;cursor:pointer;text-align:center;height:42px;border-radius:4px;color:#fff;font:700 14px/42px Satoshi,sans-serif;background:#0031EC">Abrir la consola CEDIS →</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ notBare }}"><div style="border-top:1px solid #0A0A0A;padding-top:18px;display:flex;flex-direction:column;gap:14px">
+    <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#666">Qué probaríamos en el sprint · 10 días hábiles</span>
+    <div style="display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 14px/1.2 Satoshi,sans-serif">Hipótesis</span><span style="font-size:14.5px;line-height:1.5;color:#333">Una parte significativa de las tienditas de una ruta piloto acepta pedir por chat y su ticket no baja.</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 14px/1.2 Satoshi,sans-serif">Usuarios piloto</span><span style="font-size:14.5px;line-height:1.5;color:#333">30 a 50 tienditas de una ruta de Tepic</span><dc-import name="DatoChip" tipo="estimacion" fuente="Tamaño de muestra sugerido por Wigilabs para una ruta piloto" hint-size="130px,22px"></dc-import></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 14px/1.2 Satoshi,sans-serif">KPI</span><span style="font-size:14.5px;line-height:1.5;color:#333">% de pedidos digitales, ticket promedio y costo por pedido</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 14px/1.2 Satoshi,sans-serif">Criterio de éxito</span><span style="font-size:14.5px;line-height:1.5;color:#333">Se define con el dueño de negocio el día 1</span><dc-import name="DatoChip" tipo="confirmar" fuente="Se escribe con el dueño de negocio de la Embotelladora el día 1 del sprint" hint-size="130px,22px"></dc-import></div>
+    </div>
+    <p style="margin:0;font-size:14px;line-height:1.5;color:#525252;text-wrap:pretty">El sprint evalúa primero si conviene apalancar herramientas del sistema Coca-Cola en lugar de construir desde cero, como sugiere la investigación.</p>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:1100},&quot;narrow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const PROD = {
+  cola: { n: 'Refresco cola 600 ml', p: 198, nc: false },
+  agua: { n: 'Agua natural 1 L', p: 96, nc: true },
+  naranja: { n: 'Refresco de naranja 600 ml', p: 176, nc: false },
+  sinazucar: { n: 'Refresco sin azúcar 600 ml', p: 198, nc: true },
+  iso: { n: 'Isotónico 500 ml', p: 240, nc: true }
+};
+const ORDER = ['cola', 'agua', 'naranja', 'sinazucar', 'iso'];
+const BASE = { cola: 6, agua: 3, naranja: 2 };
+const PROM = 1850;
+const LABELS = { repetir: 'Repetir pedido', ajustar: 'Ajustar', promos: 'Ver promociones', sugerencia: 'Ponle 2 de agua más y quiero probar el refresco sin azúcar', agregar: 'Agregar', asi: 'Así está bien', confirmar: 'Confirmar pedido', bien: 'Sí, todo bien', falla: 'Reportar falla', reiniciar: 'Reiniciar demo' };
+const PAY = [['efectivo', 'Efectivo contra entrega'], ['transferencia', 'Transferencia']];
+const COLONIAS = [['Centro', 41], ['Los Fresnos', 28], ['Mololoa', 35], ['Lázaro Cárdenas', 22], ['Los Sauces', 18], ['Jardines', 31], ['San José', 12], ['Ciudad del Valle', 47], ['Indeco', 25]];
+const GREET = 'Buenos días, Doña Lupe. La semana pasada pidió 6 cajas de refresco cola 600 ml, 3 de agua natural 1 L y 2 de refresco de naranja 600 ml. ¿Le repito el pedido o lo ajustamos?';
+const FALLBACK = 'Todavía estoy aprendiendo. ¿Le ayudo con alguna de estas opciones?';
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const lines = c => ORDER.filter(k => c[k]).map(k => ({ n: PROD[k].n, q: c[k], sub: fmt(c[k] * PROD[k].p) }));
+const total = c => ORDER.reduce((a, k) => a + (c[k] || 0) * PROD[k].p, 0);
+
+class Component extends DCLogic {
+  scrollLog() { requestAnimationFrame(() => requestAnimationFrame(() => { document.querySelectorAll('[data-scroll-log="nayar-log"]').forEach(el => { el.scrollTop = el.scrollHeight; }); })); }
+  chatRef = React.createRef();
+  state = this.fresh();
+  fresh() { return { step: 1, msgs: [], typing: false, replies: [], cart: null, confirmed: false, pay: 'efectivo', folio: null, attention: false, text: '', view: (this.state && this.state.view) || 'cliente', dashTab: 'ruta', protect: false, events: [], clock: 40, suggested: false }; }
+  componentDidMount() { this._gen = 0; this._k = 0; this._chain = Promise.resolve(); this.start(); }
+  componentWillUnmount() { this._gen++; }
+  componentDidUpdate() {
+    const st = this.state, ps = this._prevSt || {};
+    if (this._rep !== st.step) { this._rep = st.step; if (typeof this.props.onStep === 'function') this.props.onStep(String(st.step)); }
+    this._prevSt = { n: st.msgs.length, typing: st.typing, replies: st.replies };
+    if (ps.n !== st.msgs.length || ps.typing !== st.typing || ps.replies !== st.replies) {
+      this.scrollLog();
+    }
+  }
+  push(items, replies) {
+    const gen = this._gen;
+    this.setState({ replies: [] });
+    this._chain = this._chain.then(async () => {
+      for (const m of items) {
+        if (gen !== this._gen) return;
+        if (m.from === 'agent') {
+          this.setState({ typing: true });
+          await new Promise(r => setTimeout(r, Math.min(900, Math.max(300, 260 + (m.text || '').length * 5))));
+          if (gen !== this._gen) return;
+        }
+        this.setState(s => ({ typing: false, msgs: [...s.msgs, { ...m, k: ++this._k }] }));
+      }
+      if (gen === this._gen && replies) this.setState({ replies });
+    });
+  }
+  log(text) { this.setState(s => ({ clock: s.clock + 1, events: [{ t: '7:' + String(s.clock).padStart(2, '0'), text }, ...s.events] })); }
+  start() {
+    this.log('Mensaje proactivo enviado a Abarrotes La Esperanza');
+    this.push([{ from: 'note', text: 'Martes 7:40' }, { from: 'agent', text: GREET }], ['repetir', 'ajustar', 'promos']);
+  }
+  reset() { this._gen++; this._chain = Promise.resolve(); this.setState(this.fresh(), () => this.start()); }
+  cartMsg(cart, title) { return { from: 'agent', kind: 'cart', title, lines: lines(cart), total: fmt(total(cart)) }; }
+  setCart(cart, title, intro) {
+    this.setState({ cart, step: Math.max(this.state.step, 2) });
+    this.log('Pedido actualizado: ' + fmt(total(cart)));
+    const items = [{ from: 'agent', text: intro }, this.cartMsg(cart, title)];
+    if (!this.state.suggested) this.suggest(items); else this.summary(items, cart);
+  }
+  suggest(pre) {
+    this.setState({ step: 3, suggested: true });
+    this.push([...pre, { from: 'agent', text: 'Las tiendas de su colonia están pidiendo más bebidas sin azúcar e isotónicos esta semana. Si agrega 1 caja de isotónico 500 ml, completa la promoción de no carbonatados.' }], ['agregar', 'asi']);
+  }
+  summary(pre, cart) {
+    this.setState({ step: 4 });
+    const c = cart || this.state.cart;
+    this.push([...(pre || []), { from: 'agent', text: 'Este es su pedido. Elija la forma de pago y lo confirmo.' }, { ...this.cartMsg(c, 'Resumen del pedido'), summary: true }], ['confirmar']);
+  }
+  user(text) { this.push([{ from: 'user', text }]); }
+  act(key, label) {
+    const st = this.state;
+    if (key !== 'reiniciar') this.user(label || LABELS[key]);
+    switch (key) {
+      case 'repetir': return this.setCart({ ...BASE }, 'Pedido de la semana pasada', 'Listo, el mismo pedido de la semana pasada:');
+      case 'ajustar':
+        this.setState({ step: 2 });
+        return this.push([{ from: 'agent', text: 'Claro. Dígame qué cambia, como se lo diría a su vendedor.' }], ['sugerencia']);
+      case 'sugerencia': return this.applyText(LABELS.sugerencia, true);
+      case 'agregar': {
+        const cart = { ...st.cart, iso: (st.cart.iso || 0) + 1 };
+        this.setState({ cart }); this.log('Agregó 1 caja de isotónico (pedido sugerido)');
+        return this.summary([{ from: 'agent', text: 'Agregado. Con eso completa la promoción de no carbonatados.' }], cart);
+      }
+      case 'asi': return this.summary();
+      case 'confirmar':
+        this.setState({ confirmed: true, step: 5 }); this.log('Pedido N-48213 confirmado · ' + fmt(total(st.cart)));
+        return this.push([{ from: 'agent', text: 'Listo, Doña Lupe. Su pedido N-48213 quedó confirmado. Mañana entre 9:00 y 12:00 llega la Ruta 14.' }, { from: 'agent', text: 'Una pregunta más: ¿su refrigerador está enfriando bien?' }], ['bien', 'falla']);
+      case 'bien': this.log('Refrigerador sin incidencias');
+        return this.push([{ from: 'agent', text: 'Qué bueno. Que tenga buena venta, Doña Lupe.' }], ['reiniciar']);
+      case 'falla':
+        this.setState({ folio: 'SR-2207', step: 5 }); this.log('Folio de servicio SR-2207 creado');
+        return this.push([{ from: 'agent', text: 'Levanté el folio de servicio SR-2207. Un técnico pasa mañana junto con su pedido.' }], ['reiniciar']);
+      case 'promos':
+        return this.push([{ from: 'agent', text: 'Promociones de esta semana para su ruta (ficticias):\n· Pida 4 cajas de no carbonatados y la quinta lleva 10% de descuento.\n· 2 × 1 en agua natural 1 L los martes.' }], st.cart ? ['confirmar'] : ['repetir', 'ajustar']);
+      case 'reiniciar': return this.reset();
+    }
+  }
+  vendedor() {
+    this.user('Hablar con mi vendedor');
+    this.setState({ attention: true }); this.log('Doña Lupe pidió hablar con su vendedor');
+    this.push([{ from: 'note', text: 'Juan, su vendedor, le escribe en un momento' }], this.state.replies.length ? this.state.replies : ['repetir', 'ajustar']);
+  }
+  applyText(raw, isSuggestion) {
+    const t = norm(raw), st = this.state;
+    const keep = st.replies.length ? st.replies : (st.cart ? ['confirmar'] : ['repetir', 'ajustar', 'promos']);
+    if (/vendedor/.test(t)) return this.vendedor();
+    if (!isSuggestion) this.user(raw);
+    if (/cancel/.test(t)) {
+      this.setState({ cart: null, confirmed: false, step: 1, suggested: false }); this.log('Pedido cancelado por la tienda');
+      return this.push([{ from: 'agent', text: 'Cancelé el pedido en curso. Cuando quiera lo armamos de nuevo.' }], ['repetir', 'ajustar']);
+    }
+    if (/refrigerador/.test(t)) {
+      this.setState({ folio: 'SR-2207' }); this.log('Folio de servicio SR-2207 creado');
+      return this.push([{ from: 'agent', text: 'Levanté el folio de servicio SR-2207. Un técnico pasa mañana junto con su pedido.' }], keep);
+    }
+    if (/promo/.test(t)) { this.push([{ from: 'agent', text: 'Promociones de esta semana para su ruta (ficticias):\n· Pida 4 cajas de no carbonatados y la quinta lleva 10% de descuento.\n· 2 × 1 en agua natural 1 L los martes.' }], keep); return; }
+    if (/(repetir|repite|igual)/.test(t) && !st.cart) return this.setCart({ ...BASE }, 'Pedido de la semana pasada', 'Listo, el mismo pedido de la semana pasada:');
+    const keys = [['agua', /agua/], ['sinazucar', /(sin azucar|light|zero)/], ['iso', /(isotonic|energetica)/]];
+    const found = keys.filter(([, re]) => re.test(t));
+    if (found.length) {
+      if (st.confirmed) return this.push([{ from: 'agent', text: 'Su pedido ya está confirmado. Si quiere cambiarlo, toque «Hablar con mi vendedor».' }], keep);
+      const cart = { ...(st.cart || BASE) };
+      found.forEach(([k]) => {
+        const word = { agua: 'agua', sinazucar: '(?:sin azucar|light|zero)', iso: '(?:isotonico|energetica)' }[k];
+        const m = t.match(new RegExp('(\\d+)\\s*(?:cajas?\\s*)?(?:de\\s*)?(?:mas\\s*)?(?:de\\s*)?(?:refresco\\s*)?' + word));
+        cart[k] = (cart[k] || 0) + (m ? parseInt(m[1], 10) : (k === 'agua' ? 2 : 1));
+      });
+      const extra = /energetica/.test(t) ? 'Por ahora no manejamos bebida energética en su ruta; le agregué isotónico, que es lo más parecido. ' : '';
+      return this.setCart(cart, 'Pedido actualizado', extra + 'Hecho. Así queda su pedido:');
+    }
+    if (/manana/.test(t)) return this.push([{ from: 'agent', text: 'Su ruta pasa mañana entre 9:00 y 12:00. Es la Ruta 14 del CEDIS Tepic.' }], keep);
+    return this.push([{ from: 'agent', text: FALLBACK }], keep);
+  }
+  adminData(v) {
+    const st = this.state, cart = st.cart || {}, tot = total(cart), cajas = ORDER.reduce((a, k) => a + (cart[k] || 0), 0), nc = ORDER.reduce((a, k) => a + (PROD[k].nc ? (cart[k] || 0) : 0), 0), d = tot ? Math.round((tot / PROM - 1) * 100) : 0;
+    return { canal: 'Chat', status: st.confirmed ? 'Confirmado' : st.cart ? 'Armando pedido' : 'Conversación abierta', lines: lines(cart), cajas, total: fmt(tot), totalNum: tot, delta: (d >= 0 ? '+' : '') + d + '%', mix: cajas ? Math.round(nc / cajas * 100) + '%' : '0%', payLabel: PAY.find(p => p[0] === st.pay)[1], digital: 37 + (st.confirmed ? 1 : 0), confirmed: st.confirmed, track: st.confirmed ? 0 : -1, folio: st.folio, issueLabel: 'refrigerador', attention: st.attention, events: st.events, rating: null, promos: [] };
+  }
+  bridge() { return this.state.events.slice(0, 4); }
+  renderVals() {
+    const v = this.renderVals0(), fv = this.props.forceView, nw = !!this.props.narrow;
+    if (fv) { v.showClient = fv === 'cliente'; v.showCompany = fv === 'empresa'; v.cols = fv === 'empresa' || nw ? 'minmax(0,1fr)' : 'minmax(320px,390px) minmax(260px,340px)'; }
+    v.showSwitch = nw && !fv; v.showBridge = fv === 'cliente' && !nw;
+    v.openAdmin = () => { if (typeof this.props.onView === 'function') this.props.onView('empresa'); };
+    v.adminJump = this.props.adminJump; v.consoleH = this.props.consoleHeight || '720px'; v.consoleW = this.props.stageWidth || 1000;
+    v.adminData = this.adminData(v); v.bridge = this.bridge(v);
+    return v;
+  }
+  renderVals0() {
+    const st = this.state, narrow = !!this.props.narrow;
+    const cart = st.cart || {};
+    const tot = total(cart), cajas = ORDER.reduce((a, k) => a + (cart[k] || 0), 0);
+    const nc = ORDER.reduce((a, k) => a + (PROD[k].nc ? (cart[k] || 0) : 0), 0);
+    const d = tot ? Math.round((tot / PROM - 1) * 100) : 0;
+    const digital = 37 + (st.confirmed ? 1 : 0);
+    const status = st.confirmed ? 'Confirmado · entrega mañana' : st.cart ? 'Armando pedido' : 'Conversación abierta';
+    const tabs = [['ruta', 'Ruta'], ['gerente', 'Vista gerente']];
+    const centro = 41 + (st.confirmed ? 1 : 0);
+    return {
+      narrow, notBare: !this.props.bare, step: st.step,
+      cols: narrow ? 'minmax(0,1fr)' : 'minmax(320px,390px) minmax(0,1fr)',
+      phoneH: this.props.phoneHeight || (narrow ? '680px' : '780px'),
+      showClient: !narrow || st.view === 'cliente', showCompany: !narrow || st.view === 'empresa',
+      views: [['cliente', 'Vista del cliente'], ['empresa', 'Vista de la empresa']].map(([id, label]) => { const on = st.view === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ view: id }), bg: on ? '#fff' : 'transparent', color: on ? '#0A0A0A' : '#525252', shadow: on ? '0 1px 3px rgba(0,0,0,.1)' : 'none' }; }),
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5',
+      toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.reset(),
+      flow: [{ t: 'Celular de la tiendita', s: 'Chat o app', tunnel: true }, { t: 'Agente Pedido Nayar', s: 'Guion y reglas de pedido', tunnel: true }, { t: 'ERP y rutas del CEDIS', s: 'Pedido, inventario, ruta', tunnel: false }],
+      chatRef: this.chatRef, typing: st.typing,
+      msgs: st.msgs.map(m => ({ ...m, isNote: m.from === 'note', isUser: m.from === 'user', isAgent: m.from === 'agent' && !m.kind, isCart: m.kind === 'cart', isSummary: !!m.summary,
+        payOpts: PAY.map(([id, label]) => { const on = st.pay === id; return { label, on: on ? 'true' : 'false', border: on ? '#0031EC' : '#E5E5E5', dot: on ? '4px solid #0031EC' : '1.5px solid #A3A3A3', pick: () => { if (!st.confirmed) { this.setState({ pay: id }); this.log('Forma de pago: ' + label); } } }; }) })),
+      hasReplies: st.replies.length > 0 && !st.typing,
+      replies: st.replies.map(k => ({ label: LABELS[k], go: () => this.act(k) })),
+      vendedor: () => this.vendedor(),
+      text: st.text, onText: e => this.setState({ text: e.target.value }),
+      submit: e => { e.preventDefault(); const v = st.text.trim(); if (!v) return; this.setState({ text: '' }); this.applyText(v); },
+      dashTabs: tabs.map(([id, label]) => { const on = st.dashTab === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ dashTab: id }), bg: on ? '#fff' : 'transparent', color: on ? '#0A0A0A' : '#525252' }; }),
+      tabRuta: st.dashTab === 'ruta', tabGerente: st.dashTab === 'gerente',
+      digital, digPct: (digital / 112 * 100).toFixed(1) + '%', digColor: st.confirmed ? '#0031EC' : '#0A0A0A',
+      mix: cajas ? Math.round(nc / cajas * 100) + '%' : '0%',
+      hasCart: !!st.cart, noCart: !st.cart, cartLines: lines(cart), total: fmt(tot), delta: (d >= 0 ? '+' : '') + d + '%',
+      payLabel: PAY.find(p => p[0] === st.pay)[1],
+      status, statusBg: st.confirmed ? '#0031EC' : '#F2F2F2', statusColor: st.confirmed ? '#fff' : '#333',
+      orderBorder: st.attention ? '#0A0A0A' : st.cart ? '#0031EC' : '#EBEBEB',
+      attention: st.attention, folio: st.folio, events: st.events,
+      colonias: COLONIAS.map(([n, p]) => { const pct = n === 'Centro' ? centro : p; const a = Math.min(1, pct / 60); return { n, pct: pct + '%', bg: 'rgba(0,49,236,' + (0.06 + a * 0.94).toFixed(2) + ')', color: a > 0.45 ? '#fff' : '#0A0A0A', outline: n === 'Centro' ? '2px solid #0A0A0A' : 'none' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

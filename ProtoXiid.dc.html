@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#FAFAFA">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px;background:#F4F6FE">
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5;color:#1A1A1A">
+        <li>Sin puertos de entrada: los sistemas no responden a quien los busca desde afuera, así que no se pueden descubrir.</li>
+        <li>Cada conexión va de un proceso autorizado a otro por un túnel sellado, con cifrado poscuántico.</li>
+        <li>La microsegmentación separa a cada empresa y cada sede: un equipo comprometido no tiene camino hacia las demás.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Descripción de Terniion por el fabricante" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+    <div role="radiogroup" aria-label="Escenario de red" style="display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:8px;background:#F2F2F2;gap:4px;flex:1;min-width:min(100%,360px);max-width:560px">
+      <sc-for list="{{ modes }}" as="m">
+        <button type="button" role="radio" aria-checked="{{ m.on }}" onClick="{{ m.pick }}" style="all:unset;cursor:pointer;text-align:center;padding:12px 10px;border-radius:6px;font:700 15px/1.2 Satoshi,sans-serif;background:{{ m.bg }};color:{{ m.color }};transition:background 250ms,color 250ms" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ m.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <button type="button" onClick="{{ scan }}" disabled="{{ busy }}" style="all:unset;cursor:pointer;height:44px;padding:0 16px;border-radius:4px;border:1px solid #0A0A0A;font:700 14px/42px Satoshi,sans-serif;opacity:{{ busyOp }}" style-hover="background:#0A0A0A;color:#fff">Simular escaneo de un atacante</button>
+      <button type="button" onClick="{{ compromise }}" disabled="{{ busy }}" style="all:unset;cursor:pointer;height:44px;padding:0 16px;border-radius:4px;border:1px solid #0A0A0A;font:700 14px/42px Satoshi,sans-serif;opacity:{{ busyOp }}" style-hover="background:#0A0A0A;color:#fff">Simular un equipo comprometido en una filial</button>
+    </div>
+  </div>
+
+  <div style="position:relative;border:1px solid #E5E5E5;border-radius:10px;background:#FAFAFA;overflow:hidden">
+    <div style="position:absolute;top:14px;left:16px;right:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none">
+      <sc-if value="{{ hasMsg }}"><span role="status" style="padding:8px 12px;border-radius:6px;font:700 14px/1.2 Satoshi,sans-serif;background:{{ msgBg }};color:#fff">{{ msg }}</span></sc-if>
+    </div>
+    {{ map }}
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font:500 12.5px/1.3 Inter,sans-serif;color:#333">
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:50%;border:1.5px solid #0A0A0A;background:#fff;box-sizing:border-box"></span>Sistema del grupo</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:50%;border:2px solid #D92D20;background:#fff;box-sizing:border-box"></span>Servicio visible desde afuera</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:50%;background:#D92D20"></span>Equipo comprometido</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:22px;border-top:2px dashed #0031EC"></span>Túnel sellado de Xiid</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;border-top:1px solid #EBEBEB;padding-top:14px">
+    <p style="margin:0;max-width:720px;font-size:14px;line-height:1.5;color:#525252;text-wrap:pretty">Simulación ilustrativa. No representa la red real de Álica, que no conocemos. El estado real se mide en 90 días con un diagnóstico Hacknoid.</p>
+    <button type="button" onClick="{{ casos }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;height:42px;padding:0 16px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/1 Satoshi,sans-serif" style-hover="background:#2944FF" style-focus="outline:2px solid #0031EC;outline-offset:2px">Ver casos de uso de seguridad</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:900}}">
+const h = React.createElement;
+const RED = '#D92D20';
+const NODES = [
+  { id: 'nube', x: 400, y: 48, r: 11, label: 'Nube', lx: 0, ly: -20 },
+  { id: 'corp', x: 400, y: 160, r: 12, label: 'Corporativo', lx: 0, ly: -22 },
+  { id: 'planta', x: 400, y: 285, r: 17, label: 'Planta Tepic', lx: 0, ly: 36 },
+  { id: 'a1', x: 110, y: 90, r: 8 }, { id: 'a2', x: 70, y: 175, r: 8 }, { id: 'a3', x: 150, y: 245, r: 8 },
+  { id: 'f1', x: 600, y: 80, r: 8 }, { id: 'f2', x: 575, y: 210, r: 8 },
+  { id: 'h1', x: 715, y: 105, r: 8 }, { id: 'h2', x: 745, y: 195, r: 8 }, { id: 'h3', x: 690, y: 275, r: 8 }
+];
+for (let i = 0; i < 12; i++) { const a = Math.PI * (0.13 + 0.74 * i / 11); NODES.push({ id: 'c' + i, x: Math.round(400 - 320 * Math.cos(a)), y: Math.round(300 + 140 * Math.sin(a)), r: 5.5 }); }
+const GROUPS = [{ t: 'Agencias automotrices', x: 95, y: 290 }, { t: 'Sedes funerarias', x: 588, y: 250 }, { t: 'Hoteles', x: 760, y: 70 }, { t: '12 CEDIS', x: 400, y: 462 }];
+const EDGES = [['nube', 'corp'], ['corp', 'planta'], ['corp', 'a1'], ['corp', 'a2'], ['corp', 'a3'], ['a3', 'planta'], ['corp', 'f1'], ['corp', 'f2'], ['corp', 'h1'], ['corp', 'h2'], ['corp', 'h3'], ['f2', 'planta'], ...Array.from({ length: 12 }, (_, i) => ['planta', 'c' + i])];
+const EXPOSED = ['planta', 'corp', 'a1', 'a2', 'h1', 'f1', 'c2', 'c5', 'c9'];
+const BY = Object.fromEntries(NODES.map(n => [n.id, n]));
+const ADJ = {}; EDGES.forEach(([a, b]) => { (ADJ[a] = ADJ[a] || []).push(b); (ADJ[b] = ADJ[b] || []).push(a); });
+
+class Component extends DCLogic {
+  state = { mode: 'hoy', scanX: null, revealed: [], comp: [], msg: '', phase: null, busy: false, protect: false };
+  componentWillUnmount() { this.stop(); }
+  componentDidUpdate() { const rk = this.state.phase || 'inicio'; if (this._rep !== rk) { this._rep = rk; if (typeof this.props.onStep === 'function') this.props.onStep(rk); } }
+  stop() { cancelAnimationFrame(this._raf); (this._timers || []).forEach(clearTimeout); this._timers = []; }
+  clear(extra) { this.stop(); this.setState({ scanX: null, revealed: [], comp: [], msg: '', phase: null, busy: false, ...(extra || {}) }); }
+  scan() {
+    this.clear({ phase: 'scan', busy: true });
+    const t0 = performance.now(), dur = 1800, mode = this.state.mode;
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur), x = -40 + p * 880;
+      const revealed = mode === 'hoy' ? EXPOSED.filter(id => BY[id].x < x) : [];
+      this.setState({ scanX: x, revealed });
+      if (p < 1) this._raf = requestAnimationFrame(step);
+      else this.setState({ scanX: null, busy: false, msg: mode === 'hoy' ? EXPOSED.length + ' servicios descubiertos' : '0 servicios descubiertos' });
+    };
+    this._raf = requestAnimationFrame(step);
+  }
+  compromise() {
+    this.clear({ phase: 'comp', busy: true, comp: ['a2'] });
+    if (this.state.mode === 'xiid') { this._timers.push(setTimeout(() => this.setState({ busy: false, msg: 'Contenido: sin movimiento lateral' }), 700)); return; }
+    const seen = new Set(['a2']); let frontier = ['a2'], delay = 0;
+    while (frontier.length) {
+      const next = [];
+      frontier.forEach(id => (ADJ[id] || []).forEach(n => { if (!seen.has(n)) { seen.add(n); next.push(n); } }));
+      if (!next.length) break;
+      delay += 480;
+      const snapshot = Array.from(seen);
+      this._timers.push(setTimeout(() => this.setState({ comp: snapshot }), delay));
+      frontier = next;
+    }
+    this._timers.push(setTimeout(() => this.setState({ busy: false, msg: 'Propagado a ' + (seen.size - 1) + ' sistemas, incluida la planta' }), delay + 300));
+  }
+  map() {
+    const st = this.state, xiid = st.mode === 'xiid', comp = new Set(st.comp), rev = new Set(st.revealed);
+    const kids = [];
+    kids.push(h('rect', { key: 'bg', x: 0, y: 0, width: 800, height: 480, fill: '#FAFAFA' }));
+    EDGES.forEach(([a, b], i) => {
+      const A = BY[a], B = BY[b], hot = !xiid && comp.has(a) && comp.has(b);
+      kids.push(h('line', { key: 'e' + i, x1: A.x, y1: A.y, x2: B.x, y2: B.y, stroke: hot ? RED : xiid ? '#0031EC' : '#C4C4C4', strokeWidth: hot ? 1.8 : 1.2, strokeDasharray: xiid ? '4 4' : null, opacity: xiid ? 0.55 : 1, style: { transition: 'stroke 300ms' } }));
+    });
+    if (st.scanX !== null) {
+      const c = xiid ? '#0031EC' : RED;
+      kids.push(h('rect', { key: 'band', x: st.scanX - 60, y: 0, width: 60, height: 480, fill: c, opacity: 0.06 }));
+      kids.push(h('line', { key: 'scan', x1: st.scanX, y1: 0, x2: st.scanX, y2: 480, stroke: c, strokeWidth: 2, opacity: 0.7 }));
+    }
+    NODES.forEach(n => {
+      const isC = comp.has(n.id), isR = rev.has(n.id), big = n.id === 'planta';
+      const fill = isC ? RED : big ? '#0A0A0A' : '#fff';
+      const stroke = isC ? RED : isR ? RED : xiid ? '#0031EC' : '#0A0A0A';
+      kids.push(h('circle', { key: 'n' + n.id, cx: n.x, cy: n.y, r: n.r, fill, stroke, strokeWidth: isR ? 2.6 : 1.5, style: { transition: 'fill 300ms, stroke 300ms' } }));
+      if (isR && !isC) kids.push(h('circle', { key: 'halo' + n.id, cx: n.x, cy: n.y, r: n.r + 6, fill: 'none', stroke: RED, strokeWidth: 1, opacity: 0.5 }));
+      if (n.label) kids.push(h('text', { key: 't' + n.id, x: n.x + n.lx, y: n.y + n.ly, textAnchor: 'middle', style: { font: "700 14px 'Plus Jakarta Sans',sans-serif" }, fill: '#0A0A0A' }, n.label));
+      if (isR && !isC && n.r > 6) kids.push(h('text', { key: 'v' + n.id, x: n.x, y: n.y + n.r + (n.label && n.ly > 0 ? 34 : 16), textAnchor: 'middle', style: { font: "600 10.5px 'Plus Jakarta Sans',sans-serif" }, fill: RED }, 'servicio visible'));
+    });
+    GROUPS.forEach((g, i) => kids.push(h('text', { key: 'g' + i, x: g.x, y: g.y, textAnchor: 'middle', style: { font: "600 11px 'Plus Jakarta Sans',sans-serif", letterSpacing: '.12em', textTransform: 'uppercase' }, fill: '#525252' }, g.t.toUpperCase())));
+    return h('svg', { viewBox: '0 0 800 480', width: '100%', role: 'img', 'aria-label': 'Mapa abstracto de la red del grupo: nube, corporativo, planta Tepic, 12 CEDIS, agencias, sedes funerarias y hoteles', style: { display: 'block' } }, kids);
+  }
+  renderVals() {
+    const st = this.state;
+    return {
+      stepLabel: st.phase === 'scan' ? 'Paso 1 de 2 · Escaneo' : st.phase === 'comp' ? 'Paso 2 de 2 · Equipo comprometido' : 'Elija una simulación',
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5',
+      toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.clear({ mode: 'hoy' }),
+      modes: [['hoy', 'Hoy: VPN y puertos abiertos'], ['xiid', 'Con Xiid']].map(([id, label]) => { const on = st.mode === id; return { label, on: on ? 'true' : 'false', pick: () => this.clear({ mode: id }), bg: on ? (id === 'xiid' ? '#0031EC' : '#0A0A0A') : 'transparent', color: on ? '#fff' : '#525252' }; }),
+      casos: () => { if (typeof this.props.onCasos === 'function') this.props.onCasos(); else { try { location.href = 'index.html#seguridad-casos'; } catch (e) {} } },
+      scan: () => this.scan(), compromise: () => this.compromise(), busy: st.busy, busyOp: st.busy ? 0.4 : 1,
+      hasMsg: !!st.msg, msg: st.msg, msgBg: st.mode === 'xiid' ? '#0031EC' : RED,
+      map: this.map()
+    };
+  }
+}
+</script>
+</body>
+</html>

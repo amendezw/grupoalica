@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="robots" content="noindex">
+<title>Grupo Álica · Prototipos</title>
+<link rel="icon" href="assets/wigilabs-isotipo.png">
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;color:#0A0A0A;font-family:Inter,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0031EC;text-decoration:none}
+a:hover{color:#001D9B}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="height:100vh;display:grid;grid-template-rows:auto minmax(0,1fr);background:#fff;color:#0A0A0A;font-family:Inter,sans-serif">
+  <header style="display:flex;align-items:center;gap:14px;padding:0 clamp(12px,2vw,24px);height:60px;border-bottom:1px solid #EBEBEB;background:#fff;min-width:0">
+    <sc-if value="{{ hasClose }}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{ close }}" style="all:unset;cursor:pointer;flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;font:600 13.5px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A" style-focus="outline:2px solid #0031EC;outline-offset:2px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"></path></svg>{{ backLabel }}</button>
+    </sc-if>
+    <sc-if value="{{ noClose }}">
+      <a href="index.html#prototipos" style="flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;font:600 13.5px/1 Inter,sans-serif;color:#0A0A0A" style-hover="border-color:#0A0A0A;color:#0A0A0A"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"></path></svg>{{ backLabel }}</a>
+    </sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><span style="flex:none;display:flex;align-items:center;gap:8px;padding-left:6px"><img src="assets/wigilabs-isotipo.png" alt="Wigilabs" width="26" height="26" style="display:block;width:26px;height:26px"><span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#525252">Prototipos · Grupo Álica</span></span></sc-if>
+    <nav role="tablist" aria-label="Prototipos" style="flex:1;min-width:0;display:flex;gap:4px;justify-content:flex-start;overflow-x:auto;scrollbar-width:none">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="all:unset;cursor:pointer;flex:none;display:flex;flex-direction:column;gap:3px;padding:8px 12px;border-radius:6px;transition:background 180ms;background:{{ t.bg }};color:{{ t.color }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+          <span style="font:600 9.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75">{{ t.empresa }}</span>
+          <span style="font:700 14px/1.1 Satoshi,sans-serif;white-space:nowrap">{{ t.nombre }}</span>
+        </button>
+      </sc-for>
+    </nav>
+  </header>
+
+  <div style="min-height:0;display:grid;grid-template-columns:{{ bodyCols }};grid-template-rows:{{ bodyRows }}">
+    <aside aria-label="Guía del recorrido" style="min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden;border-right:1px solid #EBEBEB;border-bottom:{{ railBorderB }};background:#fff">
+      <sc-if value="{{ narrow }}">
+        <button type="button" aria-expanded="{{ guideAria }}" onClick="{{ toggleGuide }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px">
+          <span style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:0"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#0031EC">{{ cur.label }}</span><span style="font:700 15px/1.25 Satoshi,sans-serif">{{ cur.t }}</span></span>
+          <span style="flex:none;white-space:nowrap;font:600 13px/1 Inter,sans-serif;color:#0031EC">{{ guideToggleLabel }}</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:clamp(18px,2vw,28px);display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#666">{{ n.empresa }}</span>
+            <h1 style="margin:0;font:700 clamp(26px,2.4vw,32px)/1.08 Satoshi,sans-serif;letter-spacing:-.02em">{{ n.nombre }}</h1>
+            <sc-if value="{{ isNayar }}">
+              <div role="radiogroup" aria-label="Canal" style="display:grid;grid-template-columns:1fr 1fr;padding:3px;border-radius:6px;background:#F2F2F2;gap:3px;margin-top:4px">
+                <sc-for list="{{ canales }}" as="c"><button type="button" role="radio" aria-checked="{{ c.on }}" onClick="{{ c.pick }}" style="all:unset;cursor:pointer;text-align:center;height:34px;border-radius:4px;font:600 13px/34px Inter,sans-serif;background:{{ c.bg }};color:{{ c.color }}">{{ c.label }}</button></sc-for>
+              </div>
+            </sc-if>
+            <p style="margin:4px 0 0;font-size:15px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">{{ n.idea }}</p>
+          </div>
+          <sc-if value="{{ n.concepto }}"><div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:8px;background:#0A0A0A;color:#FAFAFA"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8AF3FF">Concepto</span><span style="font-size:14px;line-height:1.5;text-wrap:pretty">{{ n.concepto }}</span></div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:8px;background:#F5F5F5">
+            <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Problema que resuelve</span>
+            <span style="font-size:14px;line-height:1.5;color:#1A1A1A;text-wrap:pretty">{{ n.problema }}</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:1px solid #0A0A0A">
+              <span style="font:700 16px/1.2 Satoshi,sans-serif">Recorrido</span>
+              <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ cur.label }}</span>
+            </div>
+            <ol style="margin:0;padding:0;list-style:none">
+              <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+                <li style="border-bottom:1px solid #EBEBEB">
+                  <sc-if value="{{ s.hasGroup }}"><span style="display:block;padding:14px 0 0;font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#0031EC">{{ s.grupo }}</span></sc-if>
+                  <button type="button" onClick="{{ s.go }}" aria-current="{{ s.cur }}" disabled="{{ s.locked }}" style="all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;padding:12px 0;cursor:{{ s.cursor }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+                    <span style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 11.5px/1 'Plus Jakarta Sans',sans-serif;transition:all 200ms;background:{{ s.bg }};color:{{ s.fg }};border:1.5px solid {{ s.ring }}">{{ s.num }}</span>
+                    <span style="font:700 14.5px/1.3 Satoshi,sans-serif;padding-top:4px;color:{{ s.color }}">{{ s.t }}</span>
+                  </button>
+                  <sc-if value="{{ s.on }}">
+                    <div style="padding:0 0 16px 38px;display:flex;flex-direction:column;gap:12px">
+                      <div style="display:flex;flex-direction:column;gap:4px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ labelA }}</span><span style="font-size:14px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">{{ s.a }}</span></div>
+                      <div style="display:flex;flex-direction:column;gap:4px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ labelB }}</span><span style="font-size:14px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">{{ s.b }}</span></div>
+                      <sc-if value="{{ s.hasAdm }}"><button type="button" onClick="{{ s.goAdm }}" style="all:unset;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #0A0A0A;font:600 12.5px/1 Inter,sans-serif" style-hover="background:#0A0A0A;color:#fff">{{ s.admLabel }}</button></sc-if>
+                    </div>
+                  </sc-if>
+                </li>
+              </sc-for>
+            </ol>
+            <sc-if value="{{ canNext }}">
+              <button type="button" onClick="{{ next }}" style="all:unset;cursor:pointer;margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/1 Satoshi,sans-serif" style-hover="background:#2944FF">{{ nextLabel }}<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></button>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ hasMapa }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 16px/1.2 Satoshi,sans-serif">Mapa de pantallas</span>
+              <span style="font-size:13px;line-height:1.5;color:#525252">Toque una pantalla para ir a ella en la app.</span>
+              <sc-for list="{{ mapa }}" as="m">
+                <div style="display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid #EBEBEB">
+                  <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ m.t }}</span>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px">
+                    <sc-for list="{{ m.nodes }}" as="x">
+                      <sc-if value="{{ x.arrow }}"><span aria-hidden="true" style="font:500 12px/1 Inter,sans-serif;color:#A3A3A3">{{ x.sep }}</span></sc-if>
+                      <button type="button" onClick="{{ x.go }}" style="all:unset;cursor:pointer;padding:5px 9px;border-radius:4px;font:600 12px/1.2 Inter,sans-serif;border:1px solid {{ x.border }};background:{{ x.bg }};color:{{ x.color }}">{{ x.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font:700 16px/1.2 Satoshi,sans-serif">Cómo probarlo</span>
+            <span style="font-size:13.5px;line-height:1.55;color:#333;text-wrap:pretty">{{ n.how }}</span>
+            <sc-if value="{{ n.extra }}"><span style="font-size:13.5px;line-height:1.55;color:#333;text-wrap:pretty">{{ n.extra }}</span></sc-if>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;padding-top:16px;border-top:1px solid #0A0A0A">
+            <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#666">{{ n.sprintTitle }}</span>
+            <sc-for list="{{ sprint }}" as="f">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font:700 13.5px/1.2 Satoshi,sans-serif">{{ f.k }}</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#333;text-wrap:pretty">{{ f.v }}</span>
+                <sc-if value="{{ f.chip }}"><dc-import name="DatoChip" tipo="{{ f.chipTipo }}" fuente="{{ f.chipFuente }}" hint-size="130px,22px"></dc-import></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </aside>
+
+    <main aria-label="{{ n.nombre }}" style="min-height:0;overflow-y:auto;padding:clamp(14px,2vw,28px);background:{{ stageBg }}">
+      <div style="max-width:1240px;margin:0 auto">
+        <sc-if value="{{ hasViews }}" hint-placeholder-val="{{ true }}">
+          <div role="tablist" aria-label="Vista del prototipo" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:10px;background:{{ switchBg }};max-width:720px;margin:0 auto 18px">
+            <sc-for list="{{ viewTabs }}" as="v">
+              <button type="button" role="tab" aria-selected="{{ v.on }}" onClick="{{ v.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;transition:background 180ms,box-shadow 180ms;background:{{ v.bg }};box-shadow:{{ v.shadow }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+                <span style="flex:none;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:{{ v.iconBg }}"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="{{ v.iconFg }}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ v.d }}"></path></svg></span>
+                <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:{{ v.eyeColor }}">{{ v.eye }}</span><span style="font:700 15px/1.15 Satoshi,sans-serif;color:{{ v.color }}">{{ v.label }}</span></span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ tTablero }}"><dc-import name="ProtoTablero" bare="{{ true }}" force-view="{{ view }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" narrow="{{ childNarrow }}" on-step="{{ onStep }}" jump="{{ jump }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tHoreca }}"><dc-import name="ProtoHoreca" force-view="{{ view }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" on-step="{{ onStep }}" jump="{{ jump }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tFamilia }}"><dc-import name="ProtoFamilia" force-view="{{ view }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" narrow="{{ childNarrow }}" phone-height="{{ phoneH }}" on-step="{{ onStep }}" jump="{{ jump }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tNayarApp }}" hint-placeholder-val="{{ true }}"><dc-import name="ProtoPedidoNayarApp" force-view="{{ view }}" on-view="{{ onView }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" narrow="{{ childNarrow }}" phone-height="{{ phoneH }}" on-step="{{ onStep }}" jump="{{ jump }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tNayarChat }}"><dc-import name="ProtoPedidoNayar" force-view="{{ view }}" on-view="{{ onView }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" bare="{{ true }}" narrow="{{ childNarrow }}" phone-height="{{ phoneH }}" on-step="{{ onStep }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tMotors }}"><dc-import name="ProtoAlicaMotors" force-view="{{ view }}" on-view="{{ onView }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" bare="{{ true }}" narrow="{{ childNarrow }}" phone-height="{{ phoneH }}" on-step="{{ onStep }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tPrevision }}"><dc-import name="ProtoAcompanamiento" force-view="{{ view }}" admin-jump="{{ admJump }}" console-height="{{ consoleH }}" stage-width="{{ stageW }}" narrow="{{ childNarrow }}" phone-height="{{ phoneH }}" on-step="{{ onStep }}" jump="{{ jump }}" hint-size="100%,860px"></dc-import></sc-if>
+        <sc-if value="{{ tXiid }}"><dc-import name="ProtoXiid" on-casos="{{ onCasos }}" on-step="{{ onStep }}" hint-size="100%,760px"></dc-import></sc-if>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;initial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;nayar&quot;,&quot;motors&quot;,&quot;prevision&quot;,&quot;xiid&quot;],&quot;default&quot;:&quot;nayar&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onClose&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+const PROTOS = [['tablero', 'Corporativo', 'Tablero del consejo', 'consejo'], ['nayar', 'Embotelladora', 'Pedido Nayar', 'embotelladora'], ['motors', 'Automotriz', 'Asistente Álica Motors', 'automotriz'], ['prevision', 'Funeraria', 'Acompañamiento', 'funeraria'], ['horeca', 'Riviera Nayarit', 'Portal HORECA Riviera', 'horeca'], ['familia', 'Grupo', 'Familia Álica', 'familia'], ['xiid', 'Seguridad', 'Infraestructura invisible', 'seguridad']];
+const SPRINT_NAYAR = [
+  { k: 'Hipótesis', v: 'Una parte significativa de las tienditas de una ruta piloto acepta pedir por la app o por chat y su ticket no baja.' },
+  { k: 'Usuarios piloto', v: '30 a 50 tienditas de una ruta de Tepic.', chip: true, chipTipo: 'estimacion', chipFuente: 'Tamaño de muestra sugerido por Wigilabs para una ruta piloto' },
+  { k: 'KPI', v: '% de pedidos digitales, ticket promedio y costo por pedido.' },
+  { k: 'Criterio de éxito', v: 'Se define con el dueño de negocio el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con el dueño de negocio de la Embotelladora el día 1 del sprint' },
+  { k: 'Nota', v: 'El sprint evalúa primero si conviene apalancar herramientas del sistema Coca-Cola en lugar de construir desde cero, como sugiere la investigación.' }
+];
+const NARR = {
+  horeca: {
+    empresa: 'Embotelladora, Polo Sur y Fletes Álica', nombre: 'Portal HORECA Riviera',
+    idea: 'Un solo portal donde hoteles y restaurantes de la Riviera piden bebidas, hielo y transporte del grupo en un carrito, reciben entregas coordinadas y pagan con un estado de cuenta único.',
+    problema: 'Los hoteles quieren un solo proveedor y un solo pedido. El grupo ya tiene bebidas, hielo, transporte e inmuebles, pero cada empresa vende por separado y el hotel no ve al grupo como uno.',
+    labels: ['Qué hace el hotel', 'Qué ve el grupo'],
+    steps: [
+      { k: ['inicio'], t: 'Inicio con sugerido por ocupación', a: 'Andrés, de compras del Hotel Las Palomas, ve la ocupación esperada del fin de semana y un pedido sugerido: más hielo y agua, y refrigerado para el evento del sábado. Ve sus próximas entregas y su saldo en un solo lugar.', b: 'En la consola, el hotel aparece atendido solo por la Embotelladora: una cuenta con espacio para crecer.' },
+      { k: ['catalogo'], t: 'Un catálogo con tres empresas', a: 'Filtra por bebidas, hielo o transporte. Cada producto dice qué empresa lo entrega. Agrega sin cambiar de portal ni de vendedor.', b: 'La oportunidad de venta cruzada se registra en cuanto el hotel agrega productos de otra empresa.' },
+      { k: ['carrito'], t: 'Un solo carrito', a: 'El carrito agrupa por empresa con su ventana de entrega. El hotel elige una factura del grupo o una por empresa, y confirma con su crédito.', b: 'El pedido se reparte en un pedido interno por empresa y entra a cada sistema sin recaptura.' },
+      { k: ['entregas'], t: 'Entregas coordinadas', a: 'Cada empresa entrega en su ventana: el hielo temprano, las bebidas en su día y el refrigerado el sábado. El hotel ve el estado de cada una y confirma la recepción.', b: 'La programación junta las entregas de las tres empresas por zona para no saturar el andén.' },
+      { k: ['cuenta'], t: 'Estado de cuenta único', a: 'Todas las facturas del grupo en una lista, con un solo pago que se aplica a cada empresa automáticamente.', b: 'La cobranza consolidada baja los días de cartera y el KPI de cuentas atendidas por más de una empresa sube.' }
+    ],
+    how: 'Use las pestañas del portal o «Siguiente paso». Empiece con «Agregar sugerido» en el inicio. En la vista de administrador, revise cómo se repartió el pedido y envíe ofertas en «Oportunidades».',
+    extra: 'Hotel, productos y precios ficticios. Los hoteles del grupo (Las Palomas, Nukari) pueden ser el cliente piloto y la vitrina de la oferta integrada.',
+    sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles',
+    sprint: [
+      { k: 'Hipótesis', v: 'Un hotel que puede pedir bebidas, hielo y transporte en un solo portal compra a más de una empresa del grupo.' },
+      { k: 'Usuarios piloto', v: 'Compras de 5 a 10 hoteles y restaurantes de la Riviera, empezando por los del grupo.', chip: true, chipTipo: 'estimacion', chipFuente: 'Tamaño de piloto sugerido por Wigilabs' },
+      { k: 'KPI', v: 'Cuentas atendidas por más de una empresa, ticket por cuenta y días de cartera.' },
+      { k: 'Criterio de éxito', v: 'Se define con las direcciones comerciales el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con Embotelladora, Polo Sur y Fletes el día 1 del sprint' }
+    ]
+  },
+  familia: {
+    empresa: 'Grupo · 5,500 colaboradores', nombre: 'Familia Álica',
+    idea: 'La app de los colaboradores del grupo: registro electrónico de jornada con alertas antes del límite de 46 horas, beneficios en las empresas del grupo para ellos y sus familias, y Pulso para medir el clima.',
+    problema: 'Desde el 1 de enero de 2027 el registro electrónico de jornada es obligatorio y la jornada baja a 46 horas. Los convenios y descuentos entre empresas existen, pero no se usan ni se miden.',
+    labels: ['Qué hace el colaborador', 'Qué ve RH'],
+    steps: [
+      { k: ['inicio'], t: 'Inicio de Karla', a: 'Karla, auxiliar de almacén en el CEDIS Tepic, ve sus horas de la semana contra el límite de 46, el beneficio de la semana, su Pulso pendiente y un aviso de RH sobre 2027.', b: 'La consola de RH mide qué tanto se registra la jornada en cada empresa.' },
+      { k: ['jornada'], t: 'Registro de jornada y alerta de horas', a: 'Registra su salida con ubicación verificada. La semana sube a 45 horas y la app le avisa que le queda una hora antes del límite. Puede pedir horas extra desde ahí.', b: 'Karla aparece en «Cerca del límite» y su solicitud de horas extra llega a su supervisor para aprobar o rechazar.' },
+      { k: ['beneficios'], t: 'Beneficios en el grupo', a: 'Seis beneficios en empresas del grupo: servicio del auto, previsión, hotel, club, tienda de colaboradores y suscripción a Meridiano.', b: 'RH ve el uso de cada beneficio y las ventas cruzadas que genera para cada empresa.' },
+      { k: ['canje'], t: 'Usar un beneficio', a: 'El beneficio se muestra con un código para presentar en la empresa. Al usarlo queda marcado.', b: 'El uso suma al beneficio y a las ventas cruzadas del mes.' },
+      { k: ['pulso'], t: 'Pulso de la semana', a: 'Tres preguntas, un minuto, anónimo. Karla responde con una escala de 1 a 5.', b: 'La participación y el clima del área se actualizan sin mostrar respuestas individuales.' }
+    ],
+    how: 'Navegue con la barra inferior o con «Siguiente paso». En la jornada, registre la salida y pida horas extra; luego cambie a la vista de administrador y apruébelas en «Horas extra». Regrese a la app para ver la respuesta.',
+    extra: 'Colaboradora, beneficios y porcentajes ficticios. Las respuestas de Pulso son anónimas en el diseño.',
+    sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles',
+    sprint: [
+      { k: 'Hipótesis', v: 'Si el registro de jornada viene en la misma app que los beneficios, los colaboradores la adoptan antes del 1 de enero de 2027.' },
+      { k: 'Usuarios piloto', v: 'Colaboradores del CEDIS Tepic y de una agencia automotriz.' },
+      { k: 'KPI', v: '% de jornadas registradas, horas extra y colaboradores activos en la app.' },
+      { k: 'Criterio de éxito', v: 'Se define con RH corporativo el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con RH corporativo el día 1 del sprint' },
+      { k: 'Referencia Wigilabs', v: 'Tienda Empleados Claro, super app Mi Claro y Pulso para clima organizacional.' }
+    ]
+  },
+  tablero: {
+    empresa: 'Corporativo Grupo Empresarial Álica', nombre: 'Tablero del consejo',
+    idea: 'Un tablero donde el consejo ve las unidades del grupo con una sola vara (ventas, margen, flujo y rendimiento sobre capital), recibe cada señal con su causa, pregunta en lenguaje natural y recibe el paquete mensual armado solo.',
+    problema: 'Cada empresa reporta a su manera y con sus tiempos. El consejo recibe cifras que no se comparan entre sí y dedica la sesión a reconciliar números en lugar de decidir.',
+    concepto: 'Observabilidad de negocio: no basta con mostrar el número; hay que explicar por qué se movió. Cada indicador se conecta con la operación y con los sistemas que lo producen, y el tablero dice qué tan confiable es el dato.',
+    labels: ['Qué ve el consejo', 'Qué hace el equipo de datos'],
+    steps: [
+      { k: ['grupo'], t: 'El grupo con una sola vara', a: 'Arriba, ventas, margen y flujo del grupo contra plan. Abajo, una tarjeta por unidad con su estado (en meta, atención o alerta), su tendencia de 12 meses y la confianza del dato. Se cambia el indicador con un toque y cada tarjeta abre su unidad.', b: 'El estado de cada unidad lo deciden las reglas de señal; la confianza, la frescura y completitud de sus fuentes.' },
+      { k: ['senales'], t: 'Señales con su causa', a: 'Cada señal llega con su cadena: el indicador de negocio, lo fiscal o de mercado, la operación y los sistemas. Al final dice qué iniciativa la atiende y permite asignar un responsable sin salir del tablero.', b: 'Las asignaciones quedan en la bitácora. Si una fuente llega tarde, la cadena lo dice y baja la confianza.' },
+      { k: ['empresa'], t: 'Bajar a la unidad', a: 'Indicadores de la unidad, tendencia de margen contra plan, los factores que explican la variación y el recorrido del proceso clave, etapa por etapa, contra su meta de servicio. En la Embotelladora se ve que la liquidación de ruta está fuera de meta.', b: 'El linaje muestra de qué sistemas sale cada número y cuál está retrasado.' },
+      { k: ['pregunta'], t: 'Preguntar en lenguaje natural', a: 'El directivo escribe como hablaría en el consejo. La respuesta llega con gráfica y fuentes. Si el dato no existe, el tablero lo dice: «¿qué clientes compran a más de una empresa?» todavía no se puede responder sin el maestro de clientes único.', b: 'Cada pregunta queda registrada; las que no se pueden responder alimentan la hoja de ruta de datos.' },
+      { k: ['paquete'], t: 'Paquete del consejo automático', a: 'Un botón arma el paquete mensual: resumen del grupo, una sección por unidad, señales con sus causas y responsables, avance de la hoja de ruta y un anexo de calidad del dato.', b: 'La automatización A-07 toma los indicadores de la capa común; nadie copia cifras a mano.' }
+    ],
+    how: 'Navegue con las pestañas del tablero o con «Siguiente paso». En la vista de administrador, mueva un umbral en «Reglas de señal» o reintente la carga de los CEDIS y regrese al tablero: las señales y la confianza cambian.',
+    extra: 'Cifras ficticias expresadas contra plan; no se muestran montos de Álica. Las respuestas en lenguaje natural siguen un guion fijo.',
+    sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles',
+    sprint: [
+      { k: 'Hipótesis', v: 'El consejo decide con el cierre del mes en días y no en semanas, y cada señal llega con su causa y su responsable.' },
+      { k: 'Usuarios piloto', v: 'Consejo, dirección general y las direcciones de tres unidades: Embotelladora, Automotriz y Funeraria.' },
+      { k: 'KPI', v: 'Días para tener el cierre mensual en el tablero, señales con causa identificada y preguntas respondidas sin pedir un reporte.' },
+      { k: 'Criterio de éxito', v: 'Se define con la dirección general el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con la dirección general el día 1 del sprint' },
+      { k: 'Referencia Wigilabs', v: 'Tablero estratégico TGI y observabilidad de negocio en Sodimac.' }
+    ]
+  },
+  'nayar-app': {
+    empresa: 'Embotelladora del Nayar', nombre: 'Pedido Nayar · App',
+    idea: 'Una app donde la tiendita arma su pedido en minutos a partir de un pedido sugerido, aprovecha promociones que se completan solas, sigue su entrega y reporta fallas del refrigerador. El pedido llega a la ruta sin que el vendedor lo capture.',
+    problema: 'La toma de pedido depende de la visita del vendedor y de su memoria. El sistema Coca-Cola ya mueve una parte creciente del canal por plataformas digitales y no hay evidencia de un canal equivalente en Álica.',
+    labels: ['Qué hace la tiendita', 'Qué pasa en el CEDIS'],
+    steps: [
+      { k: ['inicio'], t: 'Inicio con el pedido de la semana', a: 'Doña Lupe abre la app a las 7:40. La pantalla de inicio reúne lo que necesita para decidir: su pedido sugerido con total y número de cajas, cuánto le falta para la promoción de la semana y el estado de su refrigerador. Desde aquí puede revisar el sugerido o repetir el pedido anterior con un toque.', b: 'El tablero registra que la tienda abrió la app. Aparece la tarjeta del pedido en curso, todavía sin productos.' },
+      { k: ['sugerido'], t: 'Revisar el pedido sugerido', a: 'Ve cinco productos con la razón de cada uno: su historial de las últimas 4 semanas, la temporada y lo que piden las tiendas de su colonia. Las dos sugerencias nuevas están marcadas. Ajusta cantidades con + y − y agrega todo al carrito.', b: 'El pedido entra al tablero con su total, el ticket frente al promedio de la tienda y la mezcla de no carbonatados.' },
+      { k: ['catalogo'], t: 'Explorar el catálogo', a: 'Busca por nombre o filtra por categoría: refrescos, sin azúcar, agua, isotónicos y jugos. Cada producto muestra presentación, precio por caja y una etiqueta cuando es de lo más pedido en su colonia. Agrega y ajusta sin salir de la lista; la barra inferior muestra el total en todo momento.', b: 'Cada producto agregado aparece en la actividad y mueve la mezcla de no carbonatados y sin azúcar.' },
+      { k: ['promos'], t: 'Promociones que se completan solas', a: 'Cada promoción muestra cuánto le falta para aplicarla y ofrece el producto que la completa. El paquete calor agrega tres isotónicos y dos aguas minerales de una vez. Los descuentos se aplican en el carrito sin códigos.', b: 'La gestión de ingresos (P-07) decide qué promoción ve cada zona y mide cuál mueve la mezcla.' },
+      { k: ['carrito', 'confirmado'], t: 'Carrito y confirmación', a: 'Revisa productos, descuentos y total. Elige la ventana de entrega de la Ruta 14 y la forma de pago, incluido el crédito de la tienda. Confirma y recibe el número de pedido con la hora de llegada.', b: 'El contador de pedidos digitales de la Ruta 14 sube en 1 y el pedido entra a la ruta sin captura del vendedor.' },
+      { k: ['pedidos'], t: 'Seguimiento de la entrega', a: 'Ve en qué estado va su pedido: confirmado, preparado en el CEDIS, en ruta con número de parada y entregado. Al recibirlo califica la entrega. Debajo están sus pedidos anteriores, cada uno con «Repetir».', b: 'Cada cambio de estado aparece en la actividad. Una calificación negativa marca la tienda como «Requiere atención».' },
+      { k: ['refri'], t: 'Servicio del refrigerador', a: 'Ve la temperatura que reporta el equipo. Si algo falla, elige el problema y envía el reporte; recibe un folio y la visita del técnico se agenda junto con su entrega.', b: 'El folio de servicio aparece en el tablero, asignado a la Ruta 14.' }
+    ],
+    mapa: [
+      { t: 'Recorrido principal', nodes: ['inicio', 'sugerido', 'carrito', 'confirmado', 'pedidos'] },
+      { t: 'Explorar y armar', nodes: ['inicio', 'catalogo', 'carrito'] },
+      { t: 'Promoción', nodes: ['inicio', 'promos', 'carrito'] },
+      { t: 'Servicio', nodes: ['inicio', 'refri'] },
+      { t: 'Barra inferior', nodes: ['inicio', 'catalogo', 'pedidos', 'refri', 'cuenta'], sep: '·' }
+    ],
+    how: 'Navegue con la barra inferior como en cualquier app, o siga el recorrido con «Siguiente paso». El botón de atrás regresa a la pantalla anterior y el carrito está siempre arriba a la derecha. En «Cuenta» puede escribirle a Juan, su vendedor.',
+    extra: 'Precios, productos y promociones son ficticios. No se usan logotipos ni empaques de marcas franquiciadas; el catálogo real se carga en el piloto.',
+    sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles', sprint: SPRINT_NAYAR
+  },
+  'nayar-chat': {
+    empresa: 'Embotelladora del Nayar', nombre: 'Pedido Nayar · Chat',
+    idea: 'Un agente que toma el pedido de la tiendita por chat, sugiere qué pedir según su historial y su zona, y lo entrega a la ruta sin que el vendedor tenga que capturarlo. Funciona en WhatsApp y en la app.',
+    problema: 'La toma de pedido depende de la visita del vendedor y de su memoria. El sistema Coca-Cola ya mueve una parte creciente del canal por plataformas digitales y no hay evidencia de un canal equivalente en Álica.',
+    labels: ['Qué hace la tiendita', 'Qué pasa en el CEDIS'],
+    steps: [
+      { k: ['1'], t: 'Mensaje proactivo, martes 7:40', a: 'El agente escribe primero y le recuerda a Doña Lupe su pedido de la semana pasada. Ella elige repetirlo, ajustarlo o ver promociones con un toque.', b: 'El tablero registra el mensaje enviado y abre la tarjeta del pedido entrante.' },
+      { k: ['2'], t: 'Ajuste en lenguaje natural', a: 'Si elige «Ajustar», escribe como le hablaría a su vendedor: «Ponle 2 de agua más y quiero probar el refresco sin azúcar». El agente devuelve el carrito actualizado como tarjeta.', b: 'El pedido en curso y la mezcla de no carbonatados se actualizan.' },
+      { k: ['3'], t: 'Pedido sugerido', a: 'El agente sugiere 1 caja de isotónico para completar la promoción de no carbonatados y explica por qué: es lo que piden las tiendas de su colonia.', b: 'Si acepta, sube el ticket frente al promedio de la tienda.' },
+      { k: ['4'], t: 'Confirmación', a: 'Resumen con total, ventana de entrega de la Ruta 14 y forma de pago. Un botón confirma.', b: 'El contador de pedidos digitales sube en 1 y el pedido entra sin captura del vendedor.' },
+      { k: ['5'], t: 'Servicio posventa', a: 'El agente pregunta por el refrigerador. Si reporta una falla, se crea un folio de servicio.', b: 'El folio aparece en el tablero, asignado a la ruta.' }
+    ],
+    how: 'Use los botones de respuesta o escriba. Palabras que reconoce: repetir, igual, agua, sin azúcar, light, isotónico, energética, promo, promoción, cancelar, mañana, vendedor, refrigerador. «Hablar con mi vendedor» está siempre visible.',
+    extra: '', sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles', sprint: SPRINT_NAYAR
+  },
+  motors: {
+    empresa: 'Álica Automotriz', nombre: 'Asistente Álica Motors',
+    idea: 'Un agente que atiende prospectos y clientes de servicio a cualquier hora, califica la intención, valora el auto a cuenta y agenda prueba de manejo o cita de taller, mientras el asesor recibe el caso ya resumido.',
+    problema: 'Con marcas chinas en 11.2% del mercado y promociones agresivas en precio, la venta se gana por velocidad de respuesta, posventa y seminuevos bien valuados.',
+    labels: ['Qué vive el cliente', 'Qué ve el asesor'],
+    steps: [
+      { k: ['venta-1'], grupo: 'Venta · Mariana, Bahía de Banderas', t: 'Primer mensaje fuera de horario', a: 'Viernes 21:47. Mariana escribe desde el chat web de la agencia. El agente responde al instante y hace tres preguntas con botones: uso, mensualidad y auto a cuenta.', b: 'Se crea la ficha del prospecto con «Respondido en 8 segundos». La calificación empieza en Frío.' },
+      { k: ['venta-2'], t: 'Dos opciones a su medida', a: 'Con sus respuestas, el agente muestra dos SUV con precio de lista y mensualidad estimada, y ofrece compararlas.', b: 'El resumen registra necesidad, presupuesto y auto a cuenta. La calificación pasa a Tibio.' },
+      { k: ['venta-3'], t: 'Comparador de costo total a 3 años', a: 'Una tabla con precio, servicio estimado y valor de reventa. Si pregunta por una marca china, el agente responde con neutralidad y ofrece agregarla a la tabla con la misma vara.', b: 'La objeción queda anotada en el resumen para el asesor.' },
+      { k: ['venta-4'], t: 'Valuación del auto a cuenta', a: 'Elige año, modelo y kilometraje y recibe un rango preliminar de toma, que se confirma en la revisión física.', b: 'El rango aparece en la ficha del prospecto.' },
+      { k: ['venta-5'], t: 'Agenda de prueba de manejo', a: 'Elige horario del sábado y lugar: agencia de Tepic o a domicilio en Bahía de Banderas. Recibe confirmación y recordatorio.', b: 'La calificación pasa a Caliente y la siguiente mejor acción le dice al asesor cuándo llamar.' },
+      { k: ['servicio-1'], grupo: 'Servicio · Ricardo, cliente desde 2023', t: 'Solicitud de servicio', a: 'Ricardo escribe que le toca el servicio de 20,000 km.', b: 'Se abre su ficha con el vehículo y el último servicio.' },
+      { k: ['servicio-2'], t: 'Paquete y horarios', a: 'El agente reconoce el vehículo, muestra el paquete con precio y ofrece dos horarios.', b: 'La orden de servicio se arma con el paquete elegido.' },
+      { k: ['servicio-3'], t: 'Venta adicional opcional', a: 'Sugiere una revisión de frenos por el desgaste registrado. Ricardo decide sin presión.', b: 'Si acepta, sube el contador de ventas adicionales de la semana.' },
+      { k: ['servicio-4'], t: 'Cita confirmada', a: 'Confirma horario y total estimado, con recordatorio un día antes.', b: 'La ocupación del taller del día se actualiza.' }
+    ],
+    how: 'Cambie entre «Venta» y «Servicio» en la barra de la demo. Use los botones o escriba. Palabras que reconoce: SUV, pick-up, familia, precio, mensualidad, crédito, china, comparar, cuenta, usado, seminuevo, prueba, manejo, servicio, cita, asesor.',
+    extra: '', sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles',
+    sprint: [
+      { k: 'Hipótesis', v: 'Responder en segundos fuera de horario sube la conversión de prospecto a cita.' },
+      { k: 'Usuarios piloto', v: 'Prospectos de la web y redes de una agencia.' },
+      { k: 'KPI', v: 'Tiempo de primera respuesta, % de prospectos con cita y asistencia a la cita.' },
+      { k: 'Criterio de éxito', v: 'Se define con el dueño de negocio el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con la dirección de Álica Automotriz el día 1 del sprint' }
+    ]
+  },
+  prevision: {
+    empresa: 'Funeraria Bello Recuerdo y Jardines de San Juan', nombre: 'Acompañamiento Bello Recuerdo',
+    idea: 'Una app que acompaña a la familia en los tres momentos que importan: cuando ocurre la pérdida, después del servicio y cuando decide planear con tiempo. La previsión deja de ser un producto que se vende y se vuelve la consecuencia de haber acompañado bien.',
+    problema: 'En el momento de la pérdida la familia no sabe qué hacer, está dispersa y decide con prisa. Después del servicio nadie la acompaña con los trámites ni con el duelo. Y la previsión se ofrece como un producto más, sin mostrar el valor que tiene para la familia.',
+    concepto: 'Lo que la familia compra no es un plan: es saber qué sigue, tener a alguien con nombre a su lado y que todos estén enterados. La familia que vivió un buen servicio es la que más confía para planear con tiempo.',
+    labels: ['Qué vive la familia', 'Qué ve la funeraria'],
+    steps: [
+      { k: ['inicio'], t: 'Tres puertas, sin presión', a: 'Laura abre la app. Ve tres caminos claros: «Necesito ayuda ahora», «Planear con tiempo» y «Ya vivimos un servicio». No hay contadores ni promociones.', b: 'El panel muestra los servicios en curso de Tepic y Puerto Vallarta.' },
+      { k: ['ayuda'], t: 'Estamos con usted', a: 'Su papá acaba de fallecer en casa. Con un toque pide que la llamen. En segundos sabe quién es su asesora, Patricia, y que la llamará en dos minutos. La app le dice solo tres cosas que hacer ahora y le quita la presión de los trámites.', b: 'La solicitud entra como alerta prioritaria, asignada a Patricia, con el tiempo de respuesta medido.' },
+      { k: ['servicio'], t: 'Saber qué sigue', a: 'Laura sigue el servicio etapa por etapa: unidad en camino con tiempo estimado, traslado, sala lista y ceremonia. Elige sala y horario y envía los documentos con una foto, sin ir a la oficina.', b: 'La lista de tareas de Patricia se completa sola y la sala elegida se aparta en el calendario de capillas.' },
+      { k: ['familia'], t: 'Que todos estén enterados', a: 'Comparte con la familia una esquela digital con lugar y horarios. Activa la transmisión para quien vive lejos. Los mensajes llegan a un libro de condolencias.', b: 'La publicación de la esquela y la transmisión quedan registradas en el servicio.' },
+      { k: ['despues'], t: 'Seguimos aquí', a: 'Semanas después, la app la guía con los trámites (acta, pensión de su mamá, seguros), le recuerda la misa de novenario y el primer mes, y le muestra el lugar de su papá en Jardines de San Juan, con flores programadas y acompañamiento en duelo.', b: 'La funeraria ve a cada familia en acompañamiento posterior: trámites, próximos recordatorios y flores.' },
+      { k: ['plan'], t: 'Planear con tiempo', a: 'Después de vivirlo, Laura decide planear para su mamá. Elige un plan y llena la carpeta familiar con lo que su mamá quiere: tipo de servicio, ceremonia y deseos. Ella y su hermano reciben acceso.', b: 'El contrato aparece en Previsión y sube el indicador de familias atendidas que contratan previsión.' }
+    ],
+    how: 'Navegue con la barra inferior o con «Siguiente paso». En «El servicio», simule cada etapa y elija sala y horario; luego cambie a la vista de administrador para ver la lista de tareas y el calendario de capillas.',
+    extra: 'Personajes, servicio y precios ficticios. El tono es sobrio: siempre hay una persona a un toque y nunca hay urgencia comercial.',
+    sprintTitle: 'Qué probaríamos en el sprint · 10 días hábiles',
+    sprint: [
+      { k: 'Hipótesis', v: 'Una familia acompañada con claridad en el servicio y después de él contrata previsión con más frecuencia que una que solo recibe una oferta.' },
+      { k: 'Usuarios piloto', v: 'Familias atendidas en la sede de Tepic durante el piloto, con su consentimiento.' },
+      { k: 'KPI', v: 'Tiempo de respuesta a la familia, satisfacción con el servicio y familias atendidas que contratan previsión en los 6 meses siguientes.' },
+      { k: 'Criterio de éxito', v: 'Se define con la dirección de la funeraria el día 1.', chip: true, chipTipo: 'confirmar', chipFuente: 'Se escribe con la dirección de la funeraria el día 1 del sprint' }
+    ]
+  },
+  xiid: {
+    empresa: 'Seguridad con Xiid', nombre: 'Infraestructura invisible',
+    idea: 'Mostrar en 60 segundos, sin tecnicismos, qué cambia cuando la red del grupo deja de tener puertos abiertos.',
+    problema: 'Con 21 empresas conectadas, el mayor riesgo no es un ataque: es que un incidente en una filial llegue a todas.',
+    labels: ['Qué hace', 'Qué muestra'],
+    steps: [
+      { k: ['inicio'], t: 'Elegir el escenario', a: 'Con el conmutador grande cambia entre «Hoy: VPN y puertos abiertos» y «Con Xiid». Cada modo se prueba con las dos simulaciones.', b: 'Un mapa abstracto del grupo: planta Tepic al centro, 12 CEDIS, agencias, sedes funerarias, hoteles, corporativo y nube.' },
+      { k: ['scan'], t: 'Simular el escaneo de un atacante', a: 'Una onda recorre el mapa desde afuera, como lo haría un atacante buscando servicios.', b: 'En modo Hoy, varios nodos quedan marcados como «servicio visible». Con Xiid, el escaneo termina con «0 servicios descubiertos».' },
+      { k: ['comp'], t: 'Simular un equipo comprometido en una filial', a: 'Un equipo de una agencia se pone en rojo.', b: 'En modo Hoy, el rojo se propaga por las conexiones hasta la planta y el corporativo. Con Xiid, se queda en el nodo: «Contenido: sin movimiento lateral».' }
+    ],
+    how: 'Elija un modo y luego una simulación. Cambie de modo y repita para comparar. «Reiniciar» limpia el mapa.',
+    extra: 'Simulación ilustrativa. No representa la red real de Álica, que no conocemos. El estado real se mide en 90 días con un diagnóstico Hacknoid.',
+    sprintTitle: 'Siguiente paso',
+    sprint: [
+      { k: 'Diagnóstico y piloto', v: 'Evaluación Hacknoid por empresa y piloto de Xiid en una carga crítica, como el acceso remoto a planta.' },
+      { k: 'Afirmaciones del fabricante', v: 'Las capacidades de Terniion que muestra la demo se presentan según Xiid y se verifican en el piloto.', chip: true, chipTipo: 'xiid', chipFuente: 'Descripción de Terniion por el fabricante' }
+    ]
+  }
+};
+const ADM = {
+  horeca: { inicio: 'cuentas', catalogo: 'oportunidades', carrito: 'pedidos', entregas: 'programacion', cuenta: 'cobranza' },
+  familia: { inicio: 'jornada', jornada: 'extras', beneficios: 'beneficios', canje: 'beneficios', pulso: 'pulso' },
+  tablero: { grupo: 'calidad', senales: 'reglas', empresa: 'linaje', pregunta: 'bitacora', paquete: 'bitacora' },
+  'nayar-app': { inicio: 'resumen', sugerido: 'pedidos', catalogo: 'pedidos', promos: 'promos', carrito: 'pedidos', confirmado: 'pedidos', pedidos: 'rutas', refri: 'servicio', cuenta: 'tiendas' },
+  'nayar-chat': { '1': 'resumen', '2': 'pedidos', '3': 'pedidos', '4': 'pedidos', '5': 'servicio' },
+  motors: { 'venta-1': 'bandeja', 'venta-2': 'ficha', 'venta-3': 'ficha', 'venta-4': 'ficha', 'venta-5': 'agenda', 'servicio-1': 'taller', 'servicio-2': 'taller', 'servicio-3': 'taller', 'servicio-4': 'agenda' },
+  prevision: { inicio: 'servicios', ayuda: 'servicios', servicio: 'salas', familia: 'familias', despues: 'seguimiento', plan: 'prevision' },
+};
+const MOD_LABEL = { servicios: 'Servicios en curso', salas: 'Capillas y salas', familias: 'Mensajes de familias', seguimiento: 'Seguimos aquí', prevision: 'Previsión', cuentas: 'Cuentas', oportunidades: 'Oportunidades', programacion: 'Programación', jornada: 'Registro de jornada', extras: 'Horas extra', beneficios: 'Beneficios', pulso: 'Pulso', fuentes: 'Fuentes de datos', calidad: 'Calidad del dato', reglas: 'Reglas de señal', linaje: 'Linaje', bitacora: 'Bitácora', resumen: 'Resumen', pedidos: 'Pedidos', promos: 'Promociones', rutas: 'Rutas', servicio: 'Servicio', tiendas: 'Tiendas', bandeja: 'Bandeja', ficha: 'Ficha del prospecto', agenda: 'Agenda', taller: 'Taller', embudo: 'Embudo del sitio', cobranza: 'Cobranza', contratos: 'Contratos' };
+const VIEWS = { horeca: ['Portal del hotel', 'Consola HORECA del grupo'], familia: ['App del colaborador', 'Consola de RH del grupo'], tablero: ['Tablero del consejo', 'Centro de observabilidad'], 'nayar-app': ['App de la tiendita', 'Consola CEDIS'], 'nayar-chat': ['Chat de la tiendita', 'Consola CEDIS'], motors: ['Chat de la agencia', 'CRM del asesor'], prevision: ['App de la familia', 'Panel de servicios'] };
+const SCREEN_LABEL = { inicio: 'Inicio', sugerido: 'Pedido sugerido', catalogo: 'Catálogo', promos: 'Promociones', carrito: 'Carrito', confirmado: 'Confirmación', pedidos: 'Pedidos', refri: 'Refrigerador', cuenta: 'Cuenta' };
+const fromHash = (h) => { const s = (h || '').replace(/^#/, '').replace(/^prototipo-/, ''); const p = PROTOS.find(x => x[3] === s || x[0] === s); return p ? p[0] : null; };
+
+class Component extends DCLogic {
+  state = { proto: this.props.initial || fromHash(typeof location !== 'undefined' ? location.hash : '') || 'tablero', canal: 'app', stepKey: null, guideOpen: false, w: typeof window !== 'undefined' ? window.innerWidth : 1280, h: typeof window !== 'undefined' ? window.innerHeight : 900, jumpN: 0, jumpScreen: null, view: 'cliente', admM: null, admN: 0 };
+  componentDidMount() {
+    this._r = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
+    this._k = (e) => { if (e.key === 'Escape' && typeof this.props.onClose === 'function') this.props.onClose(); };
+    window.addEventListener('resize', this._r); window.addEventListener('keydown', this._k);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); window.removeEventListener('keydown', this._k); }
+  key() { return this.state.proto === 'nayar' ? 'nayar-' + this.state.canal : this.state.proto; }
+  jumpTo(screen) { this.setState(s => ({ jumpScreen: screen, jumpN: s.jumpN + 1, view: 'cliente', guideOpen: false })); }
+  renderVals() {
+    const st = this.state, n = NARR[this.key()], isApp = this.key() === 'nayar-app', jumpable = isApp || ['tablero', 'horeca', 'familia', 'prevision'].includes(this.key());
+    const wide = st.w >= 1100, narrow = !wide;
+    let idx = n.steps.findIndex(s => s.k.includes(st.stepKey));
+    if (idx < 0) idx = isApp && st.stepKey === 'cuenta' ? -1 : 0;
+    const cur = idx >= 0 ? n.steps[idx] : { t: 'Cuenta y vendedor' };
+    const stageW = st.w - (wide ? 380 : 0) - 56;
+    const avail = st.h - 60 - (narrow ? 64 : 0) - 150;
+    const phoneH = Math.max(560, Math.min(800, avail)) + 'px';
+    const steps = n.steps.map((s, i) => {
+      const on = i === idx, done = idx >= 0 && i < idx;
+      const am = (ADM[this.key()] || {})[s.k[0]];
+      return { num: i + 1, t: s.t, a: s.a, b: s.b, on, hasAdm: !!am && st.view === 'cliente', admLabel: am ? 'Ver en ' + VIEWS[this.key()][1].toLowerCase().replace('consola cedis', 'la consola CEDIS').replace(/^crm/, 'el CRM').replace(/^panel/, 'el panel').replace(/^centro/, 'el centro').replace(/^consola hore/, 'la consola HORE').replace(/^consola de rh/, 'la consola de RH') + ': ' + MOD_LABEL[am] : '', goAdm: () => this.setState(z => ({ view: 'empresa', admM: am, admN: z.admN + 1, guideOpen: false })), hasGroup: !!s.grupo, grupo: s.grupo || '', cur: on ? 'step' : 'false',
+        bg: on ? '#0031EC' : done ? '#0A0A0A' : '#fff', fg: on || done ? '#fff' : '#525252', ring: on ? '#0031EC' : done ? '#0A0A0A' : '#D4D4D4', color: on ? '#0A0A0A' : '#333',
+        locked: !jumpable && !on, cursor: jumpable ? 'pointer' : 'default', go: () => { if (jumpable) this.jumpTo(s.k[0]); else if (!on) this.setState({ stepKey: s.k[0] }); } };
+    });
+    const nextIdx = idx + 1;
+    return {
+      hasClose: typeof this.props.onClose === 'function', noClose: typeof this.props.onClose !== 'function', close: () => this.props.onClose(),
+      backLabel: wide ? 'Volver a la propuesta' : 'Volver', wide, narrow,
+      tabs: PROTOS.map(([id, empresa, nombre]) => { const on = st.proto === id; return { empresa, nombre, on: on ? 'true' : 'false', pick: () => this.setState({ proto: id, stepKey: null, guideOpen: false, view: 'cliente' }), bg: on ? '#0031EC' : 'transparent', color: on ? '#fff' : '#0A0A0A' }; }),
+      bodyCols: wide ? '380px minmax(0,1fr)' : 'minmax(0,1fr)', bodyRows: wide ? 'minmax(0,1fr)' : (st.guideOpen ? 'minmax(0,1fr) 0' : 'auto minmax(0,1fr)'),
+      railBorderB: wide ? '0' : '1px solid #EBEBEB',
+      showGuide: wide || st.guideOpen, guideAria: st.guideOpen ? 'true' : 'false', guideToggleLabel: st.guideOpen ? 'Ver prototipo' : 'Ver guía',
+      toggleGuide: () => this.setState(s => ({ guideOpen: !s.guideOpen })),
+      n, labelA: n.labels[0], labelB: n.labels[1], steps,
+      cur: { t: cur.t, label: idx >= 0 ? 'Paso ' + (idx + 1) + ' de ' + n.steps.length : 'Fuera del recorrido' },
+      isNayar: st.proto === 'nayar',
+      canales: [['app', 'App'], ['chat', 'Chat (WhatsApp)']].map(([id, label]) => { const on = st.canal === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ canal: id, stepKey: null, view: 'cliente' }), bg: on ? '#fff' : 'transparent', color: on ? '#0A0A0A' : '#525252' }; }),
+      canNext: jumpable && nextIdx < n.steps.length, nextLabel: nextIdx < n.steps.length ? 'Siguiente paso: ' + n.steps[nextIdx].t.toLowerCase() : '',
+      next: () => this.jumpTo(n.steps[nextIdx].k[0]),
+      hasMapa: isApp,
+      mapa: isApp ? n.mapa.map(m => ({ t: m.t, nodes: m.nodes.map((sc, i) => { const on = st.stepKey === sc; return { label: SCREEN_LABEL[sc], arrow: i > 0, sep: m.sep || '→', go: () => this.jumpTo(sc), border: on ? '#0031EC' : '#E5E5E5', bg: on ? '#0031EC' : '#fff', color: on ? '#fff' : '#0A0A0A' }; }) })) : [],
+      sprint: n.sprint.map(f => ({ chip: false, chipTipo: 'publico', chipFuente: '', ...f })),
+      stageBg: st.proto === 'prevision' ? '#F6F1EA' : '#F5F5F5',
+      tNayarApp: isApp, tNayarChat: this.key() === 'nayar-chat', tMotors: st.proto === 'motors', tPrevision: st.proto === 'prevision', tXiid: st.proto === 'xiid', tTablero: st.proto === 'tablero', tHoreca: st.proto === 'horeca', tFamilia: st.proto === 'familia',
+      childNarrow: stageW < 820, phoneH, frameH: Math.max(560, Math.min(760, avail + 30)) + 'px',
+      hasViews: !!VIEWS[this.key()], view: VIEWS[this.key()] ? st.view : undefined,
+      switchBg: st.proto === 'prevision' ? '#E9DFD2' : '#E6E6E6',
+      viewTabs: VIEWS[this.key()] ? [['cliente', 'Usuario final', VIEWS[this.key()][0], 'M5 1.5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1zM7 12.5h2'], ['empresa', 'Administrador', VIEWS[this.key()][1], 'M1.5 2.5h13v9h-13zM5.5 14.5h5M8 11.5v3']].map(([id, eye, label, d]) => { const on = st.view === id; return { eye, label, d, on: on ? 'true' : 'false', pick: () => this.setState({ view: id }), bg: on ? '#fff' : 'transparent', shadow: on ? '0 2px 8px rgba(0,0,0,.08)' : 'none', iconBg: on ? (st.proto === 'prevision' ? '#8A5A3B' : '#0031EC') : '#fff', iconFg: on ? '#fff' : '#525252', eyeColor: on ? (st.proto === 'prevision' ? '#8A5A3B' : '#0031EC') : '#666', color: on ? '#0A0A0A' : '#525252' }; }) : [],
+      onView: (v) => this.setState({ view: v }),
+      onCasos: () => {
+        if (typeof this.props.onClose === 'function') {
+          this.props.onClose();
+          setTimeout(() => { const el = document.getElementById('seguridad-casos'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 124, behavior: 'smooth' }); }, 120);
+        } else { try { location.href = 'index.html#seguridad-casos'; } catch (e) {} }
+      },
+      admJump: { m: st.admM, n: st.admN },
+      consoleH: Math.max(560, st.h - 60 - (narrow ? 64 : 0) - 190) + 'px', stageW: stageW,
+      onStep: (k) => { if (k !== this.state.stepKey) this.setState({ stepKey: k }); },
+      jump: { screen: st.jumpScreen, n: st.jumpN }
+    };
+  }
+}
+</script>
+</body>
+</html>

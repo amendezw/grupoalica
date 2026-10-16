@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#fff">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:18px 20px;background:#F4F6FE;display:flex;flex-direction:column;gap:10px">
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5">
+        <li>El registro de jornada viaja por un túnel sellado al sistema de nómina; el expediente del colaborador no queda expuesto.</li>
+        <li>Las respuestas de Pulso se guardan sin nombre; RH ve resultados agregados por área.</li>
+        <li>Cada empresa ve solo a sus colaboradores; el corporativo ve el consolidado.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showUser }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;justify-content:center">
+      <div style="position:relative;width:100%;max-width:390px;height:{{ phoneH }};border:10px solid #0A0A0A;border-radius:48px;overflow:hidden;display:flex;flex-direction:column;background:#F6F6F6;box-shadow:0 18px 50px rgba(0,0,0,.14)">
+        <div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;background:#fff"><span>{{ clock }}</span><span style="width:84px;height:20px;border-radius:12px;background:#0A0A0A"></span><span>5G</span></div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px 10px;background:#fff;border-bottom:1px solid #EBEBEB;min-height:52px">
+          <sc-if value="{{ hasBack }}"><button type="button" aria-label="Atrás" onClick="{{ back }}" style="all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:-6px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"></path></svg></button></sc-if>
+          <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:32px;padding:0 9px;border-radius:8px;background:#1B2E45;flex:none"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:13px;width:auto;display:block"></span></sc-if>
+          <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><span style="font:700 16px/1.2 Satoshi,sans-serif">{{ title }}</span><span style="font:500 11px/1.2 Inter,sans-serif;color:#525252">Karla Medina · CEDIS Tepic</span></span>
+        </div>
+        <div data-scroll-top="familia-app" style="flex:1;overflow-y:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px">
+
+          <sc-if value="{{ sInicio }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:12px"><img src="assets/img/karla.jpg" alt="Karla Medina" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none"><div style="display:flex;flex-direction:column;gap:2px"><span style="font:700 21px/1.2 Satoshi,sans-serif">Hola, Karla</span><span style="font-size:13px;color:#525252">Auxiliar de almacén · Embotelladora del Nayar</span></div></div>
+            <button type="button" onClick="{{ goJornada }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:14px;background:#0A0A0A;color:#fff;padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A3A3A3">Su jornada esta semana</span><span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;color:#8AF3FF">{{ todayShort }}</span></span>
+              <span style="font:700 30px/1 'Plus Jakarta Sans',sans-serif">{{ horas }} <span style="font-size:15px;color:#A3A3A3">de 46 h</span></span>
+              <div style="height:8px;border-radius:4px;background:#333;overflow:hidden"><div style="height:8px;transition:width 300ms;width:{{ horasPct }};background:{{ horasColor }}"></div></div>
+            </button>
+            <button type="button" onClick="{{ goBeneficios }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#0031EC">Beneficio de la semana</span>
+              <span style="font:700 15px/1.3 Satoshi,sans-serif">15% en el servicio de su auto en Álica Automotriz</span>
+              <span style="font-size:12.5px;color:#525252">Y 5 beneficios más en empresas del grupo</span>
+            </button>
+            <sc-if value="{{ pulsoPend }}"><button type="button" onClick="{{ goPulso }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:flex;gap:12px;align-items:center;border:1.5px solid #0031EC"><span style="display:flex;flex-direction:column;gap:3px;flex:1"><span style="font:700 14.5px/1.2 Satoshi,sans-serif">Pulso de la semana</span><span style="font-size:12.5px;color:#525252">3 preguntas · 1 minuto · anónimo</span></span><span style="font:600 12.5px/1 Inter,sans-serif;color:#0031EC">Responder</span></button></sc-if>
+            <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:6px"><span style="font:700 14px/1.3 Satoshi,sans-serif">Aviso de RH</span><span style="font-size:12.5px;line-height:1.45;color:#333">Desde el 1 de enero de 2027 el registro de jornada es electrónico y obligatorio. Ya lo puede hacer desde esta app.</span></div>
+          </sc-if>
+
+          <sc-if value="{{ sJornada }}">
+            <div style="border-radius:14px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:12px">
+              <span style="display:flex;justify-content:space-between;gap:8px"><span style="font:700 15px/1.2 Satoshi,sans-serif">Hoy, viernes</span><span style="font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;color:#525252">Ubicación verificada · CEDIS Tepic</span></span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="padding:10px;border-radius:8px;background:#F5F5F5;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#525252">Entrada</span><span style="font:700 20px/1 'Plus Jakarta Sans',sans-serif">7:02</span></div>
+                <div style="padding:10px;border-radius:8px;background:#F5F5F5;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#525252">Salida</span><span style="font:700 20px/1 'Plus Jakarta Sans',sans-serif">{{ salidaTxt }}</span></div>
+              </div>
+              <sc-if value="{{ canSalida }}"><button type="button" onClick="{{ registrarSalida }}" style="all:unset;cursor:pointer;text-align:center;height:50px;border-radius:10px;background:#0031EC;color:#fff;font:700 15px/50px Satoshi,sans-serif">Registrar salida</button></sc-if>
+            </div>
+            <div style="border-radius:14px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="display:flex;justify-content:space-between"><span style="font:700 14.5px/1.2 Satoshi,sans-serif">Semana</span><span style="font:700 14px/1 'Plus Jakarta Sans',sans-serif">{{ horas }} de 46 h</span></span>
+              <div style="position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;height:110px">
+                <sc-for list="{{ dias }}" as="d"><div style="display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end"><span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif">{{ d.v }}</span><span style="width:100%;border-radius:4px 4px 0 0;transition:height 300ms;height:{{ d.hh }};background:{{ d.c }}"></span><span style="font:500 11px/1 Inter,sans-serif;color:#525252">{{ d.d }}</span></div></sc-for>
+              </div>
+              <span style="display:flex;gap:8px;align-items:center;font-size:11.5px;color:#525252">Límite semanal de 2027: 46 horas <dc-import name="DatoChip" tipo="publico" fuente="Garrigues: jornada de 46 horas en 2027 y 40 en 2030" hint-size="90px,22px"></dc-import></span>
+            </div>
+            <sc-if value="{{ nearLimit }}">
+              <div role="alert" style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px;border:1.5px solid #0A0A0A">
+                <span style="font:700 14.5px/1.3 Satoshi,sans-serif">{{ limitTitle }}</span>
+                <span style="font-size:12.5px;line-height:1.45;color:#333">Si necesita quedarse más tiempo, pida horas extra para que su supervisor las apruebe antes.</span>
+                <sc-if value="{{ extraNone }}"><button type="button" onClick="{{ pedirExtra }}" style="all:unset;cursor:pointer;text-align:center;height:42px;border-radius:8px;border:1.5px solid #0031EC;color:#0031EC;font:700 14px/39px Satoshi,sans-serif;box-sizing:border-box">Solicitar 2 horas extra el sábado</button></sc-if>
+                <sc-if value="{{ extraPend }}"><span style="padding:8px 12px;border-radius:8px;background:#F2F2F2;font:600 12.5px/1.3 Inter,sans-serif">Solicitud enviada a Luis, su supervisor · pendiente</span></sc-if>
+                <sc-if value="{{ extraOk }}"><span style="padding:8px 12px;border-radius:8px;background:#0031EC;color:#fff;font:600 12.5px/1.3 Inter,sans-serif">{{ extraOkTxt }}</span></sc-if>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ sBeneficios }}">
+            <span style="font-size:13px;line-height:1.45;color:#333">Beneficios en empresas del grupo para usted y su familia.</span>
+            <sc-for list="{{ beneficios }}" as="b">
+              <button type="button" onClick="{{ b.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#fff;padding:14px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center">
+                <span style="width:44px;height:44px;border-radius:10px;background:#F2F2F2;display:flex;align-items:center;justify-content:center;font:700 13px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ b.tag }}</span>
+                <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#525252">{{ b.e }}</span><span style="font:700 14px/1.3 Satoshi,sans-serif">{{ b.t }}</span></span>
+                <span style="font:600 11.5px/1 Inter,sans-serif;color:{{ b.c }}">{{ b.st }}</span>
+              </button>
+            </sc-for>
+            <span style="font-size:11.5px;color:#666;text-align:center">Beneficios y porcentajes ficticios. Se definen con cada empresa en el piloto.</span>
+          </sc-if>
+
+          <sc-if value="{{ sCanje }}">
+            <div style="border-radius:14px;background:#fff;padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+              <span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#525252">{{ ben.e }}</span>
+              <span style="font:700 18px/1.3 Satoshi,sans-serif">{{ ben.t }}</span>
+              <div aria-label="Código del beneficio" style="width:170px;height:170px;border-radius:12px;background:repeating-conic-gradient(#0A0A0A 0 25%,#fff 0 50%) 0 0/34px 34px;border:10px solid #fff;outline:1px solid #E5E5E5"></div>
+              <span style="font:700 22px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em">FA-7Q2K</span>
+              <span style="font-size:12.5px;color:#525252">{{ ben.how }} · válido 30 días</span>
+              <sc-if value="{{ benPend }}"><button type="button" onClick="{{ usar }}" style="all:unset;cursor:pointer;width:100%;text-align:center;height:46px;border-radius:10px;border:1px dashed #0031EC;color:#0031EC;font:600 13.5px/44px Inter,sans-serif;box-sizing:border-box">Simular que lo usó en {{ ben.short }} (demo)</button></sc-if>
+              <sc-if value="{{ benUsed }}"><span style="padding:8px 12px;border-radius:8px;background:#0031EC;color:#fff;font:600 12.5px/1.3 Inter,sans-serif">Beneficio usado hoy</span></sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ sPulso }}">
+            <sc-if value="{{ pulsoPend }}">
+              <span style="font-size:13px;line-height:1.45;color:#333">Sus respuestas son anónimas. RH ve resultados por área, nunca por persona.</span>
+              <sc-for list="{{ preguntas }}" as="p">
+                <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px">
+                  <span style="font:700 14px/1.35 Satoshi,sans-serif">{{ p.t }}</span>
+                  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px"><sc-for list="{{ p.opts }}" as="o"><button type="button" aria-pressed="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;cursor:pointer;text-align:center;height:40px;border-radius:8px;font:700 14px/40px 'Plus Jakarta Sans',sans-serif;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }}">{{ o.v }}</button></sc-for></div>
+                  <span style="display:flex;justify-content:space-between;font-size:11px;color:#666"><span>{{ p.lo }}</span><span>{{ p.hi }}</span></span>
+                </div>
+              </sc-for>
+              <button type="button" onClick="{{ enviarPulso }}" disabled="{{ pulsoIncompleto }}" style="all:unset;cursor:pointer;text-align:center;height:48px;border-radius:10px;font:700 15px/48px Satoshi,sans-serif;background:{{ pulsoBg }};color:{{ pulsoFg }}">Enviar respuestas</button>
+            </sc-if>
+            <sc-if value="{{ pulsoDone }}"><div style="border-radius:14px;background:#fff;padding:20px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center"><span style="width:56px;height:56px;border-radius:50%;background:#0031EC;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"></path></svg></span><span style="font:700 18px/1.3 Satoshi,sans-serif">Gracias, Karla</span><span style="font-size:13px;color:#525252">Su área verá los resultados del mes en la próxima reunión.</span></div></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ sPerfil }}">
+            <div style="border-radius:12px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:4px;align-items:flex-start"><img src="assets/img/karla.jpg" alt="Karla Medina" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:6px"><span style="font:700 16px/1.2 Satoshi,sans-serif">Karla Medina</span><span style="font-size:12.5px;color:#525252">Embotelladora del Nayar · CEDIS Tepic · desde 2021</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div style="border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11.5px;color:#525252">Vacaciones disponibles</span><span style="font:700 20px/1 'Plus Jakarta Sans',sans-serif">8 días</span></div><div style="border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11.5px;color:#525252">Último recibo</span><span style="font:700 15px/1.2 Satoshi,sans-serif">15 oct</span></div></div>
+            <sc-for list="{{ perfil }}" as="p"><div style="border-radius:12px;background:#fff;padding:13px 14px;display:flex;justify-content:space-between;font-size:13.5px"><span>{{ p }}</span><span style="color:#A3A3A3">›</span></div></sc-for>
+          </sc-if>
+        </div>
+        <nav aria-label="Navegación de la app" style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid #EBEBEB;padding:6px 4px 10px">
+          <sc-for list="{{ tabs }}" as="t"><button type="button" aria-current="{{ t.cur }}" onClick="{{ t.go }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;color:{{ t.color }}"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.d }}"></path></svg><span style="font:600 10.5px/1 Inter,sans-serif">{{ t.label }}</span></button></sc-for>
+        </nav>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showAdmin }}">
+    <div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">rh · Grupo Álica · servicios compartidos</span>
+      </div>
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ aCols }};grid-template-rows:{{ aRows }}">
+        <nav aria-label="Módulos" style="background:#0A0A0A;color:#FAFAFA;display:flex;flex-direction:{{ navDir }};gap:2px;padding:{{ navPad }};overflow:auto;scrollbar-width:none">
+          <sc-if value="{{ aWide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px;padding:6px 10px 16px"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:18px;width:auto;display:block;align-self:flex-start"><span style="font:700 15px/1.2 Satoshi,sans-serif;margin-top:10px">Consola de RH</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#A3A3A3">5,500 colaboradores · 21 empresas</span></div></sc-if>
+          <sc-for list="{{ aMods }}" as="m"><button type="button" aria-current="{{ m.cur }}" onClick="{{ m.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;font:500 13.5px/1.2 Inter,sans-serif;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"></path></svg><span style="flex:1">{{ m.label }}</span><sc-if value="{{ m.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#0031EC;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ m.badge }}</span></sc-if></button></sc-for>
+        </nav>
+        <div data-scroll-top="familia-admin" style="min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px"><h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif">{{ aTitle }}</h3><span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">{{ aSub }}</span></div>
+
+          <sc-if value="{{ aJornada }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+              <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:10px">
+                <span style="font:700 14px/1.2 Satoshi,sans-serif">Jornadas registradas electrónicamente · esta semana</span>
+                <sc-for list="{{ registro }}" as="r"><div style="display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:12.5px"><span>{{ r.e }}</span><div style="position:relative;height:14px;border-radius:3px;background:#F2F2F2;overflow:hidden"><span style="position:absolute;top:0;bottom:0;left:0;transition:width 300ms;width:{{ r.pct }};background:{{ r.c }}"></span></div><span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;text-align:right">{{ r.pct }}</span></div></sc-for>
+                <span style="font-size:11.5px;color:#525252">Meta: 100% antes del 1 de enero de 2027</span>
+              </div>
+              <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:4px">
+                <span style="font:700 14px/1.2 Satoshi,sans-serif;padding-bottom:8px">Cerca del límite de 46 horas</span>
+                <sc-for list="{{ cerca }}" as="c"><div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:9px 0;border-top:1px solid #F3F3F3;font-size:13px;background:{{ c.bg }}"><span style="font-weight:{{ c.w }}">{{ c.n }}</span><span style="font:700 13px/1 'Plus Jakarta Sans',sans-serif">{{ c.h }}</span><span style="font-size:11.5px;color:#666">{{ c.a }}</span><span style="font-size:11.5px;color:{{ c.sc }};text-align:right">{{ c.s }}</span></div></sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aExtras }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <sc-for list="{{ solicitudes }}" as="s"><div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:12px 0;border-top:1px solid #F3F3F3;align-items:center;background:{{ s.bg }}"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:{{ s.font }}">{{ s.n }}</span><span style="font-size:12px;color:#525252">{{ s.d }}</span></span><span style="display:flex;gap:6px;align-items:center"><sc-if value="{{ s.pend }}"><button type="button" onClick="{{ s.ok }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:4px;background:#0031EC;color:#fff;font:600 12px/32px Inter,sans-serif">Aprobar</button><button type="button" onClick="{{ s.no }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:4px;border:1px solid #D4D4D4;font:600 12px/30px Inter,sans-serif;box-sizing:border-box">Rechazar</button></sc-if><sc-if value="{{ s.done }}"><span style="font:600 12px/1 Inter,sans-serif;color:{{ s.dc }}">{{ s.res }}</span></sc-if></span></div></sc-for>
+            </div>
+            <sc-if value="{{ noKarlaReq }}"><span style="font-size:13px;color:#525252">Cuando Karla pida horas extra desde la app, la solicitud aparece aquí.</span></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ aBeneficios }}">
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Colaboradores activos en la app</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif">2,184</span><span style="font-size:11.5px;color:#525252">de 5,500</span></div>
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Ventas cruzadas del mes</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif;color:{{ vcColor }}">{{ ventasCruzadas }}</span><span style="font-size:11.5px;color:#525252">generadas por beneficios usados</span></div>
+            </div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <sc-for list="{{ usoBen }}" as="b"><div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 50px;gap:12px;padding:10px 0;border-top:1px solid #F3F3F3;font-size:13px;align-items:center;background:{{ b.bg }}"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600">{{ b.t }}</span><span style="font-size:11.5px;color:#666">{{ b.e }}</span></span><div style="height:10px;border-radius:5px;background:#F2F2F2;overflow:hidden"><span style="display:block;height:10px;width:{{ b.w }};background:#0031EC"></span></div><span style="font:700 13px/1 'Plus Jakarta Sans',sans-serif;text-align:right">{{ b.n }}</span></div></sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aPulso }}">
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Participación esta semana</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif;color:{{ partColor }}">{{ participacion }}</span><span style="font-size:11.5px;color:#525252">{{ respuestas }} respuestas · CEDIS Tepic</span></div>
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Carga de trabajo</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif">{{ cargaAvg }} de 5</span><span style="font-size:11.5px;color:#525252">promedio del área</span></div>
+            </div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <span style="display:block;padding:10px 0 6px;font:700 14px/1.2 Satoshi,sans-serif">Clima por área · promedio de 1 a 5</span>
+              <sc-for list="{{ clima }}" as="c"><div style="display:grid;grid-template-columns:minmax(110px,180px) minmax(0,1fr) 40px;gap:10px;padding:9px 0;border-top:1px solid #F3F3F3;align-items:center;font-size:12.5px"><span style="font-weight:{{ c.w }}">{{ c.a }}</span><div style="height:10px;border-radius:5px;background:#F2F2F2;overflow:hidden"><span style="display:block;height:10px;transition:width 300ms;width:{{ c.pct }};background:{{ c.c }}"></span></div><span style="font:700 12.5px/1 'Plus Jakarta Sans',sans-serif;text-align:right">{{ c.v }}</span></div></sc-for>
+            </div>
+            <span style="font-size:12.5px;color:#525252">Resultados agregados por área; RH nunca ve respuestas individuales. Referencia Wigilabs: Pulso, clima organizacional con IA.</span>
+          </sc-if>
+
+          <sc-if value="{{ aAuditoria }}">
+            <div style="padding:18px;border-radius:8px;background:#0A0A0A;color:#FAFAFA;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center"><span style="font:600 40px/1 'Plus Jakarta Sans',sans-serif;color:#8AF3FF">77 días</span><span style="font:500 15px/1.4 Satoshi,sans-serif;max-width:420px">para el 1 de enero de 2027, cuando el registro electrónico de jornada es obligatorio.</span></div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <sc-for list="{{ checklist }}" as="c"><div style="display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid #F3F3F3;font-size:13.5px"><span style="width:20px;height:20px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 11px/1 Inter,sans-serif;background:{{ c.bg }};color:#fff">{{ c.m }}</span><span style="flex:1">{{ c.t }}</span><span style="font-size:12px;color:#525252">{{ c.s }}</span></div></sc-for>
+            </div>
+            <sc-if value="{{ repIdle }}"><button type="button" onClick="{{ generarRep }}" style="all:unset;cursor:pointer;align-self:flex-start;height:42px;padding:0 16px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/42px Satoshi,sans-serif">Generar reporte para auditoría</button></sc-if>
+            <sc-if value="{{ repDone }}"><span style="padding:10px 14px;border-radius:8px;background:#F4F6FE;font-size:13.5px">Reporte generado: jornadas por colaborador, horas extra aprobadas y excepciones, por empresa.</span></sc-if>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:900},&quot;forceView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cliente&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;cliente&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;consoleHeight&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;760px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;stageWidth&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1100,&quot;tsType&quot;:&quot;number&quot;}}">
+const UTITLE = { inicio: 'Familia Álica', jornada: 'Mi jornada', beneficios: 'Beneficios', canje: 'Su beneficio', pulso: 'Pulso', perfil: 'Mi perfil' };
+const STEPS = ['inicio', 'jornada', 'beneficios', 'canje', 'pulso'];
+const TABS = [['inicio', 'Inicio', 'M2 7.5L8 2.5l6 5V14H10v-4H6v4H2z'], ['jornada', 'Jornada', 'M8 14.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM8 4.5V8l2.5 1.5'], ['beneficios', 'Beneficios', 'M2.5 6h11v8h-11zM1.5 3.5h13V6h-13zM8 3.5V14M8 3.5C6.5 1 4 1.5 5 3.5M8 3.5c1.5-2.5 4-2 3 0'], ['pulso', 'Pulso', 'M1.5 8h3l2-4 3 8 2-4h3'], ['perfil', 'Perfil', 'M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2.5 14.5c.6-2.8 2.8-4.5 5.5-4.5s4.9 1.7 5.5 4.5']];
+const BEN = [
+  { id: 'auto', tag: '15%', e: 'Álica Automotriz', short: 'la agencia', t: '15% en el servicio de su auto', how: 'Muéstrelo en la agencia al dejar su auto', vc: 3200 },
+  { id: 'prev', tag: '20%', e: 'Funeraria Bello Recuerdo', short: 'la funeraria', t: 'Previsión familiar con 20% de descuento', how: 'Úselo al contratar en línea o en sede', vc: 1100 },
+  { id: 'hotel', tag: '25%', e: 'Hotel Las Palomas', short: 'el hotel', t: '25% en fin de semana en temporada baja', how: 'Preséntelo al reservar', vc: 2400 },
+  { id: 'club', tag: 'Pase', e: 'Club del Valle', short: 'el club', t: 'Pase familiar mensual a precio de colaborador', how: 'Muéstrelo en recepción', vc: 650 },
+  { id: 'tienda', tag: '$', e: 'Embotelladora del Nayar', short: 'la tienda', t: 'Bebidas a precio de fábrica en la tienda de colaboradores', how: 'Muéstrelo en la caja', vc: 380 },
+  { id: 'meridiano', tag: 'Libre', e: 'Meridiano', short: 'Meridiano', t: 'Suscripción digital sin costo', how: 'Actívelo con su número de colaborador', vc: 0 }
+];
+const BM = Object.fromEntries(BEN.map(b => [b.id, b]));
+const USO = { auto: 42, prev: 9, hotel: 31, club: 27, tienda: 118, meridiano: 64 };
+const PREG = [['¿Qué tan claro tiene lo que se espera de usted esta semana?', 'Nada claro', 'Muy claro'], ['¿Cómo se siente con su carga de trabajo?', 'Muy pesada', 'Adecuada'], ['¿Recomendaría trabajar en el grupo a un amigo?', 'Nada', 'Totalmente']];
+const AMODS = [['jornada', 'Registro de jornada', 'M8 14.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM8 4.5V8l2.5 1.5'], ['extras', 'Horas extra', 'M8 2v12M2 8h12'], ['beneficios', 'Beneficios', 'M2.5 6h11v8h-11zM1.5 3.5h13V6h-13zM8 3.5V14'], ['pulso', 'Pulso', 'M1.5 8h3l2-4 3 8 2-4h3'], ['auditoria', 'Preparación 2027', 'M3 8.5l3 3 7-7']];
+const ATITLE = { jornada: ['Registro de jornada', 'Todas las empresas · semana en curso'], extras: ['Horas extra', 'Solicitudes por aprobar'], beneficios: ['Beneficios', 'Uso del mes por empresa'], pulso: ['Pulso', 'Clima organizacional · semana en curso'], auditoria: ['Preparación 2027', 'Registro electrónico obligatorio'] };
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+
+class Component extends DCLogic {
+  state = this.fresh();
+  fresh() { return { screen: 'inicio', hist: [], salida: false, extra: 'none', ben: 'auto', usados: {}, resp: {}, pulsoSent: false, amod: 'jornada', rep: false, protect: false, otros: {} }; }
+  componentDidMount() { this.componentDidUpdate(); }
+  componentDidUpdate() {
+    const st = this.state, j = this.props.jump, aj = this.props.adminJump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.screen && UTITLE[j.screen]) this.setState(s => ({ screen: j.screen, hist: [...s.hist, s.screen] })); }
+    if (aj && aj.n !== this._ajn) { this._ajn = aj.n; if (aj.m && AMODS.some(m => m[0] === aj.m)) this.setState({ amod: aj.m }); }
+    if (this._rep !== st.screen) { this._rep = st.screen; if (typeof this.props.onStep === 'function') this.props.onStep(st.screen); requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="familia-app"]').forEach(el => { el.scrollTop = 0; })); }
+    if (this._ram !== st.amod) { this._ram = st.amod; requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="familia-admin"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  go(screen) { this.setState(s => s.screen === screen ? null : { screen, hist: [...s.hist, s.screen].slice(-8) }); }
+  renderVals() {
+    const st = this.state, fv = this.props.forceView, wideA = (this.props.stageWidth || 1000) >= 760, narrow = !!this.props.narrow;
+    const base = [9.5, 9, 10, 9.5], hoy = st.salida ? 7 : 3.5;
+    const total = base.reduce((a, x) => a + x, 0) + hoy;
+    const near = total >= 44;
+    const sc = st.screen, ben = BM[st.ben];
+    const nResp = Object.keys(st.resp).length;
+    const usedVc = Object.keys(st.usados).reduce((a, k) => a + BM[k].vc, 0);
+    const stepIdx = STEPS.indexOf(sc);
+    const karlaReq = st.extra !== 'none';
+    return {
+      stepLabel: fv === 'empresa' ? 'Administrador · ' + ATITLE[st.amod][0] : stepIdx >= 0 ? 'Paso ' + (stepIdx + 1) + ' de 5 · ' + UTITLE[sc] : 'Fuera del recorrido · ' + UTITLE[sc],
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5', toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.setState(this.fresh()),
+      showUser: fv !== 'empresa', showAdmin: fv === 'empresa' || !fv, h: this.props.consoleHeight || '720px', phoneH: this.props.phoneHeight || (narrow ? '700px' : '780px'),
+      clock: st.salida ? '14:02' : '10:31', title: UTITLE[sc], isHome: sc === 'inicio', hasBack: sc !== 'inicio', back: () => this.setState(s => { const h = [...s.hist]; return { screen: h.pop() || 'inicio', hist: h }; }),
+      sInicio: sc === 'inicio', sJornada: sc === 'jornada', sBeneficios: sc === 'beneficios', sCanje: sc === 'canje', sPulso: sc === 'pulso', sPerfil: sc === 'perfil',
+      goJornada: () => this.go('jornada'), goBeneficios: () => this.go('beneficios'), goPulso: () => this.go('pulso'),
+      horas: total.toFixed(1).replace('.0', '') + ' h', horasPct: Math.min(100, total / 46 * 100) + '%', horasColor: near ? '#8AF3FF' : '#FAFAFA', todayShort: st.salida ? 'Salida 14:02' : 'Entrada 7:02',
+      salidaTxt: st.salida ? '14:02' : '—', canSalida: !st.salida, registrarSalida: () => this.setState({ salida: true }),
+      dias: [...base, hoy].map((v, i) => ({ d: ['Lun', 'Mar', 'Mié', 'Jue', 'Hoy'][i], v: v.toFixed(1).replace('.0', ''), hh: (v / 11 * 100) + '%', c: i === 4 ? '#0031EC' : '#0A0A0A' })),
+      nearLimit: near, limitTitle: 'Le ' + (46 - total <= 1 ? 'queda' : 'quedan') + ' ' + (46 - total).toFixed(1).replace('.0', '') + (46 - total === 1 ? ' hora' : ' horas') + ' antes del límite semanal',
+      extraNone: st.extra === 'none', extraPend: st.extra === 'pend', extraOk: st.extra === 'ok' || st.extra === 'no', extraOkTxt: st.extra === 'ok' ? 'Horas extra aprobadas por Luis, su supervisor' : 'Su supervisor no aprobó las horas extra; salga a su hora',
+      pedirExtra: () => this.setState({ extra: 'pend' }),
+      beneficios: BEN.map(b => ({ ...b, st: st.usados[b.id] ? 'Usado' : 'Ver', c: st.usados[b.id] ? '#525252' : '#0031EC', open: () => { this.setState({ ben: b.id }); this.go('canje'); } })),
+      ben, benPend: !st.usados[st.ben], benUsed: !!st.usados[st.ben], usar: () => this.setState(s => ({ usados: { ...s.usados, [s.ben]: true } })),
+      pulsoPend: !st.pulsoSent, pulsoDone: st.pulsoSent,
+      preguntas: PREG.map(([t, lo, hi], i) => ({ t, lo, hi, opts: [1, 2, 3, 4, 5].map(v => { const on = st.resp[i] === v; return { v, on: on ? 'true' : 'false', pick: () => this.setState(s => ({ resp: { ...s.resp, [i]: v } })), border: on ? '#0031EC' : '#E5E5E5', bg: on ? '#0031EC' : '#fff', color: on ? '#fff' : '#0A0A0A' }; }) })),
+      pulsoIncompleto: nResp < 3, pulsoBg: nResp < 3 ? '#EFEFEF' : '#0031EC', pulsoFg: nResp < 3 ? '#A3A3A3' : '#fff', enviarPulso: () => { if (nResp >= 3) this.setState({ pulsoSent: true }); },
+      perfil: ['Recibos de nómina', 'Solicitar vacaciones', 'Constancias', 'Mis datos'],
+      tabs: TABS.map(([id, label, d]) => { const on = sc === id || (id === 'beneficios' && sc === 'canje'); return { label, d, cur: on ? 'page' : 'false', color: on ? '#0031EC' : '#666', go: () => this.setState({ screen: id, hist: id === 'inicio' ? [] : [...st.hist, sc] }) }; }),
+      aWide: wideA, aCols: wideA ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', aRows: wideA ? 'minmax(0,1fr)' : 'auto minmax(0,1fr)', navDir: wideA ? 'column' : 'row', navPad: wideA ? '14px 10px' : '8px', split: wideA ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr)',
+      aMods: AMODS.map(([id, label, d]) => { const on = st.amod === id; return { label, d, cur: on ? 'page' : 'false', badge: id === 'extras' && st.extra === 'pend' ? '1' : id === 'jornada' && near ? '!' : '', pick: () => this.setState({ amod: id }), bg: on ? '#1F1F1F' : 'transparent', color: on ? '#fff' : '#C8C8C8' }; }),
+      aTitle: ATITLE[st.amod][0], aSub: ATITLE[st.amod][1],
+      aJornada: st.amod === 'jornada', aExtras: st.amod === 'extras', aBeneficios: st.amod === 'beneficios', aPulso: st.amod === 'pulso', aAuditoria: st.amod === 'auditoria',
+      registro: [['Corporativo', 97], ['Embotelladora del Nayar', st.salida ? 93 : 92], ['Polo Sur', 88], ['Funeraria', 71], ['Álica Automotriz', 64], ['Fletes Álica', 58]].map(([e, p]) => ({ e, pct: p + '%', c: p >= 90 ? '#0031EC' : p >= 70 ? '#0A0A0A' : '#D92D20' })),
+      cerca: [...(near ? [{ n: 'Karla Medina', a: 'Almacén · CEDIS Tepic', h: total.toFixed(1).replace('.0', '') + ' h', s: st.extra === 'pend' ? 'Pidió horas extra' : st.extra === 'ok' ? 'Extra aprobada' : 'Aviso enviado', sc: '#0031EC', bg: '#F4F6FE', w: 700 }] : []), { n: 'Jorge Salinas', a: 'Reparto · Ruta 9', h: '45.5 h', s: 'Aviso enviado', sc: '#525252', bg: '#fff', w: 500 }, { n: 'Marisol Ortiz', a: 'Taller · Automotriz', h: '44 h', s: 'Aviso enviado', sc: '#525252', bg: '#fff', w: 500 }],
+      noKarlaReq: !karlaReq,
+      solicitudes: [...(karlaReq ? [{ id: 'k', n: 'Karla Medina · 2 horas el sábado', d: 'Almacén · CEDIS Tepic · lleva ' + total.toFixed(1).replace('.0', '') + ' h esta semana', live: true, state: st.extra }] : []), { id: 'o1', n: 'Pedro Lara · 3 horas el viernes', d: 'Reparto · Ruta 14 · lleva 41 h', state: st.otros.o1 || 'pend' }, { id: 'o2', n: 'Rocío Peña · 1 hora hoy', d: 'Caja · Funeraria Tepic · lleva 39 h', state: st.otros.o2 || 'pend' }]
+        .map(s => ({ n: s.n, d: s.d, bg: s.live ? '#F4F6FE' : '#fff', font: s.live ? "700 14px/1.3 Satoshi,sans-serif" : "600 13.5px/1.3 Inter,sans-serif", pend: s.state === 'pend', done: s.state !== 'pend', res: s.state === 'ok' ? 'Aprobada' : 'Rechazada', dc: s.state === 'ok' ? '#0031EC' : '#525252',
+          ok: () => s.live ? this.setState({ extra: 'ok' }) : this.setState(z => ({ otros: { ...z.otros, [s.id]: 'ok' } })), no: () => s.live ? this.setState({ extra: 'no' }) : this.setState(z => ({ otros: { ...z.otros, [s.id]: 'no' } })) })),
+      ventasCruzadas: fmt(186400 + usedVc), vcColor: usedVc ? '#0031EC' : '#0A0A0A',
+      usoBen: BEN.map(b => { const n = USO[b.id] + (st.usados[b.id] ? 1 : 0); return { t: b.t, e: b.e, n, w: Math.min(100, n / 120 * 100) + '%', bg: st.usados[b.id] ? '#F4F6FE' : '#fff' }; }),
+      participacion: (st.pulsoSent ? 62 : 61) + '%', partColor: st.pulsoSent ? '#0031EC' : '#0A0A0A', respuestas: String(st.pulsoSent ? 113 : 112),
+      cargaAvg: st.pulsoSent ? ((3.1 * 112 + (st.resp[1] || 3)) / 113).toFixed(1) : '3.1',
+      clima: [['Almacén · CEDIS Tepic', st.pulsoSent ? ((3.6 * 40 + (st.resp[0] + st.resp[1] + st.resp[2]) / 3) / 41) : 3.6, true], ['Reparto · CEDIS Tepic', 3.2], ['Planta · producción', 3.9], ['Agencias Automotriz', 3.4], ['Funeraria · sedes', 4.1]].map(([a, v, live]) => ({ a, v: v.toFixed(1), pct: (v / 5 * 100) + '%', c: v < 3.5 ? '#0A0A0A' : '#0031EC', w: live ? 700 : 500 })),
+      checklist: [['Registro electrónico disponible en la app', 'Listo', true], ['Geocerca por sede verificada', '31 de 38 sedes', false], ['Alertas antes de 46 horas', 'Activas', true], ['Flujo de aprobación de horas extra', 'Activo', true], ['Reporte para auditoría por empresa', st.rep ? 'Generado' : 'Pendiente', st.rep]].map(([t, s, ok]) => ({ t, s, m: ok ? '✓' : '', bg: ok ? '#0031EC' : '#D4D4D4' })),
+      repIdle: !st.rep, repDone: st.rep, generarRep: () => this.setState({ rep: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

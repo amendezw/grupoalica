@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="robots" content="noindex">
+<title>Grupo Álica · Plataformas, IA y seguridad</title>
+<link rel="icon" href="assets/wigilabs-isotipo.png">
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/styles.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#FFFFFF;color:#0A0A0A;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:#0031EC;text-decoration:none}
+a:hover{color:#001D9B}
+button{font-family:inherit}
+::selection{background:#0031EC;color:#fff}
+@media print{[data-print="hide"]{display:none!important}*{box-shadow:none!important;animation:none!important;transition:none!important}section{background:#fff!important;opacity:1!important;transform:none!important;break-inside:auto}article,button{break-inside:avoid}body{font-size:12pt}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#0031EC"></rect><path transform="translate(120 146) scale(.667)" fill="#FFFFFF" d="M 240 0 L 197.034 0 L 167.305 105.096 L 136.34 0.012 L 103.684 0.012 L 70.295 105.096 L 42.906 0.012 L 0 0.012 L 47.167 163 L 88.657 163 L 119.13 68.568 L 147.754 163 L 189.46 163 L 240 0 Z"></path></svg></template>
+
+<header data-print="hide" style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px);height:64px;display:flex;align-items:center;gap:24px">
+    <a href="#inicio" aria-label="Wigilabs, ir al inicio" style="display:flex;align-items:center;gap:9px;color:#0A0A0A;flex:none">
+      <img src="assets/wigilabs-wordmark.png" alt="Wigilabs" width="105" height="18" style="display:block;height:18px;width:auto">
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Secciones" style="flex:1;display:flex;justify-content:center;gap:2px;min-width:0">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
+          <a href="#{{ n.id }}" aria-current="{{ n.current }}" style="padding:8px 10px;border-radius:4px;font:500 14px/1 Inter,sans-serif;white-space:nowrap;color:{{ n.color }};background:{{ n.bg }}" style-hover="background:#F5F5F5;color:#0A0A0A">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrow }}"><span style="flex:1"></span></sc-if>
+    <a href="mailto:comercial@wigilabs.com?subject=Grupo%20%C3%81lica%20%C2%B7%20Sesi%C3%B3n%20de%20backlog" style="flex:none;display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:4px;background:#0031EC;color:#FFFFFF;font:700 14px/1 Satoshi,sans-serif;letter-spacing:.02em;white-space:nowrap" style-hover="background:#2944FF;color:#FFFFFF">Agendar sesión</a>
+    <sc-if value="{{ narrow }}">
+      <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-label="Menú de secciones" style="flex:none;width:44px;height:44px;border:1px solid #E5E5E5;border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linecap="round"><path d="M2 5h14M2 9h14M2 13h14"></path></svg>
+      </button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}">
+    <nav aria-label="Secciones" style="border-top:1px solid #EBEBEB;padding:8px clamp(16px,4vw,48px) 14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px">
+      <sc-for list="{{ navItems }}" as="n">
+        <a href="#{{ n.id }}" onClick="{{ n.go }}" style="padding:12px 10px;border-radius:4px;font:500 15px/1 Inter,sans-serif;color:{{ n.color }};background:{{ n.bg }}">{{ n.label }}</a>
+      </sc-for>
+    </nav>
+  </sc-if>
+  <div style="height:2px;background:#F2F2F2"><div style="height:2px;background:#0031EC;width:{{ progressPct }};transition:width 80ms linear"></div></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px);height:52px;display:flex;align-items:center;gap:14px">
+    <span style="flex:none;font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#666666">Ver por empresa</span>
+    <div role="radiogroup" aria-label="Ver por empresa" style="flex:1;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0">
+      <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="9">
+        <button type="button" role="radio" aria-checked="{{ f.on }}" onClick="{{ f.pick }}" style="flex:none;height:32px;padding:0 13px;border-radius:999px;cursor:pointer;font:500 13px/1 Inter,sans-serif;white-space:nowrap;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ f.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="inicio" data-screen-label="01 Inicio" style="scroll-margin-top:120px;max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(16px,4vw,48px) 72px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,5vw,72px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px"><span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666;white-space:nowrap">Propuesta Wigilabs para</span><span style="display:inline-flex;align-items:center;padding:9px 14px;border-radius:6px;background:#1B2E45"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:22px;width:auto;display:block"></span><span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666;white-space:nowrap">· Octubre 2026</span></div>
+      <h1 style="margin:0;font:700 clamp(38px,5.2vw,68px)/1.02 Satoshi,sans-serif;letter-spacing:-.03em;text-wrap:balance">Grupo Álica: de holding de empresas locales a plataforma regional integrada</h1>
+      <p style="margin:0;max-width:600px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:#525252;text-wrap:pretty">Dónde las plataformas digitales, la automatización, la inteligencia artificial y la seguridad pueden mover los números de cada empresa del grupo. Una propuesta de Wigilabs, octubre de 2026.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#prototipos" style="display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:4px;background:#0031EC;color:#fff;font:700 15px/1 Satoshi,sans-serif;letter-spacing:.02em" style-hover="background:#2944FF;color:#fff">Probar los prototipos<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+        <a href="#mapa" style="display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:4px;border:1px solid #D4D4D4;color:#0A0A0A;font:700 15px/1 Satoshi,sans-serif;letter-spacing:.02em" style-hover="border-color:#0A0A0A;color:#0A0A0A">Ver el mapa del grupo</a>
+      </div>
+    </div>
+    <figure aria-label="Trazo abstracto de Nayarit con Tepic, Santiago Ixcuintla, Bahía de Banderas y Puerto Vallarta" style="margin:0;justify-self:center;width:100%;max-width:440px">
+      <svg viewBox="0 0 420 520" width="100%" style="display:block">
+        <defs><pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#E5E5E5"></circle></pattern></defs>
+        <rect x="0" y="0" width="420" height="520" fill="url(#dots)"></rect>
+        <path d="M 30 18 C 60 70 92 120 104 172 C 116 226 128 276 134 318 C 138 352 112 380 98 404 C 92 418 108 430 130 434 C 150 438 168 452 176 474 C 182 490 186 504 190 520" fill="none" stroke="#A3A3A3" stroke-width="1.2"></path>
+        <path d="M 30 18 L 250 18 C 330 40 380 120 392 210 C 400 290 360 360 300 410 C 260 440 220 452 190 470" fill="none" stroke="#D4D4D4" stroke-width="1" stroke-dasharray="3 5"></path>
+        <text x="30" y="300" fill="#A3A3A3" style="font:600 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.3em" transform="rotate(-78 30 300)">OCÉANO PACÍFICO</text>
+        <path d="M 257 255 L 177 177" stroke="#0031EC" stroke-width="1.3" fill="none"></path>
+        <path d="M 257 255 C 230 330 190 390 155 440" stroke="#0031EC" stroke-width="1.3" fill="none"></path>
+        <path d="M 177 177 C 150 260 150 360 155 440" stroke="#0031EC" stroke-width="1" stroke-dasharray="2 4" fill="none"></path>
+        <path d="M 155 440 L 172 475" stroke="#0031EC" stroke-width="1.3" fill="none"></path>
+        <circle cx="257" cy="255" r="16" fill="#0031EC" opacity=".1"></circle>
+        <circle cx="257" cy="255" r="6.5" fill="#0031EC"></circle>
+        <circle cx="177" cy="177" r="5" fill="#fff" stroke="#0031EC" stroke-width="1.6"></circle>
+        <circle cx="155" cy="440" r="5" fill="#fff" stroke="#0031EC" stroke-width="1.6"></circle>
+        <circle cx="172" cy="475" r="5" fill="#fff" stroke="#0031EC" stroke-width="1.6"></circle>
+        <text x="273" y="250" fill="#0A0A0A" style="font:700 13px 'Plus Jakarta Sans',sans-serif">Tepic</text>
+        <text x="273" y="266" fill="#666" style="font:500 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em">PLANTA · CORPORATIVO</text>
+        <text x="190" y="172" fill="#0A0A0A" style="font:600 12px 'Plus Jakarta Sans',sans-serif">Santiago Ixcuintla</text>
+        <text x="40" y="436" fill="#0A0A0A" style="font:600 12px 'Plus Jakarta Sans',sans-serif">Bahía de Banderas</text>
+        <text x="186" y="489" fill="#0A0A0A" style="font:600 12px 'Plus Jakarta Sans',sans-serif">Puerto Vallarta</text>
+      </svg>
+    </figure>
+  </div>
+
+  <div style="margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:{{ kpiCols }};column-gap:24px;border-top:1px solid #0A0A0A">
+    <div style="padding:24px 24px 8px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #EBEBEB">
+      <span style="font:600 clamp(42px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">5,500+</span>
+      <span style="font-size:15px;line-height:1.45;color:#333">colaboradores</span>
+      <span style="padding-bottom:16px"><dc-import name="DatoChip" tipo="publico" fuente="Canales propios del grupo" hint-size="96px,22px"></dc-import></span>
+    </div>
+    <div style="padding:24px 24px 8px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #EBEBEB">
+      <span style="font:600 clamp(42px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">12<span style="font-size:.5em;color:#666;letter-spacing:0"> + </span>9</span>
+      <span style="font-size:15px;line-height:1.45;color:#333">12 empresas y 9 filiales</span>
+      <span style="padding-bottom:16px"><dc-import name="DatoChip" tipo="publico" fuente="Canales propios del grupo" hint-size="96px,22px"></dc-import></span>
+    </div>
+    <div style="padding:24px 24px 8px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #EBEBEB">
+      <span style="font:600 clamp(42px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#0031EC">17%</span>
+      <span style="font-size:15px;line-height:1.45;color:#333">de las ventas de Coca-Cola FEMSA ya pasan por su plataforma B2B</span>
+      <span style="padding-bottom:16px"><dc-import name="DatoChip" tipo="publico" fuente="El CEO, 2024" hint-size="96px,22px"></dc-import></span>
+    </div>
+    <div style="padding:24px 24px 8px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #EBEBEB">
+      <span style="font:600 clamp(42px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">2027</span>
+      <span style="font-size:15px;line-height:1.45;color:#333">1 de enero de 2027: registro electrónico de jornada obligatorio</span>
+      <span style="padding-bottom:16px"><dc-import name="DatoChip" tipo="publico" fuente="Garrigues" hint-size="96px,22px"></dc-import></span>
+    </div>
+  </div>
+</section>
+
+<section id="contexto" data-print="hide" data-screen-label="02 El momento de Álica" style="scroll-margin-top:120px;background:#F5F5F5">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:48px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">02 · El momento de Álica</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Cinco fuerzas convergen entre 2026 y 2030. Ninguna se resuelve solo con más camiones o más sucursales.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px">
+      <sc-for list="{{ fuerzas }}" as="f" hint-placeholder-count="5">
+        <div id="fuerza-{{ f.n }}" style="perspective:1400px">
+          <div role="button" tabindex="0" aria-pressed="{{ f.flipped }}" aria-label="{{ f.titulo }}. Ver iniciativas vinculadas" onClick="{{ f.flip }}" onKeyDown="{{ f.key }}" style="display:grid;cursor:pointer;transform-style:preserve-3d;transition:transform 300ms cubic-bezier(.22,1,.36,1);transform:{{ f.rot }};border-radius:8px;height:100%" style-focus="outline:2px solid #0031EC;outline-offset:3px">
+            <div style="grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff;border:1px solid #E5E5E5;border-radius:8px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:340px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#666">0{{ f.n }}</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#A3A3A3" stroke-width="1.4" stroke-linecap="round"><path d="M13 6.5A5 5 0 0 0 3.6 4.8M3 2.5v2.6h2.6M3 9.5a5 5 0 0 0 9.4 1.7M13 13.5v-2.6h-2.6"></path></svg>
+              </div>
+              <h3 style="margin:0;font:700 19px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">{{ f.titulo }}</h3>
+              <div style="display:flex;flex-direction:column;gap:4px;margin-top:auto">
+                <span style="font:600 40px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#0031EC">{{ f.big }}</span>
+                <span style="font:500 12px/1.35 'Plus Jakarta Sans',sans-serif;color:#525252">{{ f.unit }}</span>
+              </div>
+              <p style="margin:0;font-size:14px;line-height:1.5;color:#333;text-wrap:pretty">{{ f.cifra }}</p>
+              <dc-import name="DatoChip" tipo="publico" fuente="{{ f.fuente }}" hint-size="96px,22px"></dc-import>
+            </div>
+            <div style="grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:#0A0A0A;color:#FAFAFA;border-radius:8px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:340px">
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#A3A3A3">Qué significa</span>
+              <p style="margin:0;font-size:14.5px;line-height:1.5;color:#FAFAFA;text-wrap:pretty">{{ f.significa }}</p>
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#A3A3A3;margin-top:4px">Iniciativas que la atienden</span>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ f.inis }}" as="i">
+                  <sc-if value="{{ i.isP }}">
+                    <button type="button" onClick="{{ i.open }}" style="all:unset;cursor:pointer;display:flex;gap:8px;align-items:baseline;padding:6px 0;border-top:1px solid #333;font-size:13px;line-height:1.35;color:#FAFAFA" style-hover="color:#8AF3FF"><span style="flex:none;white-space:nowrap;font:700 11px/1.35 'Plus Jakarta Sans',sans-serif;color:#8AF3FF">{{ i.id }}</span><span>{{ i.nombre }}</span></button>
+                  </sc-if>
+                  <sc-if value="{{ i.notP }}">
+                    <span style="display:flex;gap:8px;align-items:baseline;padding:6px 0;border-top:1px solid #333;font-size:13px;line-height:1.35;color:#C8C8C8"><span style="flex:none;white-space:nowrap;font:700 11px/1.35 'Plus Jakarta Sans',sans-serif;color:#A3A3A3">{{ i.id }}</span><span>{{ i.nombre }} <span style="color:#666">· {{ i.seccion }}</span></span></span>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <figure style="margin:clamp(56px,6vw,88px) auto 0;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+      <svg width="34" height="24" viewBox="0 0 240 163" aria-hidden="true"><path fill="#0031EC" d="M 240 0 L 197.034 0 L 167.305 105.096 L 136.34 0.012 L 103.684 0.012 L 70.295 105.096 L 42.906 0.012 L 0 0.012 L 47.167 163 L 88.657 163 L 119.13 68.568 L 147.754 163 L 189.46 163 L 240 0 Z"></path></svg>
+      <blockquote style="margin:0;font:500 clamp(24px,2.8vw,36px)/1.25 Satoshi,sans-serif;letter-spacing:-.02em;text-wrap:balance">«La prioridad tecnológica número uno no es una app: es una arquitectura de datos y procesos común que hoy no se observa.»</blockquote>
+    </figure>
+  </div>
+</section>
+
+<section id="mapa" data-print="hide" data-screen-label="03 Mapa del grupo" style="scroll-margin-top:120px;max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:40px">
+    <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">03 · Mapa del grupo</span>
+    <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">21 empresas atienden a los mismos hogares, comercios y hoteles de Nayarit. Esta es la oportunidad de cada una.</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,156px),1fr));border-top:1px solid #0A0A0A;border-left:1px solid #EBEBEB">
+    <sc-for list="{{ segmentos }}" as="s" hint-placeholder-count="7">
+      <div style="border-right:1px solid #EBEBEB;border-bottom:1px solid #EBEBEB;padding:16px 12px 14px;display:flex;flex-direction:column;gap:10px;min-height:240px">
+        <span style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666;min-height:28px">{{ s.nombre }}</span>
+        <sc-for list="{{ s.empresas }}" as="e">
+          <button type="button" id="empresa-{{ e.slug }}" onClick="{{ e.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:10px;padding:14px 12px;border-radius:6px;background:#fff;transition:border-color 180ms, box-shadow 180ms;border:1px solid {{ e.border }};opacity:{{ e.opacity }}" style-hover="border-color:#0031EC;box-shadow:0 2px 10px rgba(0,49,236,.08)" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+            <span style="height:34px;display:flex;align-items:center"><sc-if value="{{ e.l_embotelladora }}"><img src="assets/logos/nayar.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_polo_sur }}"><img src="assets/logos/polo-sur.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_automotriz }}"><img src="assets/logos/alica-automotriz.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_fletes }}"><img src="assets/logos/fletes.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_pinsa }}"><img src="assets/logos/pinsa.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_funeraria }}"><img src="assets/logos/bello-recuerdo.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_frutalica }}"><img src="assets/logos/frutalica.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_medios }}"><img src="assets/logos/alica-medios.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ e.l_hospitalidad }}"><img src="assets/logos/las-palomas.png" alt="" style="max-height:34px;max-width:120px;width:auto;height:auto;object-fit:contain;display:block"></sc-if></span><span style="font:700 15px/1.25 Satoshi,sans-serif;letter-spacing:-.005em;color:#0A0A0A">{{ e.nombre }}</span>
+            <span style="font:500 12px/1.35 Inter,sans-serif;color:#525252"><span style="white-space:nowrap;font:700 11px 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ e.insigniaId }}</span> {{ e.insigniaNombre }}</span>
+            <sc-if value="{{ e.proto }}">
+              <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:#0A0A0A;color:#fff;font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z" fill="#fff"></path></svg>Prototipo disponible</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top:12px;border:1px solid #EBEBEB;border-radius:0;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:#F5F5F5">
+    <span style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666;flex:none">Corporativo y Fundación</span>
+    <button type="button" id="empresa-corporativo" onClick="{{ openCorporativo }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-width:240px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;padding:12px 14px;border-radius:6px;background:#fff;border:1px solid #E5E5E5" style-hover="border-color:#0031EC" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+      <span style="font:700 15px/1.25 Satoshi,sans-serif">Corporativo Grupo Empresarial Álica</span>
+      <span style="font:500 12.5px/1.35 Inter,sans-serif;color:#525252">Servicios compartidos, datos comunes y tablero del consejo · <span style="font:700 11px 'Plus Jakarta Sans',sans-serif;color:#0031EC">P-01 · P-02 · P-04</span></span>
+    </button>
+  </div>
+</section>
+
+<section id="plataformas" data-screen-label="04 Plataformas" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:40px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">04 · Plataformas</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Cada empresa conserva sus sistemas. Lo nuevo es una capa común que conecta datos, canales e IA.</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ capas }}" as="c" hint-placeholder-count="3">
+        <div style="display:grid;gap:8px;padding:10px;border-radius:8px;border:{{ c.frame }};background:{{ c.bg }};grid-template-columns:{{ layerCols }}">
+          <div style="padding:12px 8px;display:flex;flex-direction:column;justify-content:center;gap:4px">
+            <span style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:{{ c.labelColor }}">Capa {{ c.n }}</span>
+            <span style="font:700 17px/1.2 Satoshi,sans-serif;color:#0A0A0A">{{ c.nombre }}</span>
+          </div>
+          <div style="display:grid;gap:8px;grid-template-columns:{{ boxCols }}">
+          <sc-for list="{{ c.boxes }}" as="b">
+            <button type="button" aria-pressed="{{ b.on }}" onClick="{{ b.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;padding:16px;border-radius:6px;display:flex;flex-direction:column;gap:4px;transition:all 200ms;border:1px solid {{ b.border }};background:{{ b.bg }};color:{{ b.color }};opacity:{{ b.opacity }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+              <span style="font:700 16px/1.2 Satoshi,sans-serif">{{ b.t }}</span>
+              <span style="font:400 13px/1.35 Inter,sans-serif;opacity:.8">{{ b.s }}</span>
+              <span style="margin-top:6px;font:600 11px/1 'Plus Jakarta Sans',sans-serif;opacity:.75">{{ b.count }}</span>
+            </button>
+          </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div style="display:grid;gap:8px;padding:10px;border-radius:8px;border:1px dashed #A3A3A3;grid-template-columns:{{ layerCols }}">
+        <div style="padding:8px;display:flex;align-items:center"><span style="font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">Habilitadores</span></div>
+        <div style="display:grid;gap:8px;grid-template-columns:{{ boxCols }}">
+        <sc-for list="{{ habilitadores }}" as="b">
+          <button type="button" aria-pressed="{{ b.on }}" onClick="{{ b.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;padding:12px 16px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:all 200ms;border:1px solid {{ b.border }};background:{{ b.bg }};color:{{ b.color }};opacity:{{ b.opacity }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+            <span style="font:700 15px/1.2 Satoshi,sans-serif">{{ b.t }}</span>
+            <span style="flex:none;white-space:nowrap;font:600 11px/1 'Plus Jakarta Sans',sans-serif;opacity:.75">{{ b.count }}</span>
+          </button>
+        </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between">
+      <p style="margin:0;max-width:720px;font-size:16px;color:#333;text-wrap:pretty">Sin la capa media, cada canal digital se construye aislado y la vista única del cliente nunca existe.</p>
+      <sc-if value="{{ hasBox }}">
+        <button type="button" onClick="{{ clearBox }}" style="all:unset;cursor:pointer;font:600 13px/1 Inter,sans-serif;color:#0031EC;padding:8px 0" style-hover="color:#001D9B">Mostrar todas las plataformas ×</button>
+      </sc-if>
+    </div>
+
+    <div style="margin-top:56px;display:flex;flex-direction:column;gap:40px">
+      <sc-for list="{{ grupos }}" as="g" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:baseline;gap:12px;border-bottom:1px solid #0A0A0A;padding-bottom:10px">
+            <h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">{{ g.titulo }}</h3>
+            <span style="font:500 13px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ g.nota }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:12px">
+            <sc-for list="{{ g.items }}" as="p" hint-placeholder-count="5">
+              <article id="{{ p.id }}" style="scroll-margin-top:130px;transition:opacity 220ms, border-color 220ms;opacity:{{ p.opacity }}">
+                <button type="button" onClick="{{ p.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;height:100%;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:8px;background:#fff;border:1px solid {{ p.border }}" style-hover="border-color:#0031EC;box-shadow:0 4px 18px rgba(0,49,236,.08)" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                    <span style="flex:none;white-space:nowrap;font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ p.id }}</span>
+                    <span style="font:500 12px/1.2 Inter,sans-serif;color:#666;text-align:right">{{ p.empresa }}</span>
+                  </div>
+                  <h4 style="margin:0;font:700 18px/1.22 Satoshi,sans-serif;letter-spacing:-.01em;color:#0A0A0A;text-wrap:pretty">{{ p.nombre }}</h4>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ p.lineas }}" as="l"><dc-import name="LineaChip" linea="{{ l }}" hint-size="78px,22px"></dc-import></sc-for>
+                    <sc-if value="{{ p.proto }}"><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;background:#0A0A0A;color:#fff;font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z" fill="#fff"></path></svg>Prototipo</span></sc-if>
+                  </div>
+                  <p style="margin:0;font-size:14.5px;line-height:1.5;color:#333;text-wrap:pretty">{{ p.resuelve }}</p>
+                  <div style="margin-top:auto;padding-top:12px;border-top:1px solid #EBEBEB;display:flex;flex-direction:column;gap:4px">
+                    <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">KPI principal</span>
+                    <span style="font:500 13.5px/1.4 Inter,sans-serif;color:#0A0A0A">{{ p.kpi }}</span>
+                  </div>
+                </button>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="automatizacion" data-screen-label="05 Automatización" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:820px">
+        <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">05 · Automatización</span>
+        <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">21 empresas repiten las mismas tareas administrativas. Automatizarlas una vez sirve a todas.</h2>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 20px;background:#F5F5F5;border-radius:8px;margin-bottom:28px;max-width:980px">
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.3" stroke-linecap="round" style="flex:none;margin-top:2px"><path d="M2 4h12M2 8h8M2 12h5"></path><circle cx="12.5" cy="11.5" r="2"></circle></svg>
+      <p style="margin:0;font-size:16px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">Los procesos exactos, como pagos y conciliaciones, se automatizan con reglas deterministas. La IA se reserva para leer documentos y datos no estructurados, siempre con revisión humana.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px">
+      <sc-for list="{{ procesos }}" as="a" hint-placeholder-count="6">
+        <article id="{{ a.id }}" style="scroll-margin-top:130px;display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:8px;background:#fff;transition:opacity 220ms,border-color 220ms;border:1px solid {{ a.border }};opacity:{{ a.opacity }}">
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+            <span style="flex:none;white-space:nowrap;font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ a.id }}</span>
+            <span style="font:500 12px/1.3 Inter,sans-serif;color:#666;text-align:right">{{ a.empresas }}</span>
+          </div>
+          <button type="button" onClick="{{ a.open }}" style="all:unset;cursor:pointer;font:700 18px/1.22 Satoshi,sans-serif;letter-spacing:-.01em;text-wrap:pretty" style-hover="color:#0031EC" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ a.nombre }}</button>
+          <div role="radiogroup" aria-label="Antes y después" style="display:grid;grid-template-columns:1fr 1fr;padding:3px;border-radius:6px;background:#F2F2F2;gap:3px">
+            <sc-for list="{{ a.modes }}" as="m">
+              <button type="button" role="radio" aria-checked="{{ m.on }}" onClick="{{ m.pick }}" style="all:unset;cursor:pointer;text-align:center;height:32px;border-radius:4px;font:600 13px/32px Inter,sans-serif;transition:background 200ms,color 200ms;background:{{ m.bg }};color:{{ m.color }}" style-focus="outline:2px solid #0031EC;outline-offset:1px">{{ m.label }}</button>
+            </sc-for>
+          </div>
+          <div style="min-height:150px;display:flex;flex-direction:column;gap:10px">
+            <sc-if value="{{ a.isHoy }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:14.5px;line-height:1.5;color:#333;text-wrap:pretty">{{ a.hoy }}</p>
+              <dc-import name="DatoChip" tipo="confirmar" fuente="Situación típica; el estado real de cada proceso se valida en el diagnóstico" hint-size="130px,22px"></dc-import>
+            </sc-if>
+            <sc-if value="{{ a.isAuto }}">
+              <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0">
+                <sc-for list="{{ a.steps }}" as="s">
+                  <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start;padding:5px 0">
+                    <span style="width:30px;height:30px;border-radius:50%;background:#EEF1FE;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#0031EC" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ s.d }}"></path></svg></span>
+                    <span style="font-size:14px;line-height:1.4;padding-top:5px">{{ s.t }}</span>
+                  </li>
+                </sc-for>
+              </ol>
+            </sc-if>
+          </div>
+          <div style="margin-top:auto;padding-top:12px;border-top:1px solid #EBEBEB;display:flex;gap:12px;align-items:flex-end;justify-content:space-between">
+            <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">KPI</span><span style="font:500 13px/1.4 Inter,sans-serif">{{ a.kpi }}</span></span>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="ia" data-screen-label="06 Inteligencia artificial" style="scroll-margin-top:120px;background:#F5F5F5">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:28px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">06 · Inteligencia artificial</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">La IA vale cuando mueve un indicador con nombre y tiene un dueño que actúa sobre el resultado.</h2>
+    </div>
+    <div role="radiogroup" aria-label="Tipo de IA" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
+      <sc-for list="{{ iaTipos }}" as="t" hint-placeholder-count="5">
+        <button type="button" role="radio" aria-checked="{{ t.on }}" onClick="{{ t.pick }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:4px;font:600 13.5px/1 Inter,sans-serif;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ t.label }}<span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;opacity:.7">{{ t.count }}</span></button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:12px">
+      <sc-for list="{{ ias }}" as="c" hint-placeholder-count="6">
+        <article id="{{ c.id }}" style="scroll-margin-top:130px;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:8px;background:#fff;transition:opacity 220ms;border:1px solid {{ c.border }};opacity:{{ c.opacity }}">
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">
+            <span style="flex:none;white-space:nowrap;font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ c.id }}</span>
+            <span style="font:500 12px/1.3 Inter,sans-serif;color:#666;text-align:right">{{ c.empresa }}</span>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:7px;font:600 11.5px/1.2 'Plus Jakarta Sans',sans-serif;color:#333"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#0031EC" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ c.icon }}"></path></svg>{{ c.tipo }}</span>
+          <button type="button" onClick="{{ c.open }}" style="all:unset;cursor:pointer;font:700 18px/1.22 Satoshi,sans-serif;letter-spacing:-.01em;text-wrap:pretty" style-hover="color:#0031EC" style-focus="outline:2px solid #0031EC;outline-offset:2px">{{ c.nombre }}</button>
+          <span style="display:flex;flex-direction:column;gap:4px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">KPI</span><span style="font:500 13.5px/1.4 Inter,sans-serif">{{ c.kpi }}</span></span>
+          <div style="margin-top:auto;padding-top:12px;border-top:1px solid #EBEBEB;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+            <sc-for list="{{ c.lineas }}" as="l"><dc-import name="LineaChip" linea="{{ l }}" hint-size="78px,22px"></dc-import></sc-for>
+            <span style="flex:1"></span>
+            <sc-if value="{{ c.proto }}"><button type="button" onClick="{{ c.probar }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:4px;background:#0031EC;color:#fff;font:700 13px/1 Satoshi,sans-serif" style-hover="background:#2944FF"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z" fill="#fff"></path></svg>Probar</button></sc-if>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:12px">
+      <div style="padding:28px;border-radius:8px;background:#fff;border:1px solid #E5E5E5;display:flex;flex-direction:column;gap:14px">
+        <span style="display:flex;align-items:center;gap:10px"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.3" stroke-linecap="round"><rect x="3" y="7" width="10" height="7.5" rx="1.5"></rect><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"></path></svg><span style="font:700 20px/1.2 Satoshi,sans-serif">IA soberana para datos sensibles</span></span>
+        <p style="margin:0;font-size:15.5px;line-height:1.55;color:#333;text-wrap:pretty">Los datos financieros de 21 empresas, los expedientes de colaboradores y los planes de previsión no deberían viajar a servicios públicos de IA. AktivIA, la arquitectura de IA de Wigilabs, corre modelos abiertos en la infraestructura del grupo, con control de acceso por rol y trazabilidad completa.</p>
+      </div>
+      <div style="padding:28px;border-radius:8px;background:#0A0A0A;color:#FAFAFA;display:flex;flex-direction:column;gap:20px">
+        <span style="font:500 clamp(22px,2.4vw,28px)/1.2 Satoshi,sans-serif;letter-spacing:-.015em">La IA genera, las personas deciden.</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px">
+          <sc-for list="{{ gobierno }}" as="g">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="#8AF3FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="{{ g.d }}"></path></svg>
+              <span style="font:500 13.5px/1.35 Inter,sans-serif;color:#E5E5E5">{{ g.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="seguridad" data-screen-label="07 Seguridad con Xiid" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:900px;margin-bottom:24px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">07 · Seguridad con Xiid</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Con 21 empresas conectadas, el mayor riesgo no es un ataque: es que un incidente en una filial llegue a todas.</h2>
+      <p style="margin:8px 0 0;font-size:clamp(16px,1.4vw,18px);line-height:1.6;color:#333;text-wrap:pretty">Wigilabs comercializa Terniion, la plataforma zero trust de Xiid. Hace invisible la infraestructura: no abre puertos de entrada, conecta proceso a proceso por túneles sellados y cifra con algoritmos poscuánticos. Reemplaza la VPN para el acceso a aplicaciones y complementa la seguridad perimetral existente.</p>
+    </div>
+
+    <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Cadena de ataque · pase el cursor por cada paso</span><dc-import name="DatoChip" tipo="xiid" fuente="Capacidades descritas por Xiid para cada etapa de la cadena de ataque" hint-size="80px,22px"></dc-import></div>
+      <div style="display:grid;gap:6px;grid-template-columns:{{ kcCols }}">
+        <sc-for list="{{ kill }}" as="k" hint-placeholder-count="7">
+          <button type="button" aria-pressed="{{ k.on }}" onClick="{{ k.pick }}" onMouseEnter="{{ k.pick }}" onFocus="{{ k.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;padding:14px 12px;border-radius:6px;display:flex;flex-direction:column;gap:8px;min-height:92px;transition:background 180ms,color 180ms;border:1px solid {{ k.border }};background:{{ k.bg }};color:{{ k.color }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+            <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;opacity:.7">0{{ k.n }}</span>
+            <span style="font:700 14.5px/1.2 Satoshi,sans-serif">{{ k.t }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div aria-live="polite" style="padding:18px 20px;border-radius:8px;background:#F4F6FE;border:1px solid #D6DDFB;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline">
+        <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#0031EC">Qué bloquea Xiid · {{ killSel.t }}</span>
+        <span style="font:500 17px/1.45 Satoshi,sans-serif;color:#0A0A0A">{{ killSel.x }}</span>
+      </div>
+    </div>
+
+    <button type="button" data-print="hide" onClick="{{ goDemoXiid }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;margin-top:28px;padding:clamp(24px,3vw,36px);border-radius:10px;background:#0A0A0A;color:#FAFAFA;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between" style-hover="background:#1A1A1A" style-focus="outline:2px solid #0031EC;outline-offset:3px">
+      <span style="display:flex;flex-direction:column;gap:8px;max-width:640px">
+        <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#A3A3A3">Demo interactiva · 60 segundos</span>
+        <span style="font:700 clamp(22px,2.6vw,32px)/1.15 Satoshi,sans-serif;letter-spacing:-.015em">Infraestructura invisible: qué cambia cuando la red del grupo deja de tener puertos abiertos</span>
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border-radius:4px;background:#0031EC;color:#fff;font:700 15px/1 Satoshi,sans-serif">Abrir la demo<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></span>
+    </button>
+
+    <div id="seguridad-casos" style="scroll-margin-top:130px;margin-top:56px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:12px;border-bottom:1px solid #0A0A0A;padding-bottom:10px">
+        <h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">Casos de uso para Álica</h3>
+        <span style="font:500 13px/1 'Plus Jakarta Sans',sans-serif;color:#666">8 casos · Xiid y Hacknoid</span>
+      </div>
+      <sc-if value="{{ segWide }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr);gap:20px;padding:12px 0;border-bottom:1px solid #EBEBEB">
+          <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Caso</span><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Dónde</span><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Qué hace Xiid o Hacknoid</span><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Indicador</span>
+        </div>
+      </sc-if>
+      <sc-for list="{{ segs }}" as="s" hint-placeholder-count="8">
+        <button type="button" id="{{ s.id }}" onClick="{{ s.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:{{ s.gap }};padding:16px 0;border-bottom:1px solid #EBEBEB;transition:opacity 220ms,background 150ms;grid-template-columns:{{ segCols }};opacity:{{ s.opacity }}" style-hover="background:#FAFAFA" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+          <span style="display:flex;gap:10px;align-items:baseline"><span style="flex:none;white-space:nowrap;font:700 12px/1.3 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ s.id }}</span><span style="font:700 15.5px/1.3 Satoshi,sans-serif">{{ s.caso }}</span></span>
+          <span style="font-size:14px;line-height:1.45;color:#333">{{ s.donde }}</span>
+          <span style="font-size:14px;line-height:1.45;color:#333">{{ s.que }}</span>
+          <span style="font:500 13.5px/1.45 Inter,sans-serif;color:#0A0A0A">{{ s.ind }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+      <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="3">
+        <div style="padding:22px;border-radius:8px;border:1px solid #E5E5E5;display:flex;flex-direction:column;gap:14px">
+          <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">0{{ b.n }}</span>
+          <span style="font:700 18px/1.3 Satoshi,sans-serif;text-wrap:pretty">{{ b.t }}</span>
+          <span style="margin-top:auto"><dc-import name="DatoChip" tipo="xiid" fuente="Afirmación de Xiid; se verifica en el piloto" hint-size="80px,22px"></dc-import></span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div id="calculadora-riesgo" data-print="hide" style="scroll-margin-top:130px;margin-top:56px;border:1px solid #0A0A0A;border-radius:10px;overflow:hidden">
+      <div style="padding:24px clamp(18px,3vw,32px);border-bottom:1px solid #EBEBEB;display:flex;flex-direction:column;gap:8px">
+        <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Calculadora · Valor en riesgo</span>
+        <h3 style="margin:0;font:700 clamp(22px,2.4vw,28px)/1.2 Satoshi,sans-serif;letter-spacing:-.015em">¿Cuánto cuesta un día sin operar?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#525252;max-width:680px">No promete un ROI: dimensiona la seguridad y la continuidad con los datos que usted escribe.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ calcCols }}">
+        <div style="padding:24px clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:22px">
+          <sc-for list="{{ varFields }}" as="f" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                <label for="{{ f.id }}" style="font:600 14px/1.3 Inter,sans-serif">{{ f.label }}</label>
+                <sc-if value="{{ f.hasChip }}"><dc-import name="DatoChip" tipo="{{ f.chipTipo }}" fuente="{{ f.chipFuente }}" hint-size="120px,22px"></dc-import></sc-if>
+                <span style="flex:1"></span>
+                <sc-if value="{{ f.isRange }}"><span style="font:600 16px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;min-width:48px;text-align:right">{{ f.display }}</span></sc-if>
+              </div>
+              <sc-if value="{{ f.isRange }}">
+                <input id="{{ f.id }}" type="range" min="{{ f.min }}" max="{{ f.max }}" step="1" value="{{ f.value }}" onChange="{{ f.change }}" style="width:100%;accent-color:#0031EC;height:24px;margin:0">
+                <div style="display:flex;justify-content:space-between;align-items:center;font:500 12px/1 'Plus Jakarta Sans',sans-serif;color:#666"><span>{{ f.minLabel }}</span><sc-if value="{{ f.canReset }}"><button type="button" onClick="{{ f.reset }}" style="all:unset;cursor:pointer;font:600 12px/1 Inter,sans-serif;color:#0031EC;padding:4px">Volver a {{ f.defLabel }}</button></sc-if><span>{{ f.maxLabel }}</span></div>
+              </sc-if>
+              <sc-if value="{{ f.isText }}">
+                <div style="display:flex;align-items:center;height:46px;border:1px solid #D4D4D4;border-radius:6px;padding:0 12px;gap:6px;background:#fff">
+                  <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.prefix }}</span>
+                  <input id="{{ f.id }}" inputmode="numeric" value="{{ f.value }}" onChange="{{ f.change }}" placeholder="{{ f.placeholder }}" style="flex:1;min-width:0;border:0;outline:none;font:500 16px 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;background:transparent;color:#0A0A0A">
+                  <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.suffix }}</span>
+                </div>
+                <span style="font:500 12px/1.3 Inter,sans-serif;color:#666">{{ f.help }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:24px clamp(18px,3vw,32px);background:#F5F5F5;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Margen perdido por día</span><span style="font:600 clamp(32px,3.6vw,44px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ varDia }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Escenario de {{ varD }} días</span><span style="font:600 clamp(40px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#0031EC">{{ varTotal }}</span></div>
+          <sc-if value="{{ hasPrima }}"><div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Ahorro anual en prima</span><span style="font:600 32px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ varPrima }}</span></div></sc-if>
+          <p style="margin:0;font-size:15.5px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">{{ varTexto }}</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#525252">Como referencia de contexto: la suspensión de labores del 23 de febrero de 2026.</p>
+          <p style="margin:0;padding-top:14px;border-top:1px solid #E5E5E5;font-size:12.5px;line-height:1.5;color:#525252">Estimación de orden de magnitud para priorizar. Las cifras se validan con datos reales en el sprint y el piloto.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" onClick="{{ varReset }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">Restablecer</button>
+            <button type="button" onClick="{{ varCopy }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">{{ varCopyLabel }}</button>
+            <button type="button" onClick="{{ goDemoXiid }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;background:#0031EC;color:#fff;font:700 13.5px/40px Satoshi,sans-serif" style-hover="background:#2944FF">Ver demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin:32px 0 0;max-width:980px;font-size:13px;line-height:1.55;color:#666;text-wrap:pretty">Según Xiid: supera el estándar zero trust NIST SP 800-207, usa cifrado poscuántico compatible con NIST, obtuvo una Autorización para Operar del Departamento de Defensa de EE. UU. y fue probado por el Laboratorio de Investigación de la Fuerza Aérea de EE. UU.</p>
+  </div>
+</section>
+
+<section id="prototipos" data-print="hide" data-screen-label="08 Prototipos" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB;background:#FFFFFF">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:32px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">08 · Prototipos</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Siete simulaciones para recorrer con clics, como si ya existieran.</h2>
+      <p style="margin:0;font-size:clamp(16px,1.4vw,18px);line-height:1.55;color:#525252">Cada una se abre en pantalla completa, con una guía que explica cada paso del recorrido, lo que vive el cliente y lo que ve la empresa. Todas son candidatas a un sprint de 10 días hábiles con Demo Day al final.</p>
+    </div>
+    <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
+      <sc-for list="{{ protoCards }}" as="c" hint-placeholder-count="4">
+        <article id="{{ c.anchor }}" style="scroll-margin-top:130px;display:flex;flex-direction:column;gap:16px;padding:26px;border-radius:10px;overflow:hidden;border:1px solid {{ c.border }};background:{{ c.bg }}">
+          <div style="position:relative;margin:-26px -26px 4px;height:160px;background:#0A0A0A"><sc-if value="{{ c.iTablero }}"><img src="assets/img/opt/planta-frutalica.jpg" alt="Planta industrial del grupo" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ c.iNayar }}"><img src="assets/img/opt/dona-lupe-tienda.jpg" alt="Dueña de una tiendita detrás del mostrador" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block"></sc-if><sc-if value="{{ c.iMotors }}"><img src="assets/img/suv-compacta.jpg" alt="SUV compacta" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;display:block;background:#F5F5F5"></sc-if><sc-if value="{{ c.iPrevision }}"><img src="assets/img/jardines-san-juan.jpg" alt="Jardines de San Juan, Tepic" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ c.iHoreca }}"><img src="assets/img/opt/restaurante-riviera.jpg" alt="Restaurante de playa en la Riviera Nayarit" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ c.iFamilia }}"><img src="assets/img/opt/karla-almacen.jpg" alt="Colaboradora en el almacén" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block"></sc-if><sc-if value="{{ c.iXiid }}"><div style="width:100%;height:100%;background:radial-gradient(circle,#0031EC 1.6px,transparent 2.2px) 0 0/22px 22px,#0A0A0A"></div></sc-if></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+            <span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#525252">{{ c.empresa }}</span>
+            <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC">0{{ c.n }}</span>
+          </div>
+          <h3 style="margin:0;font:700 clamp(22px,2.2vw,28px)/1.1 Satoshi,sans-serif;letter-spacing:-.015em">{{ c.nombre }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:#333;text-wrap:pretty">{{ c.idea }}</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ c.recorre }}" as="r"><li style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.45;color:#1A1A1A"><span style="flex:none;width:6px;height:6px;border-radius:50%;background:#0031EC;transform:translateY(-2px)"></span>{{ r }}</li></sc-for>
+          </ul>
+          <button type="button" onClick="{{ c.open }}" style="all:unset;cursor:pointer;margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-radius:4px;background:#0031EC;color:#fff;font:700 15px/1 Satoshi,sans-serif" style-hover="background:#2944FF" style-focus="outline:2px solid #0031EC;outline-offset:3px"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"></path></svg>Abrir en pantalla completa</button>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="impacto" data-screen-label="09 Impacto" data-print="hide" style="scroll-margin-top:120px;background:#F5F5F5">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:880px;margin-bottom:32px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">09 · Calculadora de impacto</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Un rango de beneficio anual, conservador y esperado, con los datos que usted escribe.</h2>
+      <p style="margin:0;font-size:clamp(16px,1.4vw,18px);line-height:1.55;color:#525252;text-wrap:pretty">No hay cifras de Álica precargadas: las ventas parten de un valor normalizado de 100 millones de pesos y el resto de los datos internos llevan valores de ejemplo marcados para reemplazar.</p>
+    </div>
+    <div role="tablist" aria-label="Calculadoras" style="display:grid;gap:8px;margin-bottom:16px;grid-template-columns:{{ tabCols }}">
+      <sc-for list="{{ calcTabs }}" as="t" hint-placeholder-count="4">
+        <button type="button" role="tab" id="{{ t.anchor }}" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;scroll-margin-top:130px;padding:14px 16px;border-radius:8px;display:flex;flex-direction:column;gap:4px;transition:all 200ms;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }}" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+          <span style="font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75">{{ t.empresa }}</span>
+          <span style="font:700 17px/1.2 Satoshi,sans-serif">{{ t.nombre }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ isBizCalc }}" hint-placeholder-val="{{ true }}">
+      <div style="border:1px solid #0A0A0A;border-radius:10px;overflow:hidden;background:#fff">
+        <div style="display:grid;grid-template-columns:{{ calcCols }}">
+          <div style="padding:24px clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:22px">
+            <sc-for list="{{ calcInputs }}" as="f" hint-placeholder-count="6">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                  <span style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC;min-width:22px">{{ f.sym }}</span>
+                  <label for="{{ f.id }}" style="font:600 14px/1.3 Inter,sans-serif;flex:1;min-width:180px">{{ f.label }}</label>
+                  <dc-import name="DatoChip" tipo="{{ f.chipTipo }}" fuente="{{ f.fuente }}" hint-size="120px,22px"></dc-import>
+                </div>
+                <sc-if value="{{ f.isScen }}">
+                  <sc-for list="{{ f.pair }}" as="p">
+                    <div style="display:grid;grid-template-columns:92px minmax(0,1fr) 58px;gap:10px;align-items:center">
+                      <span style="font:600 12px/1 Inter,sans-serif;color:{{ p.color }}">{{ p.label }}</span>
+                      <input id="{{ p.id }}" type="range" min="{{ f.min }}" max="{{ f.max }}" step="{{ f.step }}" value="{{ p.value }}" onChange="{{ p.change }}" aria-label="{{ f.label }}, {{ p.label }}" style="width:100%;accent-color:{{ p.color }};height:24px;margin:0">
+                      <span style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;text-align:right">{{ p.display }}</span>
+                    </div>
+                  </sc-for>
+                </sc-if>
+                <sc-if value="{{ f.isPct }}">
+                  <div style="display:grid;grid-template-columns:minmax(0,1fr) 58px;gap:10px;align-items:center">
+                    <input id="{{ f.id }}" type="range" min="{{ f.min }}" max="{{ f.max }}" step="{{ f.step }}" value="{{ f.value }}" onChange="{{ f.change }}" style="width:100%;accent-color:#0A0A0A;height:24px;margin:0">
+                    <span style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;text-align:right">{{ f.display }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ f.isSlider }}">
+                  <div style="display:flex;justify-content:space-between;align-items:center;font:500 12px/1 'Plus Jakarta Sans',sans-serif;color:#666"><span>{{ f.minLabel }}</span><sc-if value="{{ f.canReset }}"><button type="button" onClick="{{ f.reset }}" style="all:unset;cursor:pointer;font:600 12px/1 Inter,sans-serif;color:#0031EC;padding:4px">Volver a {{ f.defLabel }}</button></sc-if><span>{{ f.maxLabel }}</span></div>
+                </sc-if>
+                <sc-if value="{{ f.isText }}">
+                  <div style="display:flex;align-items:center;height:46px;border:1px solid #D4D4D4;border-radius:6px;padding:0 12px;gap:6px;background:#fff">
+                    <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.prefix }}</span>
+                    <input id="{{ f.id }}" inputmode="numeric" value="{{ f.value }}" onChange="{{ f.change }}" placeholder="{{ f.placeholder }}" style="flex:1;min-width:0;border:0;outline:none;font:500 16px 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;background:transparent;color:#0A0A0A">
+                    <span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.suffix }}</span>
+                  </div>
+                  <sc-if value="{{ f.canReset }}"><button type="button" onClick="{{ f.reset }}" style="all:unset;cursor:pointer;align-self:flex-start;font:600 12px/1 Inter,sans-serif;color:#0031EC;padding:2px 0">Volver a {{ f.defLabel }}</button></sc-if>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="display:flex;flex-direction:column;gap:8px;padding-top:18px;border-top:1px solid #EBEBEB">
+              <label for="calc-inv" style="font:600 14px/1.3 Inter,sans-serif">Inversión del año 1 (implementación más operación)</label>
+              <div style="display:flex;align-items:center;height:46px;border:1px solid #D4D4D4;border-radius:6px;padding:0 12px;gap:6px;background:#fff">
+                <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">$</span>
+                <input id="calc-inv" inputmode="numeric" value="{{ invValue }}" onChange="{{ invChange }}" placeholder="Escriba la inversión para ver ROI y recuperación" style="flex:1;min-width:0;border:0;outline:none;font:500 16px 'Plus Jakarta Sans',sans-serif;background:transparent;color:#0A0A0A">
+                <span style="font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#666">MXN</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:24px clamp(18px,3vw,32px);background:#FAFAFA;border-left:1px solid #EBEBEB;display:flex;flex-direction:column;gap:20px">
+            <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Beneficio anual estimado</span>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+              <sc-for list="{{ calcRes }}" as="r">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font:600 12.5px/1 Inter,sans-serif;color:{{ r.color }}">{{ r.label }}</span>
+                  <span style="font:600 clamp(26px,2.8vw,36px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ r.b }}</span>
+                  <div style="height:10px;border-radius:5px;background:#EBEBEB;overflow:hidden"><div style="height:10px;border-radius:5px;transition:width 250ms;width:{{ r.w }};background:{{ r.color }}"></div></div>
+                  <sc-if value="{{ hasInv }}">
+                    <div style="display:flex;flex-direction:column;gap:6px;padding-top:8px">
+                      <span style="display:flex;justify-content:space-between;gap:8px;font-size:13.5px"><span style="color:#525252">ROI año 1</span><span style="font:600 14px 'Plus Jakarta Sans',sans-serif">{{ r.roi }}</span></span>
+                      <span style="display:flex;justify-content:space-between;gap:8px;font-size:13.5px"><span style="color:#525252">Recuperación</span><span style="font:600 14px 'Plus Jakarta Sans',sans-serif">{{ r.meses }}</span></span>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ noInv }}"><p style="margin:0;font-size:13.5px;line-height:1.5;color:#525252">Escriba la inversión del año 1 para ver el ROI y los meses de recuperación.</p></sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:6px;background:#fff;border:1px solid #EBEBEB">
+              <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Fórmula</span>
+              <span style="font:600 14px/1.4 'Plus Jakarta Sans',sans-serif">{{ calcFormula }}</span>
+              <sc-if value="{{ hasInv }}"><span style="font:500 12.5px/1.4 'Plus Jakarta Sans',sans-serif;color:#525252">ROI = (B − I) / I · Recuperación = I / (B / 12)</span></sc-if>
+            </div>
+            <sc-if value="{{ calcNote }}"><p style="margin:0;font-size:13.5px;line-height:1.5;color:#333">{{ calcNote }}</p></sc-if>
+            <p style="margin:0;padding-top:14px;border-top:1px solid #E5E5E5;font-size:12.5px;line-height:1.5;color:#525252">Estimación de orden de magnitud para priorizar. Las cifras se validan con datos reales en el sprint y el piloto.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px" data-print="hide">
+              <button type="button" onClick="{{ calcReset }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">Restablecer</button>
+              <button type="button" onClick="{{ calcCopy }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">{{ calcCopyLabel }}</button>
+              <button type="button" onClick="{{ calcProto }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;background:#0031EC;color:#fff;font:700 13.5px/40px Satoshi,sans-serif" style-hover="background:#2944FF">Ver prototipo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isRiesgoCalc }}">
+      <div style="background:#fff;border-radius:10px">
+      <div style="border:1px solid #0A0A0A;border-radius:10px;overflow:hidden">
+      <div style="padding:24px clamp(18px,3vw,32px);border-bottom:1px solid #EBEBEB;display:flex;flex-direction:column;gap:8px">
+        <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Calculadora · Valor en riesgo</span>
+        <h3 style="margin:0;font:700 clamp(22px,2.4vw,28px)/1.2 Satoshi,sans-serif;letter-spacing:-.015em">¿Cuánto cuesta un día sin operar?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#525252;max-width:680px">No promete un ROI: dimensiona la seguridad y la continuidad con los datos que usted escribe.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ calcCols }}">
+        <div style="padding:24px clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:22px">
+          <sc-for list="{{ varFields }}" as="f" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                <label for="{{ f.id }}-b" style="font:600 14px/1.3 Inter,sans-serif">{{ f.label }}</label>
+                <sc-if value="{{ f.hasChip }}"><dc-import name="DatoChip" tipo="{{ f.chipTipo }}" fuente="{{ f.chipFuente }}" hint-size="120px,22px"></dc-import></sc-if>
+                <span style="flex:1"></span>
+                <sc-if value="{{ f.isRange }}"><span style="font:600 16px/1 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;min-width:48px;text-align:right">{{ f.display }}</span></sc-if>
+              </div>
+              <sc-if value="{{ f.isRange }}">
+                <input id="{{ f.id }}-b" type="range" min="{{ f.min }}" max="{{ f.max }}" step="1" value="{{ f.value }}" onChange="{{ f.change }}" style="width:100%;accent-color:#0031EC;height:24px;margin:0">
+                <div style="display:flex;justify-content:space-between;align-items:center;font:500 12px/1 'Plus Jakarta Sans',sans-serif;color:#666"><span>{{ f.minLabel }}</span><sc-if value="{{ f.canReset }}"><button type="button" onClick="{{ f.reset }}" style="all:unset;cursor:pointer;font:600 12px/1 Inter,sans-serif;color:#0031EC;padding:4px">Volver a {{ f.defLabel }}</button></sc-if><span>{{ f.maxLabel }}</span></div>
+              </sc-if>
+              <sc-if value="{{ f.isText }}">
+                <div style="display:flex;align-items:center;height:46px;border:1px solid #D4D4D4;border-radius:6px;padding:0 12px;gap:6px;background:#fff">
+                  <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.prefix }}</span>
+                  <input id="{{ f.id }}-b" inputmode="numeric" value="{{ f.value }}" onChange="{{ f.change }}" placeholder="{{ f.placeholder }}" style="flex:1;min-width:0;border:0;outline:none;font:500 16px 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;background:transparent;color:#0A0A0A">
+                  <span style="font:600 14px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ f.suffix }}</span>
+                </div>
+                <span style="font:500 12px/1.3 Inter,sans-serif;color:#666">{{ f.help }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:24px clamp(18px,3vw,32px);background:#F5F5F5;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Margen perdido por día</span><span style="font:600 clamp(32px,3.6vw,44px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ varDia }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Escenario de {{ varD }} días</span><span style="font:600 clamp(40px,4.4vw,56px)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#0031EC">{{ varTotal }}</span></div>
+          <sc-if value="{{ hasPrima }}"><div style="display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">Ahorro anual en prima</span><span style="font:600 32px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ varPrima }}</span></div></sc-if>
+          <p style="margin:0;font-size:15.5px;line-height:1.55;color:#1A1A1A;text-wrap:pretty">{{ varTexto }}</p>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#525252">Como referencia de contexto: la suspensión de labores del 23 de febrero de 2026.</p>
+          <p style="margin:0;padding-top:14px;border-top:1px solid #E5E5E5;font-size:12.5px;line-height:1.5;color:#525252">Estimación de orden de magnitud para priorizar. Las cifras se validan con datos reales en el sprint y el piloto.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" onClick="{{ varReset }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">Restablecer</button>
+            <button type="button" onClick="{{ varCopy }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #D4D4D4;background:#fff;font:600 13.5px/40px Inter,sans-serif" style-hover="border-color:#0A0A0A">{{ varCopyLabel }}</button>
+            <button type="button" onClick="{{ goDemoXiid }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;background:#0031EC;color:#fff;font:700 13.5px/40px Satoshi,sans-serif" style-hover="background:#2944FF">Ver demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<section id="prioridades" data-screen-label="10 Priorización" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:900px;margin-bottom:28px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">10 · Priorización</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Siete iniciativas entran primero.</h2>
+      <p style="margin:0;font-size:clamp(16px,1.4vw,18px);line-height:1.6;color:#333;text-wrap:pretty">Gestión de ingresos, Pedido Nayar, el agente automotriz, el tablero del consejo, el registro de jornada, el diagnóstico Hacknoid y Xiid en planta y accesos remotos.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font-size:13.5px;color:#525252">Ubicación de cada iniciativa</span><dc-import name="DatoChip" tipo="estimacion" fuente="Valoración de impacto y esfuerzo de la investigación; se ajusta en la sesión de backlog" hint-size="130px,22px"></dc-import></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px" data-print="hide">
+      <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666;margin-right:4px">Líneas</span>
+      <sc-for list="{{ lineLegend }}" as="l" hint-placeholder-count="4">
+        <button type="button" aria-pressed="{{ l.on }}" onClick="{{ l.toggle }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #D4D4D4;font:600 12.5px/1 Inter,sans-serif;opacity:{{ l.opacity }}" style-focus="outline:2px solid #0031EC;outline-offset:2px"><span style="width:14px;height:14px;border-radius:50%;box-sizing:border-box;background:{{ l.bg }};border:1.5px solid {{ l.border }}"></span>{{ l.name }}</button>
+      </sc-for>
+      <span style="display:inline-flex;align-items:center;gap:7px;font:500 12.5px/1 Inter,sans-serif;color:#333;margin-left:6px"><span style="width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #0A0A0A"></span>Con prototipo</span>
+    </div>
+    <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px">
+      <div style="display:flex;align-items:center;justify-content:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#525252;white-space:nowrap">Impacto en el negocio →</span></div>
+      <div style="position:relative;border:1px solid #0A0A0A;aspect-ratio:{{ matrixRatio }};min-height:360px">
+        <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr">
+          <div style="background:#FAFAFA;border-right:1px solid #D4D4D4;border-bottom:1px solid #D4D4D4;padding:12px"><span style="font:700 13px/1.2 Satoshi,sans-serif;color:#525252">Preparar el dato primero</span></div>
+          <div style="background:#F0F3FE;border-bottom:1px solid #D4D4D4;padding:12px;text-align:right"><span style="font:700 13px/1.2 Satoshi,sans-serif;color:#0031EC">Empezar aquí</span></div>
+          <div style="background:#FFFFFF;border-right:1px solid #D4D4D4;padding:12px;display:flex;align-items:flex-end"><span style="font:700 13px/1.2 Satoshi,sans-serif;color:#666">Después</span></div>
+          <div style="background:#FAFAFA;padding:12px;display:flex;align-items:flex-end;justify-content:flex-end"><span style="font:700 13px/1.2 Satoshi,sans-serif;color:#525252">Mejoras tácticas</span></div>
+        </div>
+        <sc-for list="{{ puntos }}" as="p" hint-placeholder-count="22">
+          <button type="button" aria-label="{{ p.aria }}" onClick="{{ p.open }}" onMouseEnter="{{ p.hover }}" onMouseLeave="{{ unhover }}" onFocus="{{ p.hover }}" onBlur="{{ unhover }}" disabled="{{ p.off }}" style="all:unset;box-sizing:border-box;cursor:pointer;position:absolute;transform:translate(-50%,-50%);width:{{ dot }};height:{{ dot }};border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 {{ dotFont }}/1 'Plus Jakarta Sans',sans-serif;transition:opacity 220ms,transform 150ms;left:{{ p.x }};top:{{ p.y }};background:{{ p.bg }};color:{{ p.color }};border:1.5px solid {{ p.border }};box-shadow:{{ p.ring }};opacity:{{ p.opacity }};z-index:{{ p.z }}" style-hover="transform:translate(-50%,-50%) scale(1.12)" style-focus="outline:2px solid #0031EC;outline-offset:3px">{{ p.short }}</button>
+        </sc-for>
+        <sc-if value="{{ hasTip }}">
+          <div role="tooltip" style="position:absolute;z-index:30;width:240px;max-width:70%;pointer-events:none;background:#0A0A0A;color:#FAFAFA;padding:10px 12px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);left:{{ tip.x }};top:{{ tip.y }};transform:{{ tip.tf }}">
+            <span style="display:block;font:700 11px/1 'Plus Jakarta Sans',sans-serif;color:#8AF3FF;margin-bottom:5px">{{ tip.id }}</span>
+            <span style="display:block;font:600 13.5px/1.3 Satoshi,sans-serif;margin-bottom:6px">{{ tip.nombre }}</span>
+            <span style="display:block;font:400 12px/1.4 Inter,sans-serif;color:#C8C8C8">KPI: {{ tip.kpi }}</span>
+          </div>
+        </sc-if>
+      </div>
+      <span></span>
+      <span style="text-align:center;font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#525252;padding-top:6px">Facilidad de implementación hoy →</span>
+    </div>
+    <p style="margin:24px 0 0;max-width:820px;font:500 clamp(17px,1.6vw,20px)/1.45 Satoshi,sans-serif;text-wrap:pretty">Las iniciativas de ‘Empezar aquí’ se justifican aunque no cambie nada más en el portafolio.</p>
+  </div>
+</section>
+
+<section id="ruta" data-screen-label="11 Hoja de ruta" style="scroll-margin-top:120px;background:#F5F5F5">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:900px;margin-bottom:32px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">11 · Hoja de ruta</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Tres oleadas en 24 meses a partir del arranque, cada una con su puerta de decisión.</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:14px;font-size:13.5px;line-height:1.45;color:#1A1A1A"><span style="padding:3px 8px;border-radius:4px;background:#D92D20;color:#fff;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif">Fecha externa fija</span><span>1 de enero de 2027: registro electrónico de jornada obligatorio. Por eso el registro de jornada entra en la oleada 0.</span></div>
+    <sc-if value="{{ roadWide }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative;background:#fff;border:1px solid #E5E5E5;border-radius:10px;padding:18px 18px 18px 0">
+        <div style="position:absolute;top:0;bottom:0;left:0;right:18px;display:grid;grid-template-columns:150px 3fr 4fr 6fr;pointer-events:none">
+          <span></span>
+          <div style="position:relative">
+            <span style="position:absolute;top:0;bottom:0;left:0;border-left:2px solid #0A0A0A"></span>
+            <span style="position:absolute;bottom:8px;left:6px;padding:3px 7px;border-radius:4px;background:#0A0A0A;color:#fff;font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap">Arranque · semana 1</span>
+          </div>
+          <div style="position:relative"><span style="position:absolute;top:0;bottom:0;left:0;border-left:2px dashed #0031EC"></span></div>
+          <div style="position:relative"><span style="position:absolute;top:0;bottom:0;left:0;border-left:2px dashed #0031EC"></span></div>
+        </div>
+        <div style="position:relative;display:grid;grid-template-columns:150px 3fr 4fr 6fr;row-gap:0">
+          <span></span>
+          <sc-for list="{{ oleadas }}" as="o">
+            <div style="padding:4px 14px 16px;display:flex;flex-direction:column;gap:6px">
+              <sc-if value="{{ o.gate }}"><span title="{{ o.gateText }}" style="align-self:flex-start;padding:3px 8px;border-radius:999px;background:#0031EC;color:#fff;font:600 10.5px/1.2 'Plus Jakarta Sans',sans-serif;margin-left:-14px">{{ o.gate }}</span></sc-if>
+              <span style="font:700 17px/1.2 Satoshi,sans-serif">{{ o.t }}</span>
+              <span style="font:500 12px/1.2 'Plus Jakarta Sans',sans-serif;color:#525252">{{ o.f }}</span>
+            </div>
+          </sc-for>
+          <sc-for list="{{ frentes }}" as="fr">
+            <div style="padding:14px 12px 14px 18px;border-top:1px solid #EBEBEB;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#525252">{{ fr.t }}</div>
+            <sc-for list="{{ fr.cells }}" as="cell">
+              <div style="padding:10px 10px 10px 14px;border-top:1px solid #EBEBEB;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;min-height:64px">
+                <sc-for list="{{ cell }}" as="c">
+                  <button type="button" onClick="{{ c.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:flex-start;gap:7px;padding:8px 10px;border-radius:6px;background:#fff;border:1px solid #E5E5E5;max-width:100%;transition:opacity 220ms;opacity:{{ c.opacity }}" style-hover="border-color:#0031EC" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+                    <span style="flex:none;width:10px;height:10px;border-radius:50%;margin-top:3px;box-sizing:border-box;background:{{ c.bg }};border:1.5px solid {{ c.border }}"></span>
+                    <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:700 10.5px/1.2 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ c.id }}</span><span style="font:500 12.5px/1.3 Inter,sans-serif;color:#0A0A0A">{{ c.t }}</span></span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-for>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ roadNarrow }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="align-self:flex-start;padding:4px 8px;border-radius:4px;background:#0A0A0A;color:#fff;font:600 11px/1.2 'Plus Jakarta Sans',sans-serif">Arranque · semana 1</span>
+        <sc-for list="{{ oleadasNarrow }}" as="o">
+          <sc-if value="{{ o.gate }}"><div style="padding:10px 14px;border-radius:8px;border:1.5px dashed #0031EC;font-size:13.5px;line-height:1.45"><strong style="color:#0031EC">{{ o.gate }}.</strong> {{ o.gateText }}</div></sc-if>
+          <div style="background:#fff;border:1px solid #E5E5E5;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font:700 18px/1.2 Satoshi,sans-serif">{{ o.t }}</span><span style="font:500 12px/1.2 'Plus Jakarta Sans',sans-serif;color:#525252">{{ o.f }}</span></div>
+            <sc-if value="{{ o.red }}"><span style="align-self:flex-start;padding:3px 8px;border-radius:4px;background:#D92D20;color:#fff;font:600 11px/1.3 'Plus Jakarta Sans',sans-serif">Antes del 1 ene 2027 · registro electrónico de jornada</span></sc-if>
+            <sc-for list="{{ o.frentes }}" as="fr">
+              <div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid #EBEBEB">
+                <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">{{ fr.t }}</span>
+                <sc-for list="{{ fr.items }}" as="c">
+                  <button type="button" onClick="{{ c.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:flex-start;gap:8px;padding:8px 0;opacity:{{ c.opacity }}">
+                    <span style="flex:none;width:10px;height:10px;border-radius:50%;margin-top:4px;box-sizing:border-box;background:{{ c.bg }};border:1.5px solid {{ c.border }}"></span>
+                    <span style="font:700 11px/1.5 'Plus Jakarta Sans',sans-serif;color:#0031EC;flex:none">{{ c.id }}</span><span style="font:500 14px/1.4 Inter,sans-serif">{{ c.t }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="margin-top:20px;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))">
+      <sc-for list="{{ puertas }}" as="g">
+        <div style="display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:#1A1A1A"><span style="flex:none;padding:3px 8px;border-radius:999px;background:#0031EC;color:#fff;font:600 10.5px/1.3 'Plus Jakarta Sans',sans-serif;white-space:nowrap">{{ g.t }}</span><span>{{ g.x }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="siguiente" data-screen-label="12 Próximos pasos" data-print="hide" style="scroll-margin-top:120px;border-top:1px solid #EBEBEB">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-bottom:32px">
+      <span style="font:600 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#666666">12 · Próximos pasos</span>
+      <h2 style="margin:0;font:700 clamp(28px,3.6vw,48px)/1.08 Satoshi,sans-serif;letter-spacing:-.025em;text-wrap:balance">Tres pasos para empezar.</h2>
+    </div>
+    <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
+      <div style="padding:26px;border-radius:10px;border:1px solid #0A0A0A;display:flex;flex-direction:column;gap:14px">
+        <span style="font:600 44px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:#0031EC">01</span>
+        <h3 style="margin:0;font:700 21px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">Sesión de 45 minutos para armar el backlog</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#333;text-wrap:pretty">Álica trae de 3 a 5 retos de negocio; salen dos sprints definidos con KPI, dueño y criterio de éxito, sin compromiso de contratación. Deben estar el dueño del área, alguien que conozca la operación y alguien que conozca los datos.</p>
+      </div>
+      <div style="padding:26px;border-radius:10px;border:1px solid #E5E5E5;display:flex;flex-direction:column;gap:14px">
+        <span style="font:600 44px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:#0031EC">02</span>
+        <h3 style="margin:0;font:700 21px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">Primer sprint: Pedido Nayar en 10 días hábiles</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#333;text-wrap:pretty">Prototipo funcionando con datos históricos o sintéticos y una decisión en el Demo Day. Unas 6 horas del equipo de Álica en total.</p>
+      </div>
+      <div style="padding:26px;border-radius:10px;border:1px solid #E5E5E5;display:flex;flex-direction:column;gap:14px">
+        <span style="font:600 44px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:#0031EC">03</span>
+        <h3 style="margin:0;font:700 21px/1.2 Satoshi,sans-serif;letter-spacing:-.01em">Diagnóstico de seguridad y piloto Xiid</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#333;text-wrap:pretty">Evaluación Hacknoid por empresa y piloto de Xiid en una carga crítica, como el acceso remoto a planta.</p>
+      </div>
+    </div>
+    <p style="margin:24px 0 0;max-width:820px;font:500 clamp(17px,1.6vw,20px)/1.45 Satoshi,sans-serif;text-wrap:pretty">Nombrar un responsable de datos y digital del grupo con mandato transversal acelera las tres.</p>
+    <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+      <a href="mailto:comercial@wigilabs.com?subject=Grupo%20%C3%81lica%20%C2%B7%20Sesi%C3%B3n%20de%20backlog" style="display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:4px;background:#0031EC;color:#fff;font:700 17px/1 Satoshi,sans-serif;letter-spacing:.02em" style-hover="background:#2944FF;color:#fff">Agendar la sesión<svg width="15" height="15" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"></path></svg></a>
+      <span style="font:500 14px/1.4 Inter,sans-serif;color:#525252">Abre un correo a comercial@wigilabs.com</span>
+    </div>
+    <div style="margin-top:48px;border-top:1px solid #EBEBEB">
+      <button type="button" aria-expanded="{{ datosAria }}" onClick="{{ toggleDatos }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+        <span style="font:700 18px/1.3 Satoshi,sans-serif">Datos que afinan el impacto: los pedimos en la sesión de backlog o en el diagnóstico</span>
+        <span style="flex:none;font:600 20px/1 Inter,sans-serif;color:#0031EC">{{ datosSign }}</span>
+      </button>
+      <sc-if value="{{ datosOpen }}">
+        <div style="display:flex;flex-direction:column;padding-bottom:12px">
+          <sc-for list="{{ datos }}" as="d">
+            <div style="display:grid;gap:4px 20px;padding:12px 0;border-top:1px solid #F0F0F0;grid-template-columns:{{ datosCols }}">
+              <span style="font:600 14px/1.4 Inter,sans-serif">{{ d.dato }}</span>
+              <span style="font-size:14px;line-height:1.4;color:#333">{{ d.uso }}</span>
+              <span style="font-size:13.5px;line-height:1.4;color:#525252">{{ d.quien }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#0A0A0A;color:#FAFAFA">
+  <div style="max-width:1280px;margin:0 auto;padding:40px clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between">
+      <img src="assets/wigilabs-wordmark.png" alt="Wigilabs" width="117" height="20" style="display:block;height:20px;width:auto;filter:invert(1)">
+      <span style="font:500 16px/1.4 Satoshi,sans-serif;color:#E5E5E5">Evoluciona con un aliado, no con un proveedor.</span>
+      <div style="display:flex;gap:10px;align-items:center" data-print="hide">
+        <a href="https://www.wigilabs.com" style="color:#FAFAFA;font:600 14px/1 Inter,sans-serif" style-hover="color:#8AF3FF">www.wigilabs.com</a>
+        <button type="button" onClick="{{ printResumen }}" style="all:unset;cursor:pointer;height:40px;padding:0 14px;border-radius:4px;border:1px solid #333;font:600 13.5px/40px Inter,sans-serif;color:#FAFAFA" style-hover="border-color:#FAFAFA">Imprimir resumen</button>
+      </div>
+    </div>
+    <p style="margin:0;padding-top:20px;border-top:1px solid #333;font-size:12.5px;line-height:1.6;color:#A3A3A3;max-width:980px">Fuentes: investigación «Grupo Álica: Diagnóstico Estratégico y Digital 2026» (Wigilabs, octubre de 2026), con sus fuentes públicas citadas: El CEO, Garrigues, Cluster Industrial, TBN, Crónica, AgroLatam y canales propios del grupo. Materiales de Wigilabs: Perfil de capacidades, Arquitectura de IA AktivIA, Guía del sprint de innovación y prototipado con IA, y presentación de Xiid Terniion.</p>
+  </div>
+</footer>
+
+<sc-if value="{{ protoOpen }}">
+  <div role="dialog" aria-modal="true" aria-label="Prototipos en pantalla completa" data-print="hide" style="position:fixed;inset:0;z-index:300;background:#fff">
+    <dc-import name="Prototipos" initial="{{ protoTab }}" on-close="{{ closeProto }}" hint-size="100%,100%"></dc-import>
+  </div>
+</sc-if>
+
+<sc-if value="{{ panelOpen }}">
+  <div data-print="hide" onClick="{{ closePanel }}" style="position:fixed;inset:0;z-index:80;background:rgba(10,10,10,.28)"></div>
+  <aside data-print="hide" role="dialog" aria-modal="true" aria-label="{{ pn.titulo }}" style="position:fixed;top:0;right:0;bottom:0;z-index:90;width:min(500px,100vw);background:#fff;box-shadow:-12px 0 40px rgba(0,0,0,.12);overflow-y:auto;display:flex;flex-direction:column">
+    <div style="position:sticky;top:0;background:#fff;border-bottom:1px solid #EBEBEB;padding:14px 20px 14px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:2">
+      <span style="font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:#0031EC;letter-spacing:.04em">{{ pn.eyebrow }}</span>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button type="button" onClick="{{ copyLink }}" style="all:unset;cursor:pointer;height:36px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;font:500 13px/36px Inter,sans-serif;color:#0A0A0A" style-hover="border-color:#0A0A0A">{{ copyLabel }}</button>
+        <button type="button" onClick="{{ closePanel }}" aria-label="Cerrar" style="all:unset;cursor:pointer;width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center" style-hover="background:#F5F5F5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"></path></svg></button>
+      </div>
+    </div>
+    <div style="padding:28px;display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h3 style="margin:0;font:700 clamp(24px,3vw,30px)/1.12 Satoshi,sans-serif;letter-spacing:-.02em;text-wrap:balance">{{ pn.titulo }}</h3>
+        <span style="font:500 14px/1.4 Inter,sans-serif;color:#525252">{{ pn.sub }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ pn.lineas }}" as="l"><dc-import name="LineaChip" linea="{{ l }}" hint-size="78px,22px"></dc-import></sc-for>
+        </div>
+      </div>
+      <sc-for list="{{ pn.campos }}" as="c">
+        <div style="display:flex;flex-direction:column;gap:6px;padding-top:16px;border-top:1px solid #EBEBEB">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">{{ c.k }}</span>
+            <sc-if value="{{ c.chip }}"><dc-import name="DatoChip" tipo="{{ c.chipTipo }}" fuente="{{ c.chipFuente }}" hint-size="120px,22px"></dc-import></sc-if>
+          </div>
+          <span style="font-size:16px;line-height:1.5;color:#0A0A0A;text-wrap:pretty">{{ c.v }}</span>
+        </div>
+      </sc-for>
+      <sc-if value="{{ pn.hasLinks }}">
+        <div style="display:flex;flex-direction:column;gap:6px;padding-top:16px;border-top:1px solid #EBEBEB">
+          <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#666">{{ pn.linksLabel }}</span>
+          <sc-for list="{{ pn.links }}" as="x">
+            <button type="button" onClick="{{ x.open }}" style="all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline;padding:8px 0;font-size:15px;line-height:1.35;color:#0A0A0A" style-hover="color:#0031EC"><span style="flex:none;white-space:nowrap;font:700 12px/1.35 'Plus Jakarta Sans',sans-serif;color:#0031EC">{{ x.id }}</span><span>{{ x.nombre }}</span></button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;padding-top:8px">
+        <sc-if value="{{ pn.canFilter }}">
+          <button type="button" onClick="{{ pn.filter }}" style="all:unset;cursor:pointer;height:44px;padding:0 18px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/44px Satoshi,sans-serif;letter-spacing:.02em" style-hover="background:#2944FF">Filtrar el sitio por esta empresa</button>
+        </sc-if>
+        <sc-if value="{{ pn.proto }}">
+          <a href="#prototipos" onClick="{{ pn.goProto }}" style="height:44px;padding:0 18px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/44px Satoshi,sans-serif;letter-spacing:.02em" style-hover="background:#2944FF;color:#fff">Probar el prototipo</a>
+        </sc-if>
+        <sc-if value="{{ pn.calc }}">
+          <a href="#impacto" onClick="{{ pn.goCalc }}" style="height:44px;padding:0 18px;border-radius:4px;border:1px solid #D4D4D4;color:#0A0A0A;font:700 14px/42px Satoshi,sans-serif;letter-spacing:.02em" style-hover="border-color:#0A0A0A;color:#0A0A0A">Ver en la calculadora</a>
+        </sc-if>
+      </div>
+    </div>
+  </aside>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const FILTROS = ['Todo el grupo','Embotelladora','Automotriz','Funerario','PINSA','Polo Sur','Frutálica','Medios','Hospitalidad'];
+const NAV = [['contexto','Contexto'],['mapa','Mapa'],['plataformas','Plataformas'],['automatizacion','Automatización'],['ia','IA'],['seguridad','Seguridad'],['prototipos','Prototipos'],['impacto','Impacto'],['ruta','Ruta']];
+const BUILT = ['inicio','contexto','mapa','plataformas','automatizacion','ia','seguridad','prototipos','impacto','prioridades','ruta','siguiente'];
+
+const PLATAFORMAS = [
+  {id:'P-01',nombre:'Capa común de datos y maestro de clientes único',empresa:'Grupo',keys:['*'],resuelve:'Una sola vista de hogares, comercios y hoteles que hoy atienden varias empresas por separado',kpi:'Clientes atendidos por más de una empresa',lineas:['Optimiza','Gestiona'],ref:'Integración de sistemas'},
+  {id:'P-02',nombre:'Tablero de desempeño por unidad para el consejo',empresa:'Grupo',keys:['*'],resuelve:'Ventas, margen, flujo y capital invertido de cada empresa con una sola vara',kpi:'Días para tener el cierre mensual en el tablero',lineas:['Gestiona'],ref:'Tablero estratégico TGI; observabilidad Sodimac',proto:true},
+  {id:'P-03',nombre:'Familia Álica: app de beneficios y lealtad',empresa:'Grupo',keys:['*'],resuelve:'Convertir convenios y descuentos entre empresas en un programa digital para 5,500 colaboradores y sus familias',kpi:'Colaboradores activos; ventas cruzadas',lineas:['Escala'],ref:'Tienda Empleados Claro; super app Mi Claro',proto:true},
+  {id:'P-04',nombre:'ERP y servicios compartidos',empresa:'Grupo',keys:['*'],resuelve:'Compras consolidadas, cierre contable más rápido y nómina común',kpi:'Días de cierre; ahorro en compras',lineas:['Optimiza'],ref:'Hoja de ruta tecnológica'},
+  {id:'P-05',nombre:'Control electrónico de jornada y gestión de talento',empresa:'Grupo',keys:['*'],resuelve:'Cumplir el registro obligatorio de 2027 y rediseñar turnos con datos; medir clima con Pulso',kpi:'% de jornadas registradas; horas extra',lineas:['Optimiza','Escala'],ref:'Pulso: clima organizacional con IA',proto:true},
+  {id:'P-06',nombre:'Pedido Nayar: pedido B2B por app y WhatsApp',empresa:'Embotelladora',keys:['Embotelladora'],resuelve:'Las tienditas piden a cualquier hora, con pedido sugerido y promociones',kpi:'% de pedidos digitales; ticket promedio',lineas:['Escala','Gestiona'],ref:'Prototipo 4.1',proto:true,calc:true},
+  {id:'P-07',nombre:'Gestión de ingresos: precio, empaque y promoción',empresa:'Embotelladora',keys:['Embotelladora'],resuelve:'Decidir precio y mezcla por zona tras el IEPS con datos y no con intuición',kpi:'Margen bruto por caja',lineas:['Gestiona'],ref:'Observabilidad de negocio'},
+  {id:'P-08',nombre:'Ruteo dinámico, telemetría de flota y refrigeradores conectados',empresa:'Embotelladora, Polo Sur, Fletes',keys:['Embotelladora','Polo Sur'],resuelve:'Menos kilómetros por caja y visibilidad de cada unidad en ruta',kpi:'Costo de servir por punto de venta',lineas:['Optimiza'],ref:'Integración IoT (Claro Hogar Conectado)'},
+  {id:'P-09',nombre:'MES y OEE en planta',empresa:'Embotelladora',keys:['Embotelladora'],resuelve:'Escalar los proyectos de reducción de rechazo del diplomado de excelencia operacional',kpi:'OEE; % de rechazo',lineas:['Optimiza','Gestiona'],ref:'Observabilidad de negocio'},
+  {id:'P-10',nombre:'Agente de ventas y servicio automotriz con CRM omnicanal',empresa:'Álica Automotriz',keys:['Automotriz'],resuelve:'Ningún prospecto sin respuesta; citas de servicio en línea',kpi:'Tiempo de primera respuesta; conversión',lineas:['Gestiona','Crea'],ref:'Prototipo 4.2',proto:true,calc:true},
+  {id:'P-11',nombre:'Valuador de seminuevos con datos',empresa:'Álica Automotriz',keys:['Automotriz'],resuelve:'Precio de compra y venta de seminuevos basado en mercado, no en criterio individual',kpi:'Rotación de inventario; margen por unidad',lineas:['Gestiona'],ref:'Motor de scoring RFK'},
+  {id:'P-12',nombre:'Portal de flotillas',empresa:'Álica Automotriz',keys:['Automotriz'],resuelve:'Cotización, entrega y servicio de flotillas en un solo portal',kpi:'Unidades vendidas a flotillas',lineas:['Crea'],ref:'Desarrollo a la medida'},
+  {id:'P-13',nombre:'Previsión en línea con cobro recurrente',empresa:'Funeraria',keys:['Funerario'],resuelve:'Contratar y pagar un plan de previsión sin ir a una sucursal',kpi:'Planes contratados en línea; morosidad',lineas:['Crea','Optimiza'],ref:'Prototipo 4.3; pagos en línea Fundación Santa Fe',proto:true,calc:true},
+  {id:'P-14',nombre:'Búsqueda inmobiliaria guiada por IA',empresa:'PINSA',keys:['PINSA'],resuelve:'Atender en español e inglés a compradores de la Riviera con fichas, calculadora y pago de cuotas',kpi:'Prospectos calificados; tiempo a apartado',lineas:['Crea','Gestiona'],ref:'MoradIA; sitio Cusezar'},
+  {id:'P-15',nombre:'Portal HORECA Riviera',empresa:'Embotelladora, Polo Sur, hospitalidad',keys:['Embotelladora','Polo Sur','Hospitalidad'],resuelve:'Un solo pedido para bebidas, hielo y servicios del grupo para hoteles y restaurantes',kpi:'Cuentas atendidas por más de una empresa',lineas:['Escala'],ref:'Ecosistemas digitales',proto:true},
+  {id:'P-16',nombre:'Trazabilidad y riesgo climático',empresa:'Frutálica',keys:['Frutálica'],resuelve:'Anticipar pérdidas como las de hasta 80% del mango en 2026',kpi:'% de cosecha asegurada o anticipada',lineas:['Gestiona'],ref:'GenAI y agentes'},
+  {id:'P-17',nombre:'Audiencias digitales y venta publicitaria',empresa:'Álica Medios',keys:['Medios'],resuelve:'Vender publicidad con datos de audiencia propios',kpi:'Ingreso digital por anunciante',lineas:['Escala'],ref:'Marketing digital'}
+];
+const PMAP = Object.fromEntries(PLATAFORMAS.map(p => [p.id, p]));
+
+const OLEADAS = {
+  'P-02':'Oleada 0 · Arrancar (meses 1 a 3): tablero del consejo versión 1.',
+  'P-05':'Oleada 0 · Arrancar (meses 1 a 3): plan y despliegue del registro de jornada.',
+  'P-06':'Oleada 0: sprint de 10 días. Oleada 1: una ruta y luego un CEDIS. Oleada 2: los 12 CEDIS.',
+  'P-10':'Oleada 0: sprint del Asistente Álica Motors. Oleada 1: agente en una agencia.',
+  'P-07':'Oleada 1 · Pilotear (meses 4 a 9).',
+  'P-13':'Oleada 1 · Pilotear (meses 4 a 9): sprint y piloto de Previsión en línea.',
+  'P-01':'Oleada 2 · Escalar e integrar (meses 10 a 24).',
+  'P-04':'Oleada 2 · Escalar e integrar (meses 10 a 24).',
+  'P-15':'Oleada 2 · Escalar e integrar (meses 10 a 24).',
+  'P-03':'Oleada 2 · Escalar e integrar (meses 10 a 24).',
+  'P-09':'Oleada 2 · Escalar e integrar (meses 10 a 24).',
+  'S-08':'Oleada 0 · Arrancar (meses 1 a 3): diagnóstico Hacknoid e inventario del stack por empresa.',
+  'S-01':'Oleada 0 · Arrancar (meses 1 a 3): Xiid en accesos remotos de proveedores y planta.',
+  'S-02':'Oleada 0 · Arrancar (meses 1 a 3): Xiid en accesos remotos de proveedores y planta.',
+  'S-03':'Oleada 1 · Pilotear (meses 4 a 9): microsegmentación Xiid por empresa.',
+  'A-01':'Oleada 1 · Pilotear (meses 4 a 9).', 'A-04':'Oleada 1 · Pilotear (meses 4 a 9).', 'A-07':'Oleada 1 · Pilotear (meses 4 a 9).',
+  'A-03':'Oleada 0 · Arrancar (meses 1 a 3): plan y despliegue del registro de jornada.',
+  'I-01':'Oleada 0: sprint de 10 días de Pedido Nayar. Oleada 1: una ruta y luego un CEDIS.',
+  'I-08':'Oleada 0: sprint del Asistente Álica Motors. Oleada 1: agente en una agencia.',
+  'I-09':'Oleada 1 · Pilotear (meses 4 a 9): sprint y piloto de Previsión en línea.',
+  'I-04':'Oleada 1 · Pilotear (meses 4 a 9): gestión de ingresos.'
+};
+const PRIMERO = ['P-07','P-06','P-10','P-02','P-05','S-08','S-01','S-02'];
+
+
+const IC = {
+  doc:'M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3', check:'M3 8.5l3 3 7-7', db:'M3 4c0-1.1 2.2-2 5-2s5 .9 5 2-2.2 2-5 2-5-.9-5-2zM3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2',
+  bell:'M4 11V7a4 4 0 0 1 8 0v4l1.5 1.5h-11zM6.5 14h3', msg:'M2 3h12v8H6l-3 3v-3H2z', user:'M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2.5 14.5c.6-2.8 2.8-4.5 5.5-4.5s4.9 1.7 5.5 4.5',
+  chart:'M2 14h12M4 12V8M8 12V4M12 12V6', repeat:'M2.5 8a5.5 5.5 0 0 1 9.6-3.7M13.5 8a5.5 5.5 0 0 1-9.6 3.7M12.5 1.5v3h-3M3.5 14.5v-3h3', send:'M2 8h12M9 3l5 5-5 5',
+  clock:'M8 14.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM8 4.5V8l2.5 1.5', spark:'M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1',
+  eye:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z', lock:'M3 7h10v7.5H3zM5.5 7V5a2.5 2.5 0 0 1 5 0v2', scale:'M8 2v12M3 14h10M2 6l2.5-3 2.5 3zM9 6l2.5-3L14 6'
+};
+const PROCESOS = [
+  {id:'A-01',nombre:'Recepción y validación de facturas de proveedores (CFDI)',empresas:'Todas',keys:['*'],que:'Lectura del XML y PDF, validación contra orden de compra, registro en cuentas por pagar',kpi:'Tiempo de ciclo por factura; errores',ref:'Lectura de contratos con RPA e IA (TGI)',hoy:'Las facturas llegan por correo; alguien descarga el XML y el PDF, los revisa contra la orden de compra y los captura en cuentas por pagar.',steps:[['doc','Recibe el XML y el PDF del proveedor'],['check','Valida contra la orden de compra con reglas'],['db','Registra en cuentas por pagar'],['user','Las excepciones pasan a revisión humana']]},
+  {id:'A-02',nombre:'Consolidación y cierre contable multiempresa',empresas:'Corporativo',keys:['*'],que:'Conciliaciones intercompañía y estados por unidad sin hojas de cálculo',kpi:'Días de cierre',ref:'Automatización de procesos',hoy:'Cada unidad envía sus cifras en hojas de cálculo y el corporativo concilia a mano las operaciones entre empresas.',steps:[['db','Extrae saldos del sistema de cada empresa'],['repeat','Concilia operaciones intercompañía con reglas'],['chart','Genera estados por unidad'],['user','El contador revisa y aprueba el cierre']]},
+  {id:'A-03',nombre:'Registro de jornada y alertas de horas',empresas:'Todas; primero planta, rutas y agencias',keys:['*'],que:'Captura electrónica, alertas antes de exceder las 46 horas de 2027, reporte para auditoría',kpi:'% de jornadas registradas; horas extra',ref:'Integración de sistemas',hoy:'La jornada se registra en papel o en relojes aislados; las horas extra se conocen hasta que llega la nómina.',steps:[['clock','Captura electrónica en celular o reloj'],['bell','Alerta antes de llegar a las 46 horas'],['doc','Reporte listo para auditoría']]},
+  {id:'A-04',nombre:'Cobranza recurrente y recordatorios',empresas:'Funeraria, PINSA',keys:['Funerario','PINSA'],que:'Cargo domiciliado, recordatorio por WhatsApp, reintento y escalamiento a un asesor',kpi:'Morosidad; días de cartera',ref:'Automatización de procesos',hoy:'Los recordatorios de pago dependen de llamadas y visitas; un cargo rechazado se atiende cuando ya hay atraso.',steps:[['repeat','Cargo mensual domiciliado'],['msg','Recordatorio por WhatsApp'],['repeat','Reintento automático'],['user','Escala a un asesor si no se resuelve']]},
+  {id:'A-05',nombre:'Seguimiento de prospectos y citas',empresas:'Álica Automotriz',keys:['Automotriz'],que:'Asignación automática, recordatorio de cita, encuesta posterior al servicio',kpi:'Tiempo de primera respuesta; asistencia a citas',ref:'Automatización de procesos',hoy:'Los prospectos de la web y las redes se reparten a mano y los recordatorios de cita dependen de cada asesor.',steps:[['user','Asigna el prospecto al asesor disponible'],['bell','Recuerda la cita al cliente'],['msg','Envía la encuesta al terminar el servicio']]},
+  {id:'A-06',nombre:'Gestión de contratos y vencimientos',empresas:'Corporativo, PINSA',keys:['*','PINSA'],que:'Alertas de renovación de arrendamientos, concesiones y proveedores',kpi:'Contratos vencidos sin aviso',ref:'Gestión de contratos TGI; arrendamientos WOM',hoy:'Las fechas de renovación viven en carpetas y calendarios personales.',steps:[['doc','Registra fechas clave de cada contrato'],['bell','Avisa 90, 60 y 30 días antes'],['check','Registra la decisión de renovar o cerrar']]},
+  {id:'A-07',nombre:'Reporte mensual al consejo',empresas:'Corporativo',keys:['*'],que:'Generación automática del paquete de indicadores por unidad',kpi:'Horas de preparación',ref:'Tablero estratégico TGI',hoy:'Cada mes se arma el paquete del consejo copiando cifras que envía cada unidad.',steps:[['db','Toma los indicadores de la capa de datos'],['chart','Arma el paquete por unidad'],['user','La dirección revisa y envía']]},
+  {id:'A-08',nombre:'Reporte ESG: agua, PET y energía',empresas:'Embotelladora, Fundación',keys:['Embotelladora'],que:'Consolidar litros de agua por litro de bebida, % de PET reciclado y consumo de energía',kpi:'Tiempo de reporte; metas medibles',ref:'Tablero ESG TGI',hoy:'Los datos de agua, PET y energía se reúnen a fin de año desde varias fuentes.',steps:[['db','Lee medidores y registros de compra'],['chart','Calcula agua por litro y % de PET reciclado'],['check','Tablero ESG actualizado cada mes']]},
+  {id:'A-09',nombre:'Alta, baja y movimiento de colaboradores entre empresas',empresas:'Todas',keys:['*'],que:'Expediente, accesos y nómina en un solo flujo',kpi:'Días hasta que el colaborador es productivo',ref:'Integración de sistemas',hoy:'Mover a un colaborador entre empresas implica altas y bajas por separado en expediente, accesos y nómina.',steps:[['doc','Una sola solicitud de movimiento'],['lock','Expediente y accesos actualizados'],['check','Nómina en la nueva empresa']]},
+  {id:'A-10',nombre:'Liquidación y conciliación de ruta',empresas:'Embotelladora, Polo Sur',keys:['Embotelladora','Polo Sur'],que:'Cruce de pedido, entrega, cobro y devoluciones al cierre de cada ruta',kpi:'Diferencias por liquidación',ref:'Automatización de procesos',hoy:'Al cierre de cada ruta se cruzan a mano pedidos, entregas, cobros y devoluciones.',steps:[['repeat','Cruza pedido contra entrega'],['check','Concilia el cobro'],['doc','Registra devoluciones'],['user','Las diferencias van al supervisor']]}
+];
+const TIPOS_IA = [['Agente conversacional','msg'],['Predicción y optimización','chart'],['Copiloto interno','spark'],['Visión computacional','eye']];
+const IAS = [
+  {id:'I-01',nombre:'Agente de pedidos por WhatsApp para tienditas',empresa:'Embotelladora',keys:['Embotelladora'],tipo:'Agente conversacional',kpi:'% de pedidos por WhatsApp; costo por pedido',lineas:['Gestiona'],proto:'nayar'},
+  {id:'I-02',nombre:'Copiloto de preventa: resumen del punto de venta y siguiente mejor acción',empresa:'Embotelladora',keys:['Embotelladora'],tipo:'Copiloto interno',kpi:'Ticket por visita; productividad por ruta',lineas:['Gestiona']},
+  {id:'I-03',nombre:'Pronóstico de demanda por producto, ruta y temporada',empresa:'Embotelladora, Polo Sur',keys:['Embotelladora','Polo Sur'],tipo:'Predicción y optimización',kpi:'Error de pronóstico; quiebres de inventario',lineas:['Gestiona']},
+  {id:'I-04',nombre:'Optimización de precio, empaque y promoción tras el IEPS',empresa:'Embotelladora',keys:['Embotelladora'],tipo:'Predicción y optimización',kpi:'Margen bruto por caja; % de volumen no carbonatado',lineas:['Gestiona']},
+  {id:'I-05',nombre:'Analítica en lenguaje natural para la dirección',empresa:'Grupo',keys:['*'],tipo:'Copiloto interno',kpi:'Tiempo para responder una pregunta de negocio',lineas:['Gestiona']},
+  {id:'I-06',nombre:'Asistente interno para colaboradores sobre políticas, nómina y beneficios, con IA soberana (AktivIA)',empresa:'Grupo',keys:['*'],tipo:'Copiloto interno',kpi:'Consultas resueltas sin RH; tickets internos',lineas:['Gestiona']},
+  {id:'I-07',nombre:'Visión computacional para detectar rechazo en la línea de envasado',empresa:'Embotelladora',keys:['Embotelladora'],tipo:'Visión computacional',kpi:'% de rechazo; OEE',lineas:['Gestiona','Optimiza']},
+  {id:'I-08',nombre:'Agente de prospectos, prueba de manejo y citas de servicio',empresa:'Álica Automotriz',keys:['Automotriz'],tipo:'Agente conversacional',kpi:'Tiempo de primera respuesta; conversión de prospecto a venta',lineas:['Gestiona'],proto:'motors'},
+  {id:'I-09',nombre:'Asistente de previsión con traspaso a un asesor humano',empresa:'Funeraria',keys:['Funerario'],tipo:'Agente conversacional',kpi:'Planes contratados en línea; satisfacción',lineas:['Gestiona'],proto:'prevision'},
+  {id:'I-10',nombre:'Modelo de riesgo climático y rendimiento por huerta',empresa:'Frutálica',keys:['Frutálica'],tipo:'Predicción y optimización',kpi:'Pérdida anticipada vs. real',lineas:['Gestiona']},
+  {id:'I-11',nombre:'Generación de contenido bajo guía de marca',empresa:'Álica Medios',keys:['Medios'],tipo:'Copiloto interno',kpi:'Tiempo y costo de producción',lineas:['Gestiona','Escala']}
+];
+const SEGS = [
+  {id:'S-01',nombre:'Proteger la planta embotelladora (PLC, HMI y sistemas industriales)',donde:'Planta de Tepic',keys:['Embotelladora'],que:'Cierra los puertos de entrada de sensores y controladores sin cambiar firmware ni equipos',ind:'Puertos expuestos en la red de planta'},
+  {id:'S-02',nombre:'Acceso remoto de proveedores y técnicos sin VPN',donde:'Planta (incluida la línea de soplado PET de un tercero), agencias',keys:['Embotelladora','Automotriz'],que:'Acceso por proceso, sin credenciales reutilizables ni red abierta al tercero',ind:'Accesos de terceros sin control'},
+  {id:'S-03',nombre:'Separar las 21 empresas entre sí',donde:'Todo el grupo',keys:['*'],que:'Microsegmentación: un equipo comprometido en una filial no alcanza al embotellador',ind:'Rutas posibles entre empresas'},
+  {id:'S-04',nombre:'Conectar CEDIS, agencias, sedes funerarias y hoteles a la capa común de datos',donde:'12 CEDIS y sedes',keys:['*'],que:'Túneles sellados hacia ERP y analítica en nube, local o híbrida',ind:'Sedes conectadas por túnel sellado'},
+  {id:'S-05',nombre:'Proteger datos personales de clientes, titulares de previsión y colaboradores',donde:'Automotriz, Funeraria, RH',keys:['Automotriz','Funerario'],que:'Acceso a las bases solo desde procesos autorizados',ind:'Incidentes de datos personales'},
+  {id:'S-06',nombre:'Telemetría de flota y refrigeradores conectados sin exponerlos',donde:'Rutas, puntos de venta',keys:['Embotelladora','Polo Sur'],que:'Recolección segura desde campo por redes no confiables',ind:'Dispositivos IoT expuestos'},
+  {id:'S-07',nombre:'Operación administrativa remota en contingencias',donde:'Corporativo, todas',keys:['*'],que:'Trabajo remoto seguro cuando una sede debe cerrar, como el 23 de febrero de 2026',ind:'Días de operación perdidos'},
+  {id:'S-08',nombre:'Diagnóstico continuo de vulnerabilidades por empresa',donde:'Todo el grupo',keys:['*'],que:'Hacknoid: evaluación continua y priorización por nivel de riesgo; punto de partida en 90 días',ind:'Vulnerabilidades críticas abiertas'}
+];
+const REG = Object.fromEntries([...PROCESOS.map(x => [x.id, {...x, kind:'a'}]), ...IAS.map(x => [x.id, {...x, kind:'i'}]), ...SEGS.map(x => [x.id, {...x, kind:'s'}])]);
+const KILL = [
+  ['Reconocimiento','Sin puertos de entrada, los activos no se pueden descubrir.'],
+  ['Armamento','Sin servicios visibles, no hay contra qué preparar un ataque dirigido.'],
+  ['Entrega','Las aplicaciones no reciben tráfico de entrada; solo aceptan conexiones de procesos autorizados.'],
+  ['Explotación','Microsegmentación, sin movimiento lateral.'],
+  ['Instalación','Un proceso no autorizado no puede abrir conexiones hacia otros sistemas.'],
+  ['Mando y control','Las comunicaciones viajan solo por túneles sellados hacia destinos conocidos.'],
+  ['Acciones sobre el objetivo','Los datos solo se alcanzan desde procesos autorizados, lo que limita lo que se puede extraer.']
+];
+const BENEFICIOS = ['No requiere rediseñar la red','Se empieza por las cargas críticas y se escala, sin interrumpir la operación','Una postura demostrable de puertos cerrados puede reducir las primas del seguro cibernético'];
+const GOBIERNO = [['check','Evaluaciones'],['scale','Límites'],['user','Aprobación humana en precio, crédito y excepciones'],['doc','Cada decisión registrada'],['lock','Permisos mínimos']];
+const PROTOS = [
+  {id:'tablero',anchor:'prototipo-consejo',empresa:'Corporativo',nombre:'Tablero del consejo',sub:'Observabilidad de negocio para el consejo',idea:'El consejo ve las unidades del grupo con una sola vara, recibe cada señal con su causa, pregunta en lenguaje natural y recibe el paquete mensual armado solo.',recorre:['Unidades con estado, tendencia y confianza del dato','Señales con cadena de causas y responsable','Centro de observabilidad: fuentes, reglas y linaje']},
+  {id:'nayar',anchor:'prototipo-embotelladora',empresa:'Embotelladora del Nayar',nombre:'Pedido Nayar',sub:'App y chat para la tiendita',idea:'La tiendita arma su pedido desde una app o por chat, con pedido sugerido, promociones que se completan solas y seguimiento de la entrega.',recorre:['App con barra de navegación, catálogo, carrito y seguimiento','Versión por chat con texto libre','Tablero del CEDIS que se actualiza con cada paso']},
+  {id:'motors',anchor:'prototipo-automotriz',empresa:'Álica Automotriz',nombre:'Asistente Álica Motors',sub:'Venta y servicio a cualquier hora',idea:'Un agente atiende prospectos y clientes de servicio a cualquier hora y le entrega al asesor el caso ya resumido.',recorre:['Venta: del primer mensaje a la prueba de manejo','Servicio: cita de taller con venta adicional opcional','CRM del asesor con calificación y siguiente mejor acción']},
+  {id:'prevision',anchor:'prototipo-funeraria',empresa:'Funeraria Bello Recuerdo',nombre:'Acompañamiento Bello Recuerdo',sub:'Antes, durante y después',idea:'Una app que acompaña a la familia cuando ocurre la pérdida, después del servicio y cuando decide planear con tiempo, con una asesora con nombre siempre a un toque.',recorre:['«Estamos con usted»: asesora asignada y qué sigue, etapa por etapa','Esquela digital, transmisión y libro de condolencias','Trámites, recordatorios y plan con carpeta familiar']},
+  {id:'horeca',anchor:'prototipo-horeca',empresa:'Embotelladora · Polo Sur · Fletes',nombre:'Portal HORECA Riviera',sub:'Un pedido para hoteles y restaurantes',idea:'Hoteles y restaurantes de la Riviera piden bebidas, hielo y transporte del grupo en un solo carrito, con entregas coordinadas y un estado de cuenta único.',recorre:['Sugerido por ocupación y catálogo de tres empresas','Un pedido que se reparte a cada empresa','Consola de cuentas clave con venta cruzada']},
+  {id:'familia',anchor:'prototipo-familia',empresa:'Grupo · colaboradores',nombre:'Familia Álica',sub:'Jornada, beneficios y clima',idea:'La app de los 5,500 colaboradores: registro de jornada con alertas antes de las 46 horas de 2027, beneficios en empresas del grupo y Pulso.',recorre:['Registro de jornada y solicitud de horas extra','Beneficios con código para usar en el grupo','Consola de RH con preparación para 2027']},
+  {id:'xiid',anchor:'prototipo-seguridad',empresa:'Seguridad con Xiid',nombre:'Infraestructura invisible',sub:'Qué cambia sin puertos abiertos',idea:'Qué cambia cuando la red del grupo deja de tener puertos abiertos, en 60 segundos y sin tecnicismos.',recorre:['Escaneo de un atacante','Equipo comprometido en una filial','Comparación «Hoy» frente a «Con Xiid»']}
+];
+const PROTO_OF = {'P-15':'horeca','P-03':'familia','P-05':'familia','P-02':'tablero',corporativo:'tablero','P-06':'nayar','P-10':'motors','P-13':'prevision',embotelladora:'nayar',automotriz:'motors',funeraria:'prevision'};
+const VAR_DEF = { vV:'100000000', vm:30, vD:3, vPr:'', vr:'' };
+const fmtMx = n => '$' + (Math.round(n / 1000) * 1000).toLocaleString('es-MX');
+const digits = s => String(s || '').replace(/[^0-9]/g, '');
+
+const CALCS = {
+  nayar: { nombre: 'Pedido Nayar', empresa: 'Embotelladora', anchor: 'calculadora-pedido-nayar', proto: 'nayar', formula: 'B = V · d · u · m + C · d · e',
+    note: 'No incluye el valor de defender participación de mercado ni la mejora de mezcla hacia no carbonatados; se mencionan como beneficio adicional no cuantificado.',
+    inputs: [
+      { k: 'V', sym: 'V', label: 'Ventas anuales del canal tradicional', kind: 'money', def: 100000000, chip: 'confirmar', f: 'Valor normalizado de 100 millones de pesos; reemplácelo por la venta real del canal' },
+      { k: 'd', sym: 'd', label: 'Ventas que pasan al canal digital en el año 1', kind: 'scen', def: [5, 10], min: 0, max: 30, step: 1, unit: '%', chip: 'estimacion', f: 'Estimación Wigilabs. Como referencia, Juntos+ llegó a 17% de las ventas de Coca-Cola FEMSA en 2024 tras varios años de operación (Dato público, El CEO)' },
+      { k: 'u', sym: 'u', label: 'Aumento de ticket en pedidos digitales por pedido sugerido', kind: 'scen', def: [1, 3], min: 0, max: 10, step: 0.5, unit: '%', chip: 'estimacion', f: 'Estimación Wigilabs; se valida en el sprint' },
+      { k: 'm', sym: 'm', label: 'Margen de contribución', kind: 'pct', def: 30, min: 0, max: 60, step: 1, unit: '%', chip: 'confirmar', f: 'Valor de ejemplo; el margen real se confirma con Finanzas' },
+      { k: 'C', sym: 'C', label: 'Costo anual de la toma de pedido (preventa, captura)', kind: 'money', def: 10000000, chip: 'confirmar', f: 'Valor de ejemplo; el costo real de preventa se confirma con la gerencia comercial' },
+      { k: 'e', sym: 'e', label: 'Parte del costo por pedido que se evita en un pedido digital', kind: 'scen', def: [30, 50], min: 0, max: 80, step: 1, unit: '%', chip: 'estimacion', f: 'Estimación Wigilabs' }
+    ],
+    B: g => g.V * g.d / 100 * g.u / 100 * g.m / 100 + g.C * g.d / 100 * g.e / 100 },
+  motors: { nombre: 'Asistente Álica Motors', empresa: 'Automotriz', anchor: 'calculadora-alica-motors', proto: 'motors', formula: 'B = 12 · (L · Δc · g + S · Δs · t · ms)', note: '',
+    inputs: [
+      { k: 'L', sym: 'L', label: 'Prospectos por mes', kind: 'count', def: 300, suf: 'al mes', chip: 'confirmar', f: 'Valor de ejemplo; dato de la gerencia de Álica Automotriz' },
+      { k: 'dc', sym: 'Δc', label: 'Aumento de conversión de prospecto a venta por respuesta inmediata', kind: 'scen', def: [0.5, 1.5], min: 0, max: 5, step: 0.1, unit: ' pp', chip: 'estimacion', f: 'Estimación Wigilabs en puntos porcentuales; se valida en el sprint' },
+      { k: 'g', sym: 'g', label: 'Utilidad bruta por unidad nueva', kind: 'money', def: 25000, chip: 'confirmar', f: 'Valor de ejemplo' },
+      { k: 'S', sym: 'S', label: 'Citas de servicio por mes', kind: 'count', def: 600, suf: 'al mes', chip: 'confirmar', f: 'Valor de ejemplo' },
+      { k: 'ds', sym: 'Δs', label: 'Citas adicionales por recordatorio y agenda en línea', kind: 'scen', def: [3, 8], min: 0, max: 20, step: 1, unit: '%', chip: 'estimacion', f: 'Estimación Wigilabs' },
+      { k: 't', sym: 't', label: 'Ticket promedio de servicio', kind: 'money', def: 3500, chip: 'confirmar', f: 'Valor de ejemplo' },
+      { k: 'ms', sym: 'ms', label: 'Margen de posventa', kind: 'pct', def: 40, min: 0, max: 70, step: 1, unit: '%', chip: 'confirmar', f: 'Valor de ejemplo' }
+    ],
+    B: g => 12 * (g.L * g.dc / 100 * g.g + g.S * g.ds / 100 * g.t * g.ms / 100) },
+  prevision: { nombre: 'Previsión en línea', empresa: 'Funeraria', anchor: 'calculadora-prevision', proto: 'prevision', formula: 'B = 12 · P · Δp · vp + K · Δm', note: '',
+    inputs: [
+      { k: 'P', sym: 'P', label: 'Planes de previsión nuevos por mes hoy', kind: 'count', def: 50, suf: 'al mes', chip: 'confirmar', f: 'Valor de ejemplo; dato de la gerencia de servicios funerarios' },
+      { k: 'dp', sym: 'Δp', label: 'Planes adicionales por el canal en línea, sobre P', kind: 'scen', def: [5, 15], min: 0, max: 40, step: 1, unit: '%', chip: 'estimacion', f: 'Estimación Wigilabs' },
+      { k: 'vp', sym: 'vp', label: 'Margen por plan vendido', kind: 'money', def: 8000, chip: 'confirmar', f: 'Valor de ejemplo' },
+      { k: 'K', sym: 'K', label: 'Cartera anual de previsión por cobrar', kind: 'money', def: 20000000, chip: 'confirmar', f: 'Valor de ejemplo' },
+      { k: 'dm', sym: 'Δm', label: 'Reducción de morosidad por cargo domiciliado y reintento', kind: 'scen', def: [1, 3], min: 0, max: 10, step: 0.5, unit: ' pp', chip: 'estimacion', f: 'Estimación Wigilabs en puntos porcentuales' }
+    ],
+    B: g => 12 * g.P * g.dp / 100 * g.vp + g.K * g.dm / 100 }
+};
+const CALC_TABS = [['nayar', 'Embotelladora', 'Pedido Nayar', 'calculadora-pedido-nayar'], ['motors', 'Automotriz', 'Asistente Álica Motors', 'calculadora-alica-motors'], ['prevision', 'Funeraria', 'Previsión en línea', 'calculadora-prevision'], ['riesgo', 'Seguridad', 'Valor en riesgo', 'calculadora-valor-en-riesgo']];
+const LINE_STYLE = { Crea: { bg: '#FFFFFF', color: '#0031EC', border: '#0031EC' }, Optimiza: { bg: '#E8ECFD', color: '#001D9B', border: '#9DAEF5' }, Gestiona: { bg: '#0031EC', color: '#FFFFFF', border: '#0031EC' }, Escala: { bg: '#000A4F', color: '#FFFFFF', border: '#000A4F' } };
+const MATRIZ = [
+  ['P-07', 66, 84], ['S-08', 84, 86], ['P-06', 78, 74], ['P-05', 60, 70], ['P-10', 93, 70], ['P-02', 72, 62], ['S-02', 88, 58],
+  ['P-01', 12, 84], ['P-15', 30, 86], ['P-04', 24, 72], ['I-03', 43, 76], ['P-08', 10, 64], ['P-09', 36, 64], ['P-16', 22, 56],
+  ['A-01', 66, 36], ['A-04', 84, 40], ['A-07', 62, 20], ['P-13', 78, 26], ['P-11', 93, 22],
+  ['P-17', 12, 36], ['P-03', 38, 38], ['P-12', 26, 22]
+];
+const OLE_INFO = [
+  { t: 'Oleada 0 · Arrancar', f: 'Meses 1 a 3 · semanas 1 a 12', gate: '', gateText: '', red: true },
+  { t: 'Oleada 1 · Pilotear', f: 'Meses 4 a 9', gate: 'Puerta 1 · Demo Day', gateText: 'El dueño de negocio decide si pasa a piloto, itera una vez o se descarta, contra el criterio de éxito escrito el día 1.', red: false },
+  { t: 'Oleada 2 · Escalar e integrar', f: 'Meses 10 a 24', gate: 'Puerta 2 · Cierre de piloto', gateText: 'Resultado medido con usuarios reales, revisión de seguridad aprobada y plan de operación.', red: false }
+];
+const ROAD = [
+  ['Comercial', [[['P-06', 'Sprint de 10 días de Pedido Nayar'], ['P-10', 'Sprint del Asistente Álica Motors']], [['P-06', 'Pedido Nayar en una ruta y luego en un CEDIS'], ['P-10', 'Agente automotriz en una agencia'], ['P-13', 'Sprint y piloto de Previsión en línea'], ['P-07', 'Gestión de ingresos']], [['P-06', 'Pedido Nayar en los 12 CEDIS'], ['P-15', 'Portal HORECA Riviera'], ['P-03', 'Familia Álica']]]],
+  ['Operación y back-office', [[['P-05', 'Plan y despliegue del registro de jornada']], [['A-01', 'Facturas de proveedores (CFDI)'], ['A-04', 'Cobranza recurrente'], ['A-07', 'Reporte mensual al consejo']], [['P-04', 'ERP y servicios compartidos'], ['P-09', 'MES y OEE en planta']]]],
+  ['Datos y plataforma', [[['P-02', 'Tablero del consejo, versión 1']], [], [['P-01', 'Capa común de datos y maestro de clientes']]]],
+  ['Seguridad', [[['S-08', 'Diagnóstico Hacknoid e inventario del stack por empresa'], ['S-02', 'Xiid en accesos remotos de proveedores y planta']], [['S-03', 'Microsegmentación Xiid por empresa']], []]]
+];
+const DATOS = [
+  ['Ventas, margen, flujo y capital invertido por empresa', 'Tablero del consejo y priorización con una sola vara', 'Finanzas corporativas'],
+  ['Ventas del canal tradicional, número de puntos de venta, frecuencia de visita y costo de preventa', 'Calculadora de Pedido Nayar y alcance del piloto', 'Gerencia comercial del embotellador'],
+  ['Volumen en cajas unidad y mezcla carbonatado / no carbonatado por zona', 'Gestión de ingresos y pronóstico', 'Planeación comercial'],
+  ['Herramientas digitales del sistema Coca-Cola disponibles para el embotellador', 'Decidir si se apalanca lo existente o se construye', 'Gerencia general del embotellador'],
+  ['Prospectos por mes, conversión, tiempo de respuesta, citas de servicio y ticket de posventa', 'Calculadora del Asistente Álica Motors', 'Gerencia de Álica Automotriz'],
+  ['Planes de previsión por mes, cartera y morosidad', 'Calculadora de Previsión en línea', 'Gerencia de servicios funerarios'],
+  ['Sistemas actuales: ERP, CRM, DMS automotriz, nómina', 'Integraciones y hoja de ruta', 'TI de cada empresa'],
+  ['Accesos remotos de terceros, red de planta y póliza de seguro cibernético', 'Piloto Xiid y calculadora de valor en riesgo', 'TI y Riesgos']
+];
+const STORE = 'grupo-alica-calc-v1';
+const OTRAS = {
+  'I-01':['Agente de pedidos por WhatsApp para tienditas','IA'],
+  'I-02':['Copiloto de preventa: resumen del punto de venta y siguiente mejor acción','IA'],
+  'I-03':['Pronóstico de demanda por producto, ruta y temporada','IA'],
+  'I-04':['Optimización de precio, empaque y promoción tras el IEPS','IA'],
+  'I-08':['Agente de prospectos, prueba de manejo y citas de servicio','IA'],
+  'A-03':['Registro de jornada y alertas de horas','Automatización'],
+  'S-03':['Separar las 21 empresas entre sí','Seguridad'],
+  'S-07':['Operación administrativa remota en contingencias','Seguridad']
+};
+
+const FUERZAS = [
+  {titulo:'Presión fiscal sobre bebidas',big:'3.0818',unit:'pesos por litro de IEPS en 2026',cifra:'IEPS de 1.6451 a 3.0818 pesos por litro en 2026, y ahora también grava bebidas sin azúcar',significa:'Cada punto de margen se defiende con precio, mezcla y costo de servir medidos al día',inis:['P-07','I-03','I-04']},
+  {titulo:'Brecha digital frente al sistema Coca-Cola',big:'34%',unit:'de los pedidos de Coca-Cola FEMSA por Juntos+ en 2024',cifra:'Juntos+ gestionó 34% de los pedidos y 17% de las ventas de Coca-Cola FEMSA en 2024',significa:'El canal tradicional se está digitalizando; sin un canal propio, Álica compite con menos datos',inis:['P-06','I-01','I-02'],fuente:'El CEO, 2024'},
+  {titulo:'Disrupción automotriz',big:'11.2%',unit:'del mercado nacional para marcas chinas, 1T 2026',cifra:'Marcas chinas con 11.2% del mercado nacional en el primer trimestre de 2026',significa:'La venta se gana por velocidad de respuesta, posventa y precio de seminuevos con datos',inis:['P-10','P-11','I-08']},
+  {titulo:'Auge de la Riviera Nayarit',big:'82%',unit:'de ocupación hotelera en 2025',cifra:'10 millones de visitantes al año y 82% de ocupación hotelera en 2025',significa:'Los hoteles quieren un solo proveedor y un solo pedido; el grupo ya tiene bebidas, hielo, transporte e inmuebles',inis:['P-15','P-14']},
+  {titulo:'Resiliencia operativa y laboral',big:'46 h',unit:'jornada semanal en 2027; 40 h en 2030',cifra:'Suspensión de labores del 23 de febrero de 2026; jornada de 46 horas en 2027 y 40 en 2030',significa:'Operación remota segura, continuidad y turnos rediseñados con datos',inis:['P-05','A-03','S-03','S-07'],fuente:'Garrigues; investigación Wigilabs «Diagnóstico Estratégico y Digital 2026»'}
+];
+const FUENTE_DEF = 'Investigación Wigilabs «Grupo Álica: Diagnóstico Estratégico y Digital 2026», con fuentes públicas citadas';
+
+const EMPRESAS = [
+  {slug:'embotelladora',nombre:'Embotelladora del Nayar',seg:'Bebidas y consumo',op:'Digitalizar el pedido de las tienditas y defender margen tras el IEPS',ins:['P-06'],lineas:['Escala','Gestiona'],key:'Embotelladora',proto:'Pedido Nayar'},
+  {slug:'polo-sur',nombre:'Polo Sur (hielo)',seg:'Bebidas y consumo',op:'Compartir canal, rutas y pedido con el embotellador',ins:['P-15'],lineas:['Escala','Optimiza'],key:'Polo Sur'},
+  {slug:'automotriz',nombre:'Álica Automotriz y Mitsubishi Motors Tepic',seg:'Movilidad',op:'Responder más rápido que la competencia y crecer en posventa y seminuevos',ins:['P-10'],lineas:['Gestiona','Crea'],key:'Automotriz',proto:'Asistente Álica Motors'},
+  {slug:'fletes',nombre:'Fletes Álica',seg:'Movilidad',op:'Ruteo y telemetría compartidos con el embotellador',ins:['P-08'],lineas:['Optimiza'],key:null},
+  {slug:'pinsa',nombre:'PINSA y CENTURY 21 PINSA',seg:'Inmobiliario',op:'Vender a compradores nacionales y extranjeros de la Riviera',ins:['P-14'],lineas:['Crea','Gestiona'],key:'PINSA'},
+  {slug:'funeraria',nombre:'Funeraria Bello Recuerdo y Jardines de San Juan',seg:'Servicios funerarios',op:'Previsión contratada y pagada en línea, con cobro recurrente',ins:['P-13'],lineas:['Crea','Optimiza'],key:'Funerario',proto:'Acompañamiento Bello Recuerdo'},
+  {slug:'frutalica',nombre:'Frutálica y ranchos',seg:'Agro',op:'Trazabilidad y anticipación de riesgo climático',ins:['P-16'],lineas:['Gestiona'],key:'Frutálica'},
+  {slug:'medios',nombre:'Álica Medios y Meridiano',seg:'Medios',op:'Audiencias digitales y venta publicitaria con datos del grupo',ins:['P-17'],lineas:['Escala'],key:'Medios'},
+  {slug:'hospitalidad',nombre:'Hotel Las Palomas, Santa Martha, Nukari, Club del Valle',seg:'Hospitalidad y ocio',op:'Ser cliente piloto y vitrina de la oferta integrada del grupo',ins:['P-15'],lineas:['Escala'],key:'Hospitalidad'}
+];
+const CORPORATIVO = {slug:'corporativo',nombre:'Corporativo Grupo Empresarial Álica',seg:'Corporativo',op:'Servicios compartidos, datos comunes y tablero del consejo',ins:['P-01','P-02','P-04'],lineas:['Optimiza','Gestiona'],key:'Todo el grupo'};
+const SEGMENTOS = ['Bebidas y consumo','Movilidad','Inmobiliario','Servicios funerarios','Agro','Medios','Hospitalidad y ocio'];
+
+const CAPAS = [
+  {n:1,nombre:'Canales y experiencia',mid:false,boxes:[
+    {id:'tienditas',t:'Tienditas',s:'App B2B y WhatsApp',p:['P-06']},
+    {id:'clientes',t:'Clientes finales',s:'CRM autos, PINSA, previsión',p:['P-10','P-11','P-12','P-13','P-14','P-15']},
+    {id:'colaboradores',t:'Colaboradores',s:'Familia Álica',p:['P-03','P-05']}]},
+  {n:2,nombre:'Capa común de datos del grupo',mid:true,boxes:[
+    {id:'maestro',t:'Maestro de clientes',s:'Una sola vista del cliente',p:['P-01','P-03','P-06','P-10','P-13','P-14','P-15']},
+    {id:'analitica',t:'Analítica y BI',s:'Indicadores con una sola vara',p:['P-02','P-07','P-09','P-11','P-17']},
+    {id:'ia',t:'IA aplicada',s:'Predicción, agentes y copilotos',p:['P-06','P-07','P-10','P-11','P-14','P-16']}]},
+  {n:3,nombre:'Sistemas de cada unidad',mid:false,boxes:[
+    {id:'embotellador',t:'Embotellador',s:'ERP, rutas, MES',p:['P-06','P-07','P-08','P-09']},
+    {id:'automotriz',t:'Automotriz',s:'DMS, posventa, seminuevos',p:['P-10','P-11','P-12']},
+    {id:'otras',t:'Otras unidades',s:'Funeraria, PINSA, agro, medios',p:['P-13','P-14','P-15','P-16','P-17']}]}
+];
+const HAB = [
+  {id:'erp',t:'ERP compartido',p:['P-04','P-02']},
+  {id:'jornada',t:'Registro de jornada',p:['P-05']},
+  {id:'xiid',t:'Seguridad Xiid',p:['P-01','P-08']}
+];
+const ALLBOX = Object.fromEntries([...CAPAS.flatMap(c => c.boxes), ...HAB].map(b => [b.id, b]));
+
+class Component extends DCLogic {
+  state = { filtro: 'Todo el grupo', box: null, flipped: {}, panel: null, progress: 0, active: 'inicio', w: typeof window !== 'undefined' ? window.innerWidth : 1280, menuOpen: false, copied: false, interes: {}, autoMode: {}, iaTipo: 'Todos', kill: 0, protoTab: 'nayar', protoOpen: false, ...VAR_DEF, varCopied: false, calcTab: 'nayar', cv: {}, inv: {}, calcCopied: false, tipId: null, lineOff: {}, datosOpen: false };
+
+  componentDidMount() {
+    this._raf = null;
+    this._onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = null;
+        const h = document.documentElement;
+        const max = (h.scrollHeight - h.clientHeight) || 1;
+        let active = 'inicio';
+        for (const id of BUILT) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 170) active = id; }
+        this.setState({ progress: Math.min(1, Math.max(0, h.scrollTop / max)), active });
+      });
+    };
+    this._onResize = () => this.setState({ w: window.innerWidth });
+    this._onKey = (e) => { if (e.key === 'Escape' && this.state.panel) this.closePanel(); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('keydown', this._onKey);
+    this._onScroll();
+    try { const s = JSON.parse(localStorage.getItem(STORE) || 'null'); if (s) this.setState({ cv: s.cv || {}, inv: s.inv || {}, ...(s.v || {}) }); } catch (e) {}
+    try {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px' });
+        setTimeout(() => document.querySelectorAll('main > section').forEach((el, i) => { if (i === 0 || el.getBoundingClientRect().top < window.innerHeight) return; el.style.opacity = '0'; el.style.transform = 'translateY(14px)'; el.style.transition = 'opacity 260ms ease-out, transform 260ms ease-out'; io.observe(el); }), 60);
+        this._io = io;
+      }
+    } catch (e) {}
+    const hash = decodeURIComponent((location.hash || '').slice(1));
+    const ct = CALC_TABS.find(c => c[3] === hash);
+    if (ct) setTimeout(() => { this.setState({ calcTab: ct[0] }); this.scrollTo(hash); }, 300);
+    const pt = PROTOS.find(p => p.anchor === hash);
+    if (pt) setTimeout(() => this.goProto(pt.id, pt.anchor), 300);
+    else if (PMAP[hash] || REG[hash]) setTimeout(() => this.openP(hash), 300);
+    else if (hash.startsWith('empresa-')) { const e = [...EMPRESAS, CORPORATIVO].find(x => 'empresa-' + x.slug === hash); if (e) setTimeout(() => this.openE(e), 300); }
+  }
+  componentDidUpdate() {
+    const st = this.state, ps = this._prevSt || {};
+    this._prevSt = { cv: st.cv, inv: st.inv, vV: st.vV, vm: st.vm, vD: st.vD, vPr: st.vPr, vr: st.vr };
+    if (!ps.cv) return;
+    if (ps.cv !== st.cv || ps.inv !== st.inv || ['vV', 'vm', 'vD', 'vPr', 'vr'].some(k => ps[k] !== st[k])) {
+      try { localStorage.setItem(STORE, JSON.stringify({ cv: st.cv, inv: st.inv, v: { vV: st.vV, vm: st.vm, vD: st.vD, vPr: st.vPr, vr: st.vr } })); } catch (e) {}
+    }
+  }
+  info(id) {
+    const p = PMAP[id];
+    if (p) return { nombre: p.nombre, kpi: p.kpi, lineas: p.lineas, keys: p.keys, proto: PROTO_OF[id] };
+    const r = REG[id];
+    return { nombre: r.nombre, kpi: r.kind === 's' ? r.ind : r.kpi, lineas: r.kind === 'a' ? ['Optimiza'] : r.kind === 's' ? ['Gestiona'] : r.lineas, keys: r.keys, proto: r.proto };
+  }
+  cget(cid, inp, w) { const v = this.state.cv[cid + ':' + inp.k + (w ? ':' + w : '')]; return v !== undefined ? v : (w ? inp.def[w === 'c' ? 0 : 1] : inp.def); }
+  cset(cid, k, w, v) { this.setState(s => ({ cv: { ...s.cv, [cid + ':' + k + (w ? ':' + w : '')]: v }, calcCopied: false })); }
+  calcView() {
+    const st = this.state, cid = st.calcTab, C = CALCS[cid];
+    if (!C) return { isBizCalc: false, isRiesgoCalc: true, calcInputs: [], calcRes: [] };
+    const num = (v, inp) => inp.unit === ' pp' ? v.toFixed(1).replace('.0', '') + ' pp' : (inp.step < 1 ? v.toFixed(1).replace('.0', '') : v) + '%';
+    const calcInputs = C.inputs.map(inp => {
+      const base = { id: 'calc-' + cid + '-' + inp.k, sym: inp.sym, label: inp.label, chipTipo: inp.chip, fuente: inp.f, isScen: false, isPct: false, isText: false, isSlider: false, min: inp.min, max: inp.max, step: inp.step, minLabel: '', maxLabel: '', pair: [] };
+      if (inp.kind === 'scen') {
+        const cv = this.cget(cid, inp, 'c'), ev = this.cget(cid, inp, 'e');
+        return { ...base, isScen: true, isSlider: true, minLabel: num(inp.min, inp), maxLabel: num(inp.max, inp), defLabel: num(inp.def[0], inp) + ' / ' + num(inp.def[1], inp), canReset: cv !== inp.def[0] || ev !== inp.def[1],
+          reset: () => this.setState(s => { const n = { ...s.cv }; delete n[cid + ':' + inp.k + ':c']; delete n[cid + ':' + inp.k + ':e']; return { cv: n }; }),
+          pair: [['c', 'Conservador', '#525252', cv], ['e', 'Esperado', '#0031EC', ev]].map(([w, label, color, value]) => ({ id: base.id + '-' + w, label, color, value, display: num(value, inp), change: e => this.cset(cid, inp.k, w, parseFloat(e.target.value)) })) };
+      }
+      const v = this.cget(cid, inp);
+      if (inp.kind === 'pct') return { ...base, isPct: true, isSlider: true, value: v, display: num(v, inp), minLabel: num(inp.min, inp), maxLabel: num(inp.max, inp), defLabel: num(inp.def, inp), canReset: v !== inp.def, reset: () => this.setState(s => { const n = { ...s.cv }; delete n[cid + ':' + inp.k]; return { cv: n }; }), change: e => this.cset(cid, inp.k, null, parseFloat(e.target.value)) };
+      return { ...base, isText: true, value: v === '' ? '' : Number(v).toLocaleString('es-MX'), prefix: inp.kind === 'money' ? '$' : '', suffix: inp.kind === 'money' ? 'MXN' : inp.suf, placeholder: '', defLabel: (inp.kind === 'money' ? '$' : '') + inp.def.toLocaleString('es-MX'), canReset: v !== inp.def,
+        reset: () => this.setState(s => { const n = { ...s.cv }; delete n[cid + ':' + inp.k]; return { cv: n }; }), change: e => { const d = digits(e.target.value); this.cset(cid, inp.k, null, d === '' ? '' : parseInt(d, 10)); } };
+    });
+    const vals = w => Object.fromEntries(C.inputs.map(inp => [inp.k, Number(inp.kind === 'scen' ? this.cget(cid, inp, w) : this.cget(cid, inp)) || 0]));
+    const Bc = C.B(vals('c')), Be = C.B(vals('e')), mx = Math.max(Bc, Be, 1);
+    const I = parseInt(digits(st.inv[cid] || '') || '0', 10);
+    const roi = B => I ? Math.round((B - I) / I * 100) + '%' : '', meses = B => I && B > 0 ? (I / (B / 12)).toFixed(1) + ' meses' : '—';
+    const calcRes = [['Conservador', '#525252', Bc], ['Esperado', '#0031EC', Be]].map(([label, color, B]) => ({ label, color, b: fmtMx(B), w: (B / mx * 100).toFixed(1) + '%', roi: roi(B), meses: meses(B) }));
+    return {
+      isBizCalc: true, isRiesgoCalc: false, calcInputs, calcRes, hasInv: !!I, noInv: !I, calcFormula: C.formula, calcNote: C.note,
+      invValue: st.inv[cid] ? parseInt(digits(st.inv[cid]), 10).toLocaleString('es-MX') : '', invChange: e => { const d = digits(e.target.value); this.setState(s => ({ inv: { ...s.inv, [cid]: d }, calcCopied: false })); },
+      calcReset: () => this.setState(s => { const n = {}; Object.keys(s.cv).forEach(k => { if (!k.startsWith(cid + ':')) n[k] = s.cv[k]; }); return { cv: n, inv: { ...s.inv, [cid]: '' }, calcCopied: false }; }),
+      calcCopyLabel: st.calcCopied ? 'Resultados copiados' : 'Copiar resultados',
+      calcCopy: () => {
+        const lines = ['Grupo Álica · Calculadora ' + C.nombre, ''];
+        C.inputs.forEach(inp => { const tag = inp.chip === 'confirmar' ? 'Dato por confirmar' : 'Estimación Wigilabs'; lines.push(inp.label + ' (' + inp.sym + '): ' + (inp.kind === 'scen' ? num(this.cget(cid, inp, 'c'), inp) + ' conservador / ' + num(this.cget(cid, inp, 'e'), inp) + ' esperado' : inp.kind === 'pct' ? num(this.cget(cid, inp), inp) : (inp.kind === 'money' ? fmtMx(this.cget(cid, inp)) : this.cget(cid, inp))) + ' · ' + tag); });
+        lines.push('', 'Fórmula: ' + C.formula, 'Beneficio anual conservador: ' + fmtMx(Bc), 'Beneficio anual esperado: ' + fmtMx(Be));
+        if (I) lines.push('Inversión año 1: ' + fmtMx(I), 'ROI año 1: ' + roi(Bc) + ' conservador / ' + roi(Be) + ' esperado', 'Recuperación: ' + meses(Bc) + ' conservador / ' + meses(Be) + ' esperado');
+        if (C.note) lines.push('', C.note);
+        lines.push('', 'Estimación de orden de magnitud para priorizar. Las cifras se validan con datos reales en el sprint y el piloto.');
+        try { navigator.clipboard.writeText(lines.join('\n')); } catch (e) {}
+        this.setState({ calcCopied: true });
+      },
+      calcProto: () => this.goProto(C.proto)
+    };
+  }
+  componentWillUnmount() {
+    try { this._io && this._io.disconnect(); } catch (e) {}
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('keydown', this._onKey);
+  }
+
+  openP(id) { this.setState({ panel: { type: 'p', id }, copied: false }); }
+  openE(e) { this.setState({ panel: { type: 'e', slug: e.slug }, copied: false }); }
+  closePanel() { this.setState({ panel: null }); }
+  goProto(tab) { this.setState({ protoTab: tab, protoOpen: true, panel: null }); try { document.body.style.overflow = 'hidden'; const p = PROTOS.find(x => x.id === tab); if (p) history.replaceState(null, '', '#' + p.anchor); } catch (e) {} }
+  closeProto() { this.setState({ protoOpen: false }); try { document.body.style.overflow = ''; history.replaceState(null, '', '#prototipos'); } catch (e) {} }
+  itemPanel(id) {
+    const r = REG[id];
+    const ch = (k, v, t, f) => ({ k, v, chip: !!t, chipTipo: t || 'publico', chipFuente: f || '' });
+    const ole = OLEADAS[id] ? ch('Hoja de ruta', OLEADAS[id] + (PRIMERO.includes(id) ? ' Entra entre las siete iniciativas que van primero.' : ''), 'estimacion', 'Ubicación propuesta por Wigilabs; se ajusta en la sesión de backlog') : null;
+    const base = { hasLinks: false, links: [], canFilter: false, proto: false, calc: false, anchor: id };
+    if (r.kind === 'a') return { ...base, eyebrow: id + ' · Automatización', titulo: r.nombre, sub: r.empresas, lineas: ['Optimiza'], campos: [ch('Hoy', r.hoy, 'confirmar', 'Situación típica; el estado real de cada proceso se valida en el diagnóstico'), ch('Qué se automatiza', r.que), ch('KPI', r.kpi), ole, ch('Referencia Wigilabs', r.ref)].filter(Boolean) };
+    if (r.kind === 'i') return { ...base, eyebrow: id + ' · Inteligencia artificial', titulo: r.nombre, sub: r.empresa === 'Grupo' ? 'Transversal · todo el grupo' : r.empresa, lineas: r.lineas, campos: [ch('Tipo de IA', r.tipo), ch('KPI', r.kpi), ole].filter(Boolean), proto: !!r.proto, protoTab: r.proto, calc: !!r.proto };
+    return { ...base, eyebrow: id + ' · Seguridad', titulo: r.nombre, sub: r.donde, lineas: ['Gestiona'], campos: [ch('Dónde', r.donde), id === 'S-08' ? ch('Qué hace Hacknoid', r.que) : ch('Qué hace Xiid', r.que, 'xiid', 'Capacidad descrita por Xiid; se valida en el piloto'), ch('Indicador', r.ind), ole].filter(Boolean) };
+  }
+  matches(keys) { const f = this.state.filtro; return f === 'Todo el grupo' || keys.includes('*') || keys.includes(f); }
+  scrollTo(id) { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 124, behavior: 'smooth' }); }
+
+  boxView(b) {
+    const sel = this.state.box;
+    const on = sel === b.id, mid = CAPAS[1].boxes.some(x => x.id === b.id);
+    const vis = PLATAFORMAS.filter(p => b.p.includes(p.id) && this.matches(p.keys)).length;
+    return {
+      t: b.t, s: b.s, on,
+      count: vis + (vis === 1 ? ' plataforma' : ' plataformas'),
+      pick: () => this.setState(s => ({ box: s.box === b.id ? null : b.id })),
+      border: on ? '#0031EC' : mid ? '#0031EC' : '#E5E5E5',
+      bg: on ? '#0031EC' : '#FFFFFF',
+      color: on ? '#FFFFFF' : mid ? '#0031EC' : '#0A0A0A',
+      opacity: sel && !on ? .5 : 1
+    };
+  }
+
+  panelView() {
+    const pn = this.state.panel;
+    if (!pn) return {};
+    if (pn.type === 'p' && !PMAP[pn.id]) return this.itemPanel(pn.id);
+    if (pn.type === 'p') {
+      const p = PMAP[pn.id];
+      const capas = Object.values(ALLBOX).filter(b => b.p.includes(p.id)).map(b => b.t).join(' · ');
+      const campos = [
+        { k: 'Qué resuelve', v: p.resuelve },
+        { k: 'KPI principal', v: p.kpi },
+        { k: 'Empresa', v: p.empresa },
+        capas ? { k: 'Usa en la arquitectura', v: capas, chip: true, chipTipo: 'estimacion', chipFuente: 'Relación entre plataforma y capa propuesta por Wigilabs; se valida en el diagnóstico' } : null,
+        OLEADAS[p.id] ? { k: 'Hoja de ruta', v: OLEADAS[p.id] + (PRIMERO.includes(p.id) ? ' Entra entre las siete iniciativas que van primero.' : ''), chip: true, chipTipo: 'estimacion', chipFuente: 'Ubicación propuesta por Wigilabs; se ajusta en la sesión de backlog' } : null,
+        { k: 'Referencia Wigilabs', v: p.ref }
+      ].filter(Boolean).map(c => ({ chip: false, chipTipo: 'publico', chipFuente: '', ...c }));
+      return { eyebrow: p.id + ' · Plataforma', titulo: p.nombre, sub: p.empresa === 'Grupo' ? 'Transversal · todo el grupo' : p.empresa, lineas: p.lineas, campos, hasLinks: false, links: [], canFilter: false, proto: !!p.proto, calc: !!p.calc, anchor: p.id, protoTab: PROTO_OF[p.id] };
+    }
+    const e = [...EMPRESAS, CORPORATIVO].find(x => x.slug === pn.slug);
+    const campos = [
+      { k: 'Segmento', v: e.seg },
+      { k: 'Oportunidad principal', v: e.op, chip: true, chipTipo: 'estimacion', chipFuente: 'Inferencia de Wigilabs a partir de la investigación del grupo' },
+      e.proto ? { k: 'Prototipo disponible', v: e.proto } : null
+    ].filter(Boolean).map(c => ({ chip: false, chipTipo: 'publico', chipFuente: '', ...c }));
+    return {
+      eyebrow: 'Empresa', titulo: e.nombre, sub: e.seg, lineas: e.lineas, campos,
+      hasLinks: true, linksLabel: e.ins.length > 1 ? 'Iniciativas insignia' : 'Iniciativa insignia',
+      links: e.ins.map(id => ({ id, nombre: PMAP[id].nombre, open: () => this.openP(id) })),
+      canFilter: !!e.key && e.key !== 'Todo el grupo', proto: !!e.proto, calc: false, anchor: 'empresa-' + e.slug, protoTab: PROTO_OF[e.slug],
+      filter: () => { this.setState({ filtro: e.key, panel: null, box: null }); setTimeout(() => this.scrollTo('plataformas'), 30); }
+    };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const wide = st.w >= 1080;
+    const pick = (id) => () => this.setState({ menuOpen: false });
+    const navItems = NAV.map(([id, label]) => {
+      const cur = st.active === id, built = BUILT.includes(id);
+      return { id, label, current: cur ? 'true' : 'false', go: pick(id), color: cur ? '#0031EC' : built ? '#333333' : '#A3A3A3', bg: cur ? '#EEF1FE' : 'transparent' };
+    });
+    const filtros = FILTROS.map(label => {
+      const on = st.filtro === label;
+      return { label, on: on ? 'true' : 'false', pick: () => this.setState({ filtro: label }), border: on ? '#0A0A0A' : '#E5E5E5', bg: on ? '#0A0A0A' : '#FFFFFF', color: on ? '#FFFFFF' : '#333333' };
+    });
+
+    const fuerzas = FUERZAS.map((f, i) => {
+      const flipped = !!st.flipped[i];
+      const flip = () => this.setState(s => ({ flipped: { ...s.flipped, [i]: !s.flipped[i] } }));
+      return {
+        n: i + 1, titulo: f.titulo, big: f.big, unit: f.unit, cifra: f.cifra, significa: f.significa, fuente: f.fuente || FUENTE_DEF,
+        flipped: flipped ? 'true' : 'false', rot: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)', flip,
+        key: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } },
+        inis: f.inis.map(id => {
+          const it = PMAP[id] || REG[id];
+          return { id, isP: !!it, notP: !it, nombre: it ? it.nombre : id, seccion: '', open: (e) => { e.stopPropagation(); this.openP(id); } };
+        })
+      };
+    });
+
+    const segmentos = SEGMENTOS.map(nombre => ({
+      nombre,
+      empresas: EMPRESAS.filter(e => e.seg === nombre).map(e => {
+        const hit = st.filtro !== 'Todo el grupo' && e.key === st.filtro;
+        const dim = st.filtro !== 'Todo el grupo' && !hit;
+        return { ...Object.fromEntries(["embotelladora","polo_sur","automotriz","fletes","pinsa","funeraria","frutalica","medios","hospitalidad"].map(k => ['l_' + k, k === e.slug.replace(/-/g, '_')])), slug: e.slug, nombre: e.nombre, insigniaId: e.ins[0], insigniaNombre: PMAP[e.ins[0]].nombre.split(':')[0], proto: !!e.proto, open: () => this.openE(e), border: hit ? '#0031EC' : '#E5E5E5', opacity: dim ? .45 : 1 };
+      })
+    }));
+
+    const capas = CAPAS.map(c => ({ n: c.n, nombre: c.nombre, frame: c.mid ? '1.5px solid #0031EC' : '1px solid #EBEBEB', bg: c.mid ? '#F4F6FE' : '#FAFAFA', labelColor: c.mid ? '#0031EC' : '#666666', boxes: c.boxes.map(b => this.boxView(b)) }));
+    const habilitadores = HAB.map(b => this.boxView(b));
+
+    const selBox = st.box ? ALLBOX[st.box] : null;
+    const card = (p) => {
+      const ok = this.matches(p.keys), inBox = !selBox || selBox.p.includes(p.id);
+      return { ...p, proto: !!p.proto, opacity: ok && inBox ? 1 : .3, border: selBox && inBox ? '#0031EC' : '#E5E5E5', open: () => this.openP(p.id) };
+    };
+    const trans = PLATAFORMAS.filter(p => p.empresa === 'Grupo');
+    const porEmp = PLATAFORMAS.filter(p => p.empresa !== 'Grupo');
+    const visibles = porEmp.filter(p => this.matches(p.keys)).length;
+    const grupos = [
+      { titulo: 'Transversales', nota: trans.length + ' plataformas · sirven a todas las empresas', items: trans.map(card) },
+      { titulo: 'Por empresa', nota: st.filtro === 'Todo el grupo' ? porEmp.length + ' plataformas' : visibles + ' de ' + porEmp.length + ' para ' + st.filtro, items: porEmp.slice().sort((a, b) => (this.matches(b.keys) ? 1 : 0) - (this.matches(a.keys) ? 1 : 0)).map(card) }
+    ];
+
+    const pn = this.panelView();
+    if (pn.proto) pn.goProto = (e) => { e.preventDefault(); this.goProto(pn.protoTab); };
+    if (pn.calc) pn.goCalc = (e) => { e.preventDefault(); const t = pn.protoTab; this.setState({ calcTab: t, panel: null }); setTimeout(() => this.scrollTo(CALCS[t] ? CALCS[t].anchor : 'impacto'), 40); };
+    const dimOf = (keys) => this.matches(keys) ? 1 : .3;
+    const nInteres = Object.values(st.interes).filter(Boolean).length;
+    const procesos = PROCESOS.map(a => {
+      const mode = st.autoMode[a.id] || 'hoy', liked = !!st.interes[a.id], ok = this.matches(a.keys);
+      return { id: a.id, nombre: a.nombre, empresas: a.empresas, kpi: a.kpi, hoy: a.hoy, isHoy: mode === 'hoy', isAuto: mode === 'auto',
+        steps: a.steps.map(([ic, t]) => ({ d: IC[ic], t })), open: () => this.openP(a.id), opacity: ok ? 1 : .3, border: '#E5E5E5',
+        modes: [['hoy', 'Hoy'], ['auto', 'Automatizado']].map(([m, label]) => { const on = mode === m; return { label, on: on ? 'true' : 'false', pick: () => this.setState(s => ({ autoMode: { ...s.autoMode, [a.id]: m } })), bg: on ? (m === 'auto' ? '#0031EC' : '#fff') : 'transparent', color: on ? (m === 'auto' ? '#fff' : '#0A0A0A') : '#525252' }; }),
+        likedAria: liked ? 'true' : 'false', like: () => this.setState(s => ({ interes: { ...s.interes, [a.id]: !s.interes[a.id] } })),
+        likeLabel: liked ? '✓ Me interesa' : 'Me interesa', likeBorder: liked ? '#0031EC' : '#D4D4D4', likeBg: liked ? '#0031EC' : '#fff', likeColor: liked ? '#fff' : '#0A0A0A' };
+    });
+    const iaTipos = [['Todos', IAS.length], ...TIPOS_IA.map(([t]) => [t, IAS.filter(c => c.tipo === t).length])].map(([label, n]) => { const on = st.iaTipo === label; return { label, count: n, on: on ? 'true' : 'false', pick: () => this.setState({ iaTipo: label }), border: on ? '#0A0A0A' : '#D4D4D4', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; });
+    const ias = IAS.filter(c => st.iaTipo === 'Todos' || c.tipo === st.iaTipo).map(c => ({ ...c, empresa: c.empresa === 'Grupo' ? 'Transversal' : c.empresa, icon: IC[TIPOS_IA.find(t => t[0] === c.tipo)[1]], proto: !!c.proto, probar: () => this.goProto(c.proto), open: () => this.openP(c.id), opacity: dimOf(c.keys), border: '#E5E5E5' }))
+      .sort((a, b) => b.opacity - a.opacity);
+    const segWide = st.w >= 900;
+    const segs = SEGS.map(s => ({ id: s.id, caso: s.nombre, donde: s.donde, que: s.que, ind: s.ind, opacity: dimOf(s.keys), open: () => this.openP(s.id), gap: segWide ? '20px' : '6px' }));
+    const V = parseInt(digits(st.vV) || '0', 10), Pr = parseInt(digits(st.vPr) || '0', 10), r = st.vr === '' ? null : Math.min(30, parseFloat(st.vr) || 0);
+    const dia = V / 365 * st.vm / 100, totalVar = dia * st.vD, prima = Pr && r !== null ? Pr * r / 100 : null;
+    const varTexto = 'Con estos datos, cada día sin operar cuesta ' + fmtMx(dia) + ' en margen. Un escenario de ' + st.vD + (st.vD === 1 ? ' día' : ' días') + ' representa ' + fmtMx(totalVar) + '.';
+    const rng = (id, label, key, min, max, unit, chipTipo, chipFuente) => ({ id, label, isRange: true, isText: false, value: st[key], display: st[key] + unit, min, max, minLabel: min + unit, maxLabel: max + unit, defLabel: VAR_DEF[key] + unit, canReset: st[key] !== VAR_DEF[key], reset: () => this.setState({ [key]: VAR_DEF[key] }), change: e => this.setState({ [key]: parseInt(e.target.value, 10) }), hasChip: !!chipTipo, chipTipo: chipTipo || 'publico', chipFuente: chipFuente || '' });
+    const txt = (id, label, key, prefix, suffix, placeholder, help, chipTipo, chipFuente, isPct) => ({ id, label, isRange: false, isText: true, value: isPct ? st[key] : (digits(st[key]) ? parseInt(digits(st[key]), 10).toLocaleString('es-MX') : ''), prefix, suffix, placeholder, help, change: e => this.setState({ [key]: isPct ? e.target.value.replace(/[^0-9.]/g, '').slice(0, 4) : digits(e.target.value) }), hasChip: true, chipTipo, chipFuente });
+    const varFields = [
+      txt('var-v', 'Ventas anuales de la operación que se detendría', 'vV', '$', 'MXN', '100,000,000', 'Valor normalizado de 100 millones de pesos; reemplácelo por el real', 'confirmar', 'Valor normalizado; la venta real la aporta Finanzas'),
+      rng('var-m', 'Margen de contribución', 'vm', 0, 60, '%', 'confirmar', 'Valor de ejemplo; el margen real se confirma con Finanzas'),
+      rng('var-d', 'Días de paro del escenario', 'vD', 1, 15, ' d', null, null),
+      txt('var-pr', 'Prima anual del seguro cibernético', 'vPr', '$', 'MXN', 'Vacío', 'Solo si existe póliza', 'confirmar', 'Dato de Riesgos; solo si existe póliza de seguro cibernético', false),
+      txt('var-r', 'Reducción de prima esperada', 'vr', '', '%', 'Vacío', 'Escríbala tras cotizar; de 0% a 30%', 'xiid', 'Xiid indica que la postura de puertos cerrados puede reducir primas, sin dar un porcentaje', true)
+    ];
+    const kcCols = st.w >= 1000 ? 'repeat(7,minmax(0,1fr))' : st.w >= 560 ? 'repeat(4,minmax(0,1fr))' : 'repeat(2,minmax(0,1fr))';
+    const extra = {
+      interesN: nInteres, interesLabel: nInteres === 1 ? 'proceso marcado como «me interesa»' : 'procesos marcados como «me interesa»', interesColor: nInteres ? '#0031EC' : '#A3A3A3', interesBorder: nInteres ? '#0031EC' : '#E5E5E5',
+      procesos, iaTipos, ias, gobierno: GOBIERNO.map(([ic, t]) => ({ d: IC[ic], t })),
+      kill: KILL.map(([t, x], i) => { const on = st.kill === i; return { n: i + 1, t, on: on ? 'true' : 'false', pick: () => { if (this.state.kill !== i) this.setState({ kill: i }); }, border: on ? '#0031EC' : '#E5E5E5', bg: on ? '#0031EC' : '#fff', color: on ? '#fff' : '#0A0A0A' }; }),
+      killSel: { t: KILL[st.kill][0], x: KILL[st.kill][1] }, kcCols,
+      goDemoXiid: () => this.goProto('xiid'),
+      segWide, segCols: segWide ? 'minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr)' : 'minmax(0,1fr)', segs,
+      beneficios: BENEFICIOS.map((t, i) => ({ n: i + 1, t })),
+      calcCols: st.w >= 900 ? 'minmax(0,1.1fr) minmax(0,1fr)' : 'minmax(0,1fr)', varFields,
+      varDia: fmtMx(dia), varD: st.vD, varTotal: fmtMx(totalVar), hasPrima: prima !== null, varPrima: prima !== null ? fmtMx(prima) : '', varTexto,
+      varReset: () => this.setState({ ...VAR_DEF, varCopied: false }), varCopyLabel: st.varCopied ? 'Resultados copiados' : 'Copiar resultados',
+      varCopy: () => {
+        const t = ['Grupo Álica · Valor en riesgo y seguridad', 'Ventas anuales de la operación: ' + fmtMx(V) + ' (Dato por confirmar)', 'Margen de contribución: ' + st.vm + '% (Dato por confirmar)', 'Días de paro: ' + st.vD, Pr ? 'Prima anual: ' + fmtMx(Pr) : null, r !== null ? 'Reducción de prima: ' + r + '% (según Xiid, sin porcentaje publicado)' : null, '', varTexto, prima !== null ? 'Ahorro anual en prima: ' + fmtMx(prima) : null, '', 'Estimación de orden de magnitud para priorizar. Las cifras se validan con datos reales en el sprint y el piloto.'].filter(x => x !== null).join('\n');
+        try { navigator.clipboard.writeText(t); } catch (e) {}
+        this.setState({ varCopied: true });
+      },
+      tabCols: st.w >= 900 ? 'repeat(4,minmax(0,1fr))' : 'repeat(2,minmax(0,1fr))',
+      protoTabs: PROTOS.map(p => { const on = st.protoTab === p.id; return { ...p, on: on ? 'true' : 'false', pick: () => this.setState({ protoTab: p.id }), border: on ? '#0031EC' : '#E5E5E5', bg: on ? '#0031EC' : '#fff', color: on ? '#fff' : '#0A0A0A', shadow: on ? '0 6px 20px rgba(0,49,236,.18)' : 'none' }; }),
+      protoLabel: PROTOS.find(p => p.id === st.protoTab).nombre,
+      tabNayar: st.protoTab === 'nayar', tabMotors: st.protoTab === 'motors', tabPrevision: st.protoTab === 'prevision', tabXiid: st.protoTab === 'xiid',
+      protoNarrow: st.w < 900,
+      protoCards: PROTOS.map((p, i) => ({ ...p, n: i + 1, iTablero: p.id === 'tablero', iNayar: p.id === 'nayar', iMotors: p.id === 'motors', iPrevision: p.id === 'prevision', iHoreca: p.id === 'horeca', iFamilia: p.id === 'familia', iXiid: p.id === 'xiid', open: () => this.goProto(p.id), border: i === 0 ? '#0A0A0A' : '#E5E5E5', bg: '#fff' })),
+      protoOpen: st.protoOpen, closeProto: () => this.closeProto()
+    };
+    const wideM = st.w >= 700;
+    const tipP = st.tipId ? MATRIZ.find(m => m[0] === st.tipId) : null;
+    const tipI = tipP ? this.info(tipP[0]) : null;
+    const lineOfStyle = id => { const l = this.info(id).lineas[0]; return LINE_STYLE[l]; };
+    const roadItem = ([id, t]) => { const s = lineOfStyle(id); return { id, t, open: () => this.openP(id), bg: s.bg, border: s.border, opacity: dimOf(this.info(id).keys) }; };
+    const extra2 = {
+      ...this.calcView(),
+      calcTabs: CALC_TABS.map(([id, empresa, nombre, anchor]) => { const on = st.calcTab === id; return { empresa, nombre, anchor, on: on ? 'true' : 'false', pick: () => this.setState({ calcTab: id }), border: on ? '#0A0A0A' : '#E5E5E5', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#0A0A0A' }; }),
+      lineLegend: Object.keys(LINE_STYLE).map(name => { const off = !!st.lineOff[name]; return { name, on: off ? 'false' : 'true', opacity: off ? .4 : 1, bg: LINE_STYLE[name].bg, border: LINE_STYLE[name].border, toggle: () => this.setState(s => ({ lineOff: { ...s.lineOff, [name]: !s.lineOff[name] } })) }; }),
+      matrixRatio: wideM ? '1.6' : '0.95', dot: wideM ? '42px' : '32px', dotFont: wideM ? '10.5px' : '8.5px',
+      puntos: MATRIZ.map(([id, x, y]) => { const inf = this.info(id), l = inf.lineas[0], s = LINE_STYLE[l], off = !!st.lineOff[l]; return { id, short: id, x: x + '%', y: (100 - y) + '%', bg: s.bg, color: s.color, border: s.border, ring: inf.proto ? '0 0 0 3px #fff, 0 0 0 4.5px #0A0A0A' : 'none', opacity: off ? .1 : dimOf(inf.keys), off, z: st.tipId === id ? 6 : 2, aria: id + ', ' + inf.nombre + '. KPI: ' + inf.kpi, open: () => this.openP(id), hover: () => this.setState({ tipId: id }) }; }),
+      unhover: () => this.setState({ tipId: null }),
+      hasTip: !!tipP, tip: tipP ? { id: tipP[0], nombre: tipI.nombre, kpi: tipI.kpi, x: tipP[1] + '%', y: (100 - tipP[2]) + '%', tf: tipP[1] > 55 ? 'translate(calc(-100% - 28px),-50%)' : 'translate(28px,-50%)' } : { id: '', nombre: '', kpi: '', x: '0', y: '0', tf: 'none' },
+      roadWide: st.w >= 1000, roadNarrow: st.w < 1000,
+      oleadas: OLE_INFO.map(o => ({ t: o.t, f: o.f, gate: o.gate, gateText: o.gateText })),
+      frentes: ROAD.map(([t, cells]) => ({ t, cells: cells.map(c => c.map(roadItem)) })),
+      oleadasNarrow: OLE_INFO.map((o, i) => ({ ...o, frentes: ROAD.map(([t, cells]) => ({ t, items: cells[i].map(roadItem) })).filter(f => f.items.length) })),
+      puertas: OLE_INFO.filter(o => o.gate).map(o => ({ t: o.gate, x: o.gateText })),
+      datosOpen: st.datosOpen, datosAria: st.datosOpen ? 'true' : 'false', datosSign: st.datosOpen ? '−' : '+', toggleDatos: () => this.setState(s => ({ datosOpen: !s.datosOpen })),
+      datos: DATOS.map(([dato, uso, quien]) => ({ dato, uso, quien })), datosCols: st.w >= 900 ? 'minmax(0,1.4fr) minmax(0,1.2fr) minmax(0,.8fr)' : 'minmax(0,1fr)',
+      printResumen: () => { try { document.querySelectorAll('main > section').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; }); window.print(); } catch (e) {} }
+    };
+    return {
+      ...extra,
+      ...extra2,
+      wide, narrow: !wide, navItems,
+      layerCols: st.w >= 640 ? 'minmax(140px,200px) minmax(0,1fr)' : 'minmax(0,1fr)',
+      boxCols: st.w >= 640 ? 'repeat(3,minmax(0,1fr))' : 'minmax(0,1fr)',
+      kpiCols: st.w >= 1000 ? 'repeat(4,minmax(0,1fr))' : st.w >= 520 ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)', filtros, menuOpen: st.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      progressPct: (st.progress * 100).toFixed(1) + '%',
+      fuerzas, segmentos, openCorporativo: () => this.openE(CORPORATIVO),
+      capas, habilitadores, hasBox: !!st.box, clearBox: () => this.setState({ box: null }), grupos,
+      panelOpen: !!st.panel, pn, closePanel: () => this.closePanel(),
+      copyLabel: st.copied ? 'Enlace copiado' : 'Copiar enlace',
+      copyLink: () => {
+        const url = location.href.split('#')[0] + '#' + pn.anchor;
+        try { navigator.clipboard.writeText(url); } catch (e) {}
+        try { history.replaceState(null, '', '#' + pn.anchor); } catch (e) {}
+        this.setState({ copied: true });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

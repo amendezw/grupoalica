@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#2E2620">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E3D8C9;border-radius:8px;background:#FFFDF9">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#8A5A3B"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#6B5D50">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#FFFDF9;font:600 13px/1 Inter,sans-serif"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E3D8C9;background:#FFFDF9;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#2E2620"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #8A5A3B;border-radius:8px;padding:18px 20px;background:#FBF7F1;display:flex;flex-direction:column;gap:10px">
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5">
+        <li>Los datos de la persona fallecida y de su familia viajan por túneles sellados al sistema de servicios; nadie los ve desde internet.</li>
+        <li>La esquela y la transmisión se comparten con un enlace que la familia controla y puede desactivar.</li>
+        <li>La carpeta familiar solo la abren el titular y los beneficiarios que él invite.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showUser }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;justify-content:center">
+      <div style="position:relative;width:100%;max-width:390px;height:{{ phoneH }};border:10px solid #2E2620;border-radius:48px;overflow:hidden;display:flex;flex-direction:column;background:#F6F1EA;box-shadow:0 18px 50px rgba(46,38,32,.18)">
+        <div style="height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;background:#FFFDF9"><span>{{ clock }}</span><span style="width:84px;height:20px;border-radius:12px;background:#2E2620"></span><span>5G</span></div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px 10px;background:#FFFDF9;border-bottom:1px solid #EFE7DC;min-height:52px">
+          <sc-if value="{{ hasBack }}"><button type="button" aria-label="Atrás" onClick="{{ back }}" style="all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:-6px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2E2620" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"></path></svg></button></sc-if>
+          <img src="assets/logos/bello-recuerdo.png" alt="Bello Recuerdo" style="height:32px;width:auto;flex:none;display:block"><span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><span style="font:700 16px/1.2 Satoshi,sans-serif">{{ title }}</span><span style="font:500 11px/1.2 Inter,sans-serif;color:#6B5D50">Bello Recuerdo · Jardines de San Juan</span></span>
+          <sc-if value="{{ hasAsesora }}"><button type="button" onClick="{{ hablar }}" aria-label="Hablar con Patricia" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;background:#8A5A3B;color:#fff;font:600 12px/32px Inter,sans-serif"><svg width="13" height="13" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2"></path></svg>Patricia</button></sc-if>
+        </div>
+        <div data-scroll-top="acomp-app" style="flex:1;overflow-y:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px">
+
+          <sc-if value="{{ sInicio }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;height:150px;border-radius:14px;overflow:hidden;flex:none"><img src="assets/img/jardines-san-juan.jpg" alt="Capilla y jardín de Jardines de San Juan, Tepic" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(46,38,32,.75);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Jardines de San Juan · Tepic</span></div>
+            <span style="font:500 21px/1.3 Satoshi,sans-serif;text-wrap:pretty">Le acompañamos antes, durante y después.</span>
+            <button type="button" onClick="{{ goAyuda }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:14px;background:#2E2620;color:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font:700 17px/1.2 Satoshi,sans-serif">Necesito ayuda ahora</span><span style="font-size:13px;line-height:1.4;color:#E3D8C9">Una asesora le llama en minutos. Atención las 24 horas.</span></button>
+            <button type="button" onClick="{{ goPlan }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:14px;background:#FFFDF9;border:1px solid #E3D8C9;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font:700 17px/1.2 Satoshi,sans-serif">Planear con tiempo</span><span style="font-size:13px;line-height:1.4;color:#6B5D50">Un plan y una carpeta para que su familia sepa qué hacer y qué quería usted.</span></button>
+            <button type="button" onClick="{{ goDespues }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:14px;background:#FFFDF9;border:1px solid #E3D8C9;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font:700 17px/1.2 Satoshi,sans-serif">Ya vivimos un servicio</span><span style="font-size:13px;line-height:1.4;color:#6B5D50">Trámites, recordatorios y el lugar de su ser querido.</span></button>
+          </sc-if>
+
+          <sc-if value="{{ sAyuda }}">
+            <sc-if value="{{ ayudaPend }}">
+              <span style="font:500 20px/1.3 Satoshi,sans-serif">Estamos con usted, Laura.</span>
+              <button type="button" onClick="{{ pedirAyuda }}" style="all:unset;cursor:pointer;text-align:center;height:58px;border-radius:12px;background:#8A5A3B;color:#fff;font:700 17px/58px Satoshi,sans-serif">Que una asesora me llame</button>
+              <span style="text-align:center;font-size:12.5px;color:#6B5D50">O llame al 311 000 0000 · 24 horas</span>
+            </sc-if>
+            <sc-if value="{{ ayudaOk }}">
+              <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;gap:12px;align-items:center;border:1.5px solid #8A5A3B"><img src="assets/img/opt/patricia.jpg" alt="Patricia, su asesora" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px/1.25 Satoshi,sans-serif">Patricia, su asesora, le llama en 2 minutos</span><span style="font-size:12.5px;color:#6B5D50">Estará con su familia en todo el proceso.</span></span></div>
+            </sc-if>
+            <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif">Por ahora, solo esto</span>
+              <sc-for list="{{ ahora }}" as="a"><div style="display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px;line-height:1.45"><span style="width:24px;height:24px;border-radius:50%;background:#EFE7DC;display:flex;align-items:center;justify-content:center;font:700 11px/1 'Plus Jakarta Sans',sans-serif">{{ a.n }}</span><span>{{ a.t }}</span></div></sc-for>
+              <span style="font-size:12.5px;color:#6B5D50;padding-top:4px">Los trámites los vemos juntos después. No necesita resolverlos hoy.</span>
+            </div>
+            <sc-if value="{{ ayudaOk }}"><button type="button" onClick="{{ goServicio }}" style="all:unset;cursor:pointer;text-align:center;height:46px;border-radius:10px;border:1.5px solid #2E2620;font:700 14.5px/43px Satoshi,sans-serif;box-sizing:border-box">Ver el servicio de mi papá</button></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ sServicio }}">
+            <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:12px">
+              <span style="display:flex;justify-content:space-between;gap:8px"><span style="font:700 15px/1.2 Satoshi,sans-serif">Don Ernesto Hernández</span><span style="font:600 11px/1.3 'Plus Jakarta Sans',sans-serif;color:#6B5D50">Servicio S-1184</span></span>
+              <ol style="margin:0;padding:0;list-style:none">
+                <sc-for list="{{ etapas }}" as="e"><li style="display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding-bottom:10px"><span style="display:flex;flex-direction:column;align-items:center"><span style="width:14px;height:14px;border-radius:50%;box-sizing:border-box;margin-top:2px;background:{{ e.dot }};border:2px solid {{ e.ring }}"></span><sc-if value="{{ e.line }}"><span style="flex:1;width:2px;min-height:14px;margin-top:2px;background:{{ e.lc }}"></span></sc-if></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 13.5px/1.3 Inter,sans-serif;color:{{ e.c }}">{{ e.t }}</span><span style="font-size:11.5px;color:#8C7B69">{{ e.s }}</span></span></li></sc-for>
+              </ol>
+              <sc-if value="{{ canAvanzar }}"><button type="button" onClick="{{ avanzar }}" style="all:unset;cursor:pointer;text-align:center;height:38px;border-radius:8px;border:1px dashed #8A5A3B;color:#74492F;font:600 12.5px/36px Inter,sans-serif;box-sizing:border-box">Simular siguiente etapa (demo)</button></sc-if>
+            </div>
+            <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif">Qué sigue</span>
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B5D50">Elegir sala y horario</span>
+              <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ salas }}" as="s"><button type="button" aria-pressed="{{ s.on }}" onClick="{{ s.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;font:600 12.5px/1.2 Inter,sans-serif;border:1.5px solid {{ s.border }};background:{{ s.bg }};color:{{ s.color }}">{{ s.l }}</button></sc-for></div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ horarios }}" as="s"><button type="button" aria-pressed="{{ s.on }}" onClick="{{ s.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;font:600 12.5px/1.2 Inter,sans-serif;border:1.5px solid {{ s.border }};background:{{ s.bg }};color:{{ s.color }}">{{ s.l }}</button></sc-for></div>
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B5D50;padding-top:6px">Documentos para Patricia</span>
+              <sc-for list="{{ docs }}" as="d"><button type="button" role="checkbox" aria-checked="{{ d.on }}" onClick="{{ d.toggle }}" style="all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;font-size:13.5px"><span style="width:20px;height:20px;border-radius:5px;box-sizing:border-box;flex:none;border:1.5px solid #8A5A3B;text-align:center;font:700 12px/18px Inter,sans-serif;color:#fff;background:{{ d.bg }}">{{ d.m }}</span><span style="flex:1">{{ d.t }}</span><span style="font-size:11.5px;color:#8C7B69">{{ d.s }}</span></button></sc-for>
+            </div>
+            <button type="button" onClick="{{ goFamilia }}" style="all:unset;cursor:pointer;text-align:center;height:46px;border-radius:10px;background:#2E2620;color:#FFFDF9;font:700 14.5px/46px Satoshi,sans-serif">Avisar a la familia</button>
+          </sc-if>
+
+          <sc-if value="{{ sFamilia }}">
+            <div style="border-radius:14px;background:#FFFDF9;padding:18px;display:flex;flex-direction:column;gap:8px;text-align:center;align-items:center;border:1px solid #E3D8C9">
+              <span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A5A3B">En memoria de</span>
+              <span style="font:500 22px/1.2 Satoshi,sans-serif">Ernesto Hernández Ruiz</span>
+              <span style="font-size:12.5px;color:#6B5D50">1948 – 2026</span>
+              <span style="font-size:13px;line-height:1.5;color:#40352D;padding-top:6px">{{ esquelaTxt }}</span>
+            </div>
+            <div style="border-radius:14px;background:#FFFDF9;padding:14px;display:flex;flex-direction:column;gap:10px">
+              <button type="button" onClick="{{ compartir }}" style="all:unset;cursor:pointer;text-align:center;height:46px;border-radius:10px;background:#8A5A3B;color:#fff;font:700 14.5px/46px Satoshi,sans-serif">{{ compartirLabel }}</button>
+              <button type="button" role="switch" aria-checked="{{ streamAria }}" onClick="{{ toggleStream }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:6px 0"><span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:600 13.5px/1.3 Inter,sans-serif">Transmitir la ceremonia</span><span style="font-size:12px;color:#6B5D50">Para la familia que vive lejos</span></span><span style="width:40px;height:24px;border-radius:12px;position:relative;transition:background 200ms;background:{{ streamBg }}"><span style="position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 200ms;left:{{ streamLeft }}"></span></span></button>
+            </div>
+            <div style="border-radius:14px;background:#FFFDF9;padding:14px;display:flex;flex-direction:column;gap:8px">
+              <span style="font:700 14.5px/1.2 Satoshi,sans-serif">Libro de condolencias</span>
+              <sc-for list="{{ condolencias }}" as="c"><div style="padding:10px 0;border-top:1px solid #EFE7DC;display:flex;flex-direction:column;gap:3px"><span style="font:600 12.5px/1.3 Inter,sans-serif">{{ c.q }}</span><span style="font-size:13px;line-height:1.45;color:#40352D">{{ c.t }}</span></div></sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ sDespues }}">
+            <span style="font:500 19px/1.3 Satoshi,sans-serif">Seguimos aquí, Laura.</span>
+            <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:10px">
+              <span style="display:flex;justify-content:space-between"><span style="font:700 15px/1.2 Satoshi,sans-serif">Trámites después del servicio</span><span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#8A5A3B">{{ tramDone }} de 3</span></span>
+              <sc-for list="{{ tramites }}" as="t"><button type="button" role="checkbox" aria-checked="{{ t.on }}" onClick="{{ t.toggle }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;padding:6px 0"><span style="width:20px;height:20px;border-radius:5px;box-sizing:border-box;border:1.5px solid #8A5A3B;text-align:center;font:700 12px/18px Inter,sans-serif;color:#fff;background:{{ t.bg }}">{{ t.m }}</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 13.5px/1.3 Inter,sans-serif">{{ t.t }}</span><span style="font-size:12px;line-height:1.4;color:#6B5D50">{{ t.s }}</span></span></button></sc-for>
+            </div>
+            <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:8px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif">Recordatorios</span>
+              <sc-for list="{{ recordatorios }}" as="r"><button type="button" role="switch" aria-checked="{{ r.on }}" onClick="{{ r.toggle }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:6px 0"><span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font:600 13.5px/1.3 Inter,sans-serif">{{ r.t }}</span><span style="font-size:12px;color:#6B5D50">{{ r.s }}</span></span><span style="width:40px;height:24px;border-radius:12px;position:relative;transition:background 200ms;background:{{ r.bg }}"><span style="position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 200ms;left:{{ r.left }}"></span></span></button></sc-for>
+            </div>
+            <div style="border-radius:14px;background:#FFFDF9;overflow:hidden">
+              <div style="height:96px;position:relative"><img src="assets/img/jardines-san-juan.jpg" alt="Jardines de San Juan" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <span style="font:700 15px/1.2 Satoshi,sans-serif">Su lugar en Jardines de San Juan</span>
+                <span style="font-size:12.5px;color:#6B5D50">Sección Los Laureles · lote 14 · abierto de 8:00 a 18:00</span>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <button type="button" onClick="{{ toggleFlores }}" style="all:unset;cursor:pointer;height:36px;padding:0 12px;border-radius:999px;font:600 12.5px/34px Inter,sans-serif;box-sizing:border-box;border:1.5px solid #8A5A3B;background:{{ floresBg }};color:{{ floresFg }}">{{ floresLabel }}</button>
+                  <button type="button" style="all:unset;cursor:pointer;height:36px;padding:0 12px;border-radius:999px;font:600 12.5px/34px Inter,sans-serif;box-sizing:border-box;border:1px solid #D9CCBA">Cómo llegar</button>
+                </div>
+              </div>
+            </div>
+            <div style="border-radius:14px;background:#EFE7DC;padding:16px;display:flex;flex-direction:column;gap:8px">
+              <span style="font:700 14.5px/1.3 Satoshi,sans-serif">Acompañamiento en duelo</span>
+              <span style="font-size:12.5px;line-height:1.45;color:#40352D">Un grupo de apoyo los jueves en Tepic y sesiones individuales sin costo durante tres meses.</span>
+            </div>
+            <button type="button" onClick="{{ goPlan }}" style="all:unset;cursor:pointer;font:600 13px/1.4 Inter,sans-serif;color:#74492F;text-decoration:underline;text-underline-offset:3px;align-self:center;padding:6px">Planear con tiempo para mi mamá</button>
+          </sc-if>
+
+          <sc-if value="{{ sPlan }}">
+            <sc-if value="{{ planPend }}">
+              <span style="font:500 19px/1.3 Satoshi,sans-serif;text-wrap:pretty">Un plan para que su familia sepa qué hacer y qué quería usted.</span>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ planes }}" as="p"><button type="button" role="radio" aria-checked="{{ p.on }}" onClick="{{ p.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;background:#FFFDF9;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center;border:1.5px solid {{ p.border }}"><span style="display:flex;flex-direction:column;gap:2px"><span style="font:700 15px/1.2 Satoshi,sans-serif">{{ p.n }}</span><span style="font-size:12px;color:#6B5D50">{{ p.d }}</span></span><span style="font:700 15px/1 'Plus Jakarta Sans',sans-serif;flex:none">{{ p.m }}</span></button></sc-for>
+              </div>
+              <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="font:700 15px/1.2 Satoshi,sans-serif">Carpeta familiar · lo que usted quiere</span>
+                <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ prefServ }}" as="o"><button type="button" aria-pressed="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;font:600 12.5px/1.2 Inter,sans-serif;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }}">{{ o.l }}</button></sc-for></div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ prefCer }}" as="o"><button type="button" aria-pressed="{{ o.on }}" onClick="{{ o.pick }}" style="all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;font:600 12.5px/1.2 Inter,sans-serif;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }}">{{ o.l }}</button></sc-for></div>
+                <label style="display:flex;flex-direction:column;gap:4px;font:600 12px/1 Inter,sans-serif;color:#6B5D50">Música o deseos para la ceremonia<input value="{{ deseo }}" onChange="{{ onDeseo }}" style="height:42px;border-radius:8px;border:1px solid #D9CCBA;padding:0 12px;font:400 14px Inter,sans-serif;color:#2E2620;background:#fff"></input></label>
+                <span style="font-size:12.5px;color:#6B5D50">Beneficiarios con acceso: Laura y Andrés Hernández</span>
+              </div>
+              <p style="margin:0;font-size:12.5px;line-height:1.5;color:#40352D">Se cobra el día 5 de cada mes. Puede cancelar cuando quiera, sin penalización.</p>
+              <button type="button" onClick="{{ contratar }}" style="all:unset;cursor:pointer;text-align:center;height:50px;border-radius:10px;background:#8A5A3B;color:#fff;font:700 15px/50px Satoshi,sans-serif">Contratar plan {{ planNombre }} · {{ planMens }} al mes</button>
+            </sc-if>
+            <sc-if value="{{ planDone }}">
+              <div style="border-radius:14px;background:#2E2620;color:#FFFDF9;padding:18px;display:flex;flex-direction:column;gap:10px"><span style="font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#D9CCBA">Plan activo · PV-2026-00481</span><span style="font:700 20px/1.2 Satoshi,sans-serif">Plan {{ planNombre }} para Rosa Hernández</span><span style="font-size:13px;color:#E3D8C9">Primer cargo el día 5 · {{ planMens }} al mes</span></div>
+              <div style="border-radius:14px;background:#FFFDF9;padding:16px;display:flex;flex-direction:column;gap:6px">
+                <span style="font:700 15px/1.2 Satoshi,sans-serif">Carpeta familiar guardada</span>
+                <sc-for list="{{ carpeta }}" as="c"><div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid #EFE7DC;font-size:13px"><span style="color:#6B5D50">{{ c.k }}</span><span style="font-weight:600;text-align:right">{{ c.v }}</span></div></sc-for>
+                <span style="font-size:12.5px;color:#6B5D50;padding-top:6px">Laura y Andrés recibieron su acceso. Cuando llegue el momento, sabrán qué hacer.</span>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+        <nav aria-label="Navegación de la app" style="flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:#FFFDF9;border-top:1px solid #EFE7DC;padding:6px 4px 10px">
+          <sc-for list="{{ tabs }}" as="t"><button type="button" aria-current="{{ t.cur }}" onClick="{{ t.go }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;color:{{ t.color }}"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.d }}"></path></svg><span style="font:600 10.5px/1 Inter,sans-serif">{{ t.label }}</span></button></sc-for>
+        </nav>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showAdmin }}">
+    <div style="border:1px solid #D9CCBA;border-radius:10px;overflow:hidden;background:#FFFDF9;box-shadow:0 14px 40px rgba(46,38,32,.10);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#EFE7DC;border-bottom:1px solid #E3D8C9">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D9CCBA"></span><span style="width:10px;height:10px;border-radius:50%;background:#D9CCBA"></span><span style="width:10px;height:10px;border-radius:50%;background:#D9CCBA"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#FFFDF9;border:1px solid #E3D8C9;font:500 11.5px/22px Inter,sans-serif;color:#6B5D50;padding:0 10px;overflow:hidden;white-space:nowrap">panel · Bello Recuerdo · servicios</span>
+      </div>
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ aCols }};grid-template-rows:{{ aRows }}">
+        <nav aria-label="Módulos" style="background:#2E2620;color:#FFFDF9;display:flex;flex-direction:{{ navDir }};gap:2px;padding:{{ navPad }};overflow:auto;scrollbar-width:none">
+          <sc-if value="{{ aWide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px;padding:6px 10px 16px"><span style="display:inline-flex;align-self:flex-start;align-items:center;gap:10px;padding:6px 10px;border-radius:6px;background:#FFFDF9"><img src="assets/logos/bello-recuerdo.png" alt="Bello Recuerdo" style="height:30px;width:auto;display:block"><img src="assets/logos/jardines.png" alt="Jardines de San Juan" style="height:30px;width:auto;display:block"></span><span style="font:700 15px/1.2 Satoshi,sans-serif;margin-top:8px">Panel de servicios</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#D9CCBA">Tepic y Puerto Vallarta</span></div></sc-if>
+          <sc-for list="{{ aMods }}" as="m"><button type="button" aria-current="{{ m.cur }}" onClick="{{ m.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;font:500 13.5px/1.2 Inter,sans-serif;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"></path></svg><span style="flex:1">{{ m.label }}</span><sc-if value="{{ m.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#C98A5E;color:#2E2620;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ m.badge }}</span></sc-if></button></sc-for>
+        </nav>
+        <div data-scroll-top="acomp-admin" style="min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FBF8F3">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px"><h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif">{{ aTitle }}</h3><span style="font:500 12.5px/1.3 Inter,sans-serif;color:#6B5D50">{{ aSub }}</span></div>
+
+          <sc-if value="{{ aServicios }}" hint-placeholder-val="{{ true }}">
+            <sc-if value="{{ alertaAyuda }}"><div role="alert" style="padding:12px 14px;border-radius:8px;border:1.5px solid #8A5A3B;background:#FBF4EE;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center"><img src="assets/img/opt/patricia.jpg" alt="Patricia Ramos" style="width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none"><span style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:200px"><span style="font:700 11px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#74492F">Necesito ayuda ahora · hace 1 min</span><span style="font:600 14.5px/1.3 Inter,sans-serif">Laura Hernández · Tepic</span><span style="font-size:12.5px;color:#6B5D50">Asignada a Patricia Ramos · llamada en curso</span></span></div></sc-if>
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr))">
+              <sc-for list="{{ kpis }}" as="k"><div style="padding:14px;border-radius:8px;background:#fff;border:1px solid #EFE7DC;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B5D50">{{ k.l }}</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif;color:{{ k.c }}">{{ k.v }}</span><span style="font-size:11.5px;color:#6B5D50">{{ k.s }}</span></div></sc-for>
+            </div>
+            <div style="border-radius:8px;background:#fff;border:1px solid #EFE7DC;overflow-x:auto">
+              <div style="min-width:620px">
+                <div style="display:grid;grid-template-columns:80px minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr) 110px;gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B5D50;border-bottom:1px solid #EFE7DC"><span>Servicio</span><span>Familia</span><span>Asesora</span><span>Etapa</span><span>Sala</span></div>
+                <sc-for list="{{ servicios }}" as="s"><div style="display:grid;grid-template-columns:80px minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr) 110px;gap:10px;padding:11px 14px;border-bottom:1px solid #F3EDE4;font-size:13px;align-items:center;background:{{ s.bg }}"><span style="font:700 11.5px/1.3 'Plus Jakarta Sans',sans-serif;color:#8A5A3B">{{ s.id }}</span><span style="font-weight:{{ s.w }}">{{ s.f }}</span><span>{{ s.a }}</span><span>{{ s.e }}</span><span>{{ s.sala }}</span></div></sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ hasServicio }}">
+              <div style="padding:16px;border-radius:8px;background:#fff;border:1.5px solid #8A5A3B;display:flex;flex-direction:column;gap:8px">
+                <span style="font:700 15px/1.2 Satoshi,sans-serif">S-1184 · lista de tareas de Patricia</span>
+                <sc-for list="{{ tareas }}" as="t"><div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="width:18px;height:18px;border-radius:50%;flex:none;text-align:center;font:700 10px/18px Inter,sans-serif;color:#fff;background:{{ t.bg }}">{{ t.m }}</span><span style="flex:1">{{ t.t }}</span></div></sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ aSalas }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EFE7DC;padding:6px 16px">
+              <sc-for list="{{ salasAdm }}" as="s"><div style="display:grid;grid-template-columns:minmax(110px,160px) repeat(4,minmax(0,1fr));gap:8px;padding:11px 0;border-top:1px solid #F3EDE4;align-items:center;font-size:12.5px"><span style="font-weight:600">{{ s.n }}</span><sc-for list="{{ s.slots }}" as="x"><span style="padding:6px 8px;border-radius:4px;text-align:center;background:{{ x.bg }};color:{{ x.c }};font:{{ x.font }}">{{ x.t }}</span></sc-for></div></sc-for>
+            </div>
+            <span style="font-size:12.5px;color:#6B5D50">Horarios de hoy. En color, lo que eligió la familia Hernández desde la app.</span>
+          </sc-if>
+
+          <sc-if value="{{ aFamilias }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EFE7DC;padding:6px 16px">
+              <sc-for list="{{ log }}" as="l"><div style="display:grid;grid-template-columns:50px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid #F3EDE4;font-size:13px;line-height:1.4"><span style="font:600 12px/1.4 'Plus Jakarta Sans',sans-serif;color:#8C7B69">{{ l.t }}</span><span>{{ l.text }}</span></div></sc-for>
+            </div>
+            <span style="font-size:12.5px;color:#6B5D50">Todo lo que la familia hace en la app llega aquí; la asesora no tiene que preguntar dos veces.</span>
+          </sc-if>
+
+          <sc-if value="{{ aSeguimiento }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EFE7DC;overflow-x:auto">
+              <div style="min-width:560px">
+                <div style="display:grid;grid-template-columns:minmax(0,1.3fr) 90px minmax(0,1.2fr) minmax(0,1fr);gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B5D50;border-bottom:1px solid #EFE7DC"><span>Familia</span><span>Trámites</span><span>Próximo recordatorio</span><span>Flores</span></div>
+                <sc-for list="{{ seguimiento }}" as="s"><div style="display:grid;grid-template-columns:minmax(0,1.3fr) 90px minmax(0,1.2fr) minmax(0,1fr);gap:10px;padding:11px 14px;border-bottom:1px solid #F3EDE4;font-size:13px;background:{{ s.bg }}"><span style="font-weight:{{ s.w }}">{{ s.f }}</span><span>{{ s.t }}</span><span>{{ s.r }}</span><span>{{ s.fl }}</span></div></sc-for>
+              </div>
+            </div>
+            <span style="font-size:12.5px;color:#6B5D50">El acompañamiento posterior es donde la funeraria se gana la confianza de la familia para planear con tiempo.</span>
+          </sc-if>
+
+          <sc-if value="{{ aPrevision }}">
+            <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))">
+              <sc-for list="{{ kpisP }}" as="k"><div style="padding:14px;border-radius:8px;background:#fff;border:1px solid #EFE7DC;display:flex;flex-direction:column;gap:6px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B5D50">{{ k.l }}</span><span style="font:600 28px/1 'Plus Jakarta Sans',sans-serif;color:{{ k.c }}">{{ k.v }}</span><span style="font-size:11.5px;color:#6B5D50">{{ k.s }}</span></div></sc-for>
+            </div>
+            <sc-if value="{{ planDone }}"><div style="padding:16px;border-radius:8px;background:#fff;border:1.5px solid #8A5A3B;display:flex;flex-direction:column;gap:6px"><span style="font:700 15px/1.2 Satoshi,sans-serif">PV-2026-00481 · Rosa Hernández · plan {{ planNombre }}</span><span style="font-size:13px;color:#40352D">Contratado por Laura Hernández, cuya familia recibió el servicio S-1184. Carpeta familiar con preferencias y 2 beneficiarios.</span></div></sc-if>
+            <span style="font-size:12.5px;color:#6B5D50">Cifras ficticias. La previsión se cobra con cargo recurrente y reintento automático (A-04).</span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:900},&quot;forceView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cliente&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;cliente&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;consoleHeight&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;760px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;stageWidth&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1100,&quot;tsType&quot;:&quot;number&quot;}}">
+const STEPS = ['inicio', 'ayuda', 'servicio', 'familia', 'despues', 'plan'];
+const UT = { inicio: 'Bello Recuerdo', ayuda: 'Estamos con usted', servicio: 'El servicio', familia: 'Avisar a la familia', despues: 'Seguimos aquí', plan: 'Planear con tiempo' };
+const TABS = [['inicio', 'Inicio', 'M2 7.5L8 2.5l6 5V14H10v-4H6v4H2z'], ['servicio', 'Servicio', 'M2.5 3.5h11v10h-11zM2.5 6.5h11M5.5 2v3M10.5 2v3'], ['despues', 'Después', 'M8 14s-5.5-3.2-5.5-7A3 3 0 0 1 8 5a3 3 0 0 1 5.5 2c0 3.8-5.5 7-5.5 7z'], ['plan', 'Planear', 'M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3']];
+const ETAPAS = [['Asesora asignada', 'Patricia Ramos · 23:12'], ['Unidad en camino', 'Llega en 25 minutos'], ['Traslado a la capilla', 'Jardines de San Juan · Tepic'], ['Sala lista', 'Para recibir a la familia'], ['Ceremonia', 'Según el horario elegido']];
+const SALAS = ['Capilla San José', 'Sala Laureles', 'Sala Jacarandas'];
+const HORARIOS = ['Mañana 10:00', 'Mañana 13:00', 'Mañana 17:00'];
+const DOCS = [['ine', 'Identificación de don Ernesto', 'foto con el celular'], ['cert', 'Certificado médico de defunción', 'lo entrega el médico'], ['curp', 'CURP de don Ernesto', 'opcional']];
+const TRAM = [['acta', 'Acta de defunción', 'Patricia la tramita; usted recibe 3 copias certificadas.'], ['pension', 'Pensión de viudez para su mamá', 'Guía paso a paso y cita en la clínica del seguro social.'], ['seguro', 'Seguros y cuentas bancarias', 'Lista de documentos que piden los bancos y aseguradoras.']];
+const RECS = [['novena', 'Misa de novenario', 'Recordatorio a la familia 1 día antes'], ['mes', 'Primer mes', 'Mensaje y opción de visita al jardín'], ['aniv', 'Aniversario', 'Cada año, con opción de flores']];
+const PLANES = [['Esencial', 'Velación 24 h, trámites y traslado local', 590], ['Familiar', 'Velación 48 h, cafetería, hasta 4 beneficiarios', 860], ['Integral', 'Traslado nacional, lote o nicho y acompañamiento', 1150]];
+const AMODS = [['servicios', 'Servicios en curso', 'M2.5 3.5h11v10h-11zM2.5 6.5h11M5.5 2v3M10.5 2v3'], ['salas', 'Capillas y salas', 'M2 14V6l6-4 6 4v8M6 14v-4h4v4'], ['familias', 'Mensajes de familias', 'M2 3h12v8H6l-3 3v-3H2z'], ['seguimiento', 'Seguimos aquí', 'M8 14s-5.5-3.2-5.5-7A3 3 0 0 1 8 5a3 3 0 0 1 5.5 2c0 3.8-5.5 7-5.5 7z'], ['prevision', 'Previsión', 'M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3']];
+const AT = { servicios: ['Servicios en curso', 'Hoy · Tepic y Puerto Vallarta'], salas: ['Capillas y salas', 'Jardines de San Juan · hoy y mañana'], familias: ['Mensajes de familias', 'Lo que llega desde la app'], seguimiento: ['Seguimos aquí', 'Familias en acompañamiento posterior'], prevision: ['Previsión', 'Planes y conversión'] };
+const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+
+class Component extends DCLogic {
+  state = this.fresh();
+  fresh() { return { screen: 'inicio', hist: [], ayuda: false, etapa: 0, sala: null, hora: null, docs: {}, shared: false, stream: false, tram: { acta: true }, recs: { novena: true }, flores: false, plan: 1, serv: 'inhumacion', cer: 'religiosa', deseo: 'Que toquen «Amor eterno»', contratado: false, amod: 'servicios', protect: false, log: [{ t: '23:05', text: 'Sin solicitudes abiertas en Tepic' }], clk: 12 }; }
+  componentDidMount() { this.componentDidUpdate(); }
+  componentDidUpdate() {
+    const st = this.state, j = this.props.jump, aj = this.props.adminJump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.screen && UT[j.screen]) this.setState(s => ({ screen: j.screen, hist: [...s.hist, s.screen] })); }
+    if (aj && aj.n !== this._ajn) { this._ajn = aj.n; if (aj.m && AMODS.some(m => m[0] === aj.m)) this.setState({ amod: aj.m }); }
+    if (this._rep !== st.screen) { this._rep = st.screen; if (typeof this.props.onStep === 'function') this.props.onStep(st.screen); requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="acomp-app"]').forEach(el => { el.scrollTop = 0; })); }
+    if (this._ram !== st.amod) { this._ram = st.amod; requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="acomp-admin"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  go(s) { this.setState(z => z.screen === s ? null : { screen: s, hist: [...z.hist, z.screen].slice(-8) }); }
+  log(text) { this.setState(s => ({ clk: s.clk + 2, log: [{ t: '23:' + String(s.clk).padStart(2, '0'), text }, ...s.log] })); }
+  renderVals() {
+    const st = this.state, fv = this.props.forceView, wideA = (this.props.stageWidth || 1000) >= 760, narrow = !!this.props.narrow, sc = st.screen;
+    const idx = STEPS.indexOf(sc);
+    const chip = (on) => ({ border: on ? '#8A5A3B' : '#D9CCBA', bg: on ? '#8A5A3B' : '#FFFDF9', color: on ? '#fff' : '#2E2620', on: on ? 'true' : 'false' });
+    const sw = (on) => ({ bg: on ? '#8A5A3B' : '#D9CCBA', left: on ? '19px' : '3px' });
+    const tramDone = TRAM.filter(t => st.tram[t[0]]).length;
+    const P = PLANES[st.plan];
+    const hasServ = st.ayuda;
+    const etapaTxt = hasServ ? ETAPAS[st.etapa][0] : '';
+    return {
+      stepLabel: fv === 'empresa' ? 'Administrador · ' + AT[st.amod][0] : idx >= 0 ? 'Paso ' + (idx + 1) + ' de 6 · ' + UT[sc] : UT[sc],
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#8A5A3B' : '#E3D8C9', toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.setState(this.fresh()),
+      showUser: fv !== 'empresa', showAdmin: fv === 'empresa' || !fv, h: this.props.consoleHeight || '720px', phoneH: this.props.phoneHeight || (narrow ? '700px' : '780px'),
+      clock: sc === 'despues' || sc === 'plan' ? '10:20' : '23:10', title: UT[sc], hasBack: sc !== 'inicio', back: () => this.setState(s => { const h = [...s.hist]; return { screen: h.pop() || 'inicio', hist: h }; }),
+      hasAsesora: st.ayuda && ['ayuda', 'servicio', 'familia', 'despues'].includes(sc), hablar: () => this.log('Laura pidió hablar con Patricia'),
+      sInicio: sc === 'inicio', sAyuda: sc === 'ayuda', sServicio: sc === 'servicio', sFamilia: sc === 'familia', sDespues: sc === 'despues', sPlan: sc === 'plan',
+      goAyuda: () => this.go('ayuda'), goPlan: () => this.go('plan'), goDespues: () => this.go('despues'), goServicio: () => this.go('servicio'), goFamilia: () => this.go('familia'),
+      ayudaPend: !st.ayuda, ayudaOk: st.ayuda,
+      pedirAyuda: () => { this.setState({ ayuda: true }); this.log('Necesito ayuda ahora · Laura Hernández, Tepic · asignada a Patricia Ramos'); },
+      ahora: ['Quédese con su familia. No tiene que salir de casa.', 'Si puede, tenga a mano la identificación de su papá.', 'Patricia le dirá qué sigue y a qué hora llega la unidad.'].map((t, i) => ({ n: i + 1, t })),
+      etapas: ETAPAS.map(([t, s], i) => { const done = i <= st.etapa; return { t, s: done ? s : 'Pendiente', dot: done ? '#8A5A3B' : '#fff', ring: done ? '#8A5A3B' : '#D9CCBA', c: done ? '#2E2620' : '#A89887', line: i < ETAPAS.length - 1, lc: i < st.etapa ? '#8A5A3B' : '#E3D8C9' }; }),
+      canAvanzar: st.etapa < 4, avanzar: () => { const n = st.etapa + 1; this.setState({ etapa: n }); this.log('S-1184 · ' + ETAPAS[n][0].toLowerCase()); },
+      salas: SALAS.map(l => ({ l, ...chip(st.sala === l), pick: () => { this.setState({ sala: l }); this.log('La familia eligió ' + l); } })),
+      horarios: HORARIOS.map(l => ({ l, ...chip(st.hora === l), pick: () => { this.setState({ hora: l }); this.log('Horario de ceremonia: ' + l.toLowerCase()); } })),
+      docs: DOCS.map(([k, t, s]) => { const on = !!st.docs[k]; return { t, s, on: on ? 'true' : 'false', m: on ? '✓' : '', bg: on ? '#8A5A3B' : '#fff', toggle: () => { this.setState(z => ({ docs: { ...z.docs, [k]: !z.docs[k] } })); if (!on) this.log('Documento recibido: ' + t.toLowerCase()); } }; }),
+      esquelaTxt: 'Velación en ' + (st.sala || 'Capilla San José') + ', Jardines de San Juan. Ceremonia ' + (st.hora || 'mañana 13:00').toLowerCase() + '.' + (st.stream ? ' Transmisión en línea para quien no pueda asistir.' : ''),
+      compartirLabel: st.shared ? 'Enlace compartido con la familia' : 'Compartir con la familia', compartir: () => { if (!st.shared) { this.setState({ shared: true }); this.log('La familia compartió la esquela · 34 visitas en la primera hora'); } },
+      streamAria: st.stream ? 'true' : 'false', streamBg: sw(st.stream).bg, streamLeft: sw(st.stream).left, toggleStream: () => { this.setState(s => ({ stream: !s.stream })); this.log(st.stream ? 'Transmisión desactivada' : 'Transmisión de la ceremonia activada'); },
+      condolencias: [['Familia Ortega', 'Don Ernesto fue un gran vecino. Los acompañamos con cariño.'], ['Tere, desde Guadalajara', 'No puedo estar, pero veré la ceremonia. Un abrazo a todos.'], ['Compañeros de la planta', 'Siempre lo recordaremos con gusto.']].map(([q, t]) => ({ q, t })),
+      tramDone, tramites: TRAM.map(([k, t, s]) => { const on = !!st.tram[k]; return { t, s, on: on ? 'true' : 'false', m: on ? '✓' : '', bg: on ? '#8A5A3B' : '#fff', toggle: () => this.setState(z => ({ tram: { ...z.tram, [k]: !z.tram[k] } })) }; }),
+      recordatorios: RECS.map(([k, t, s]) => { const on = !!st.recs[k]; return { t, s, on: on ? 'true' : 'false', ...sw(on), toggle: () => this.setState(z => ({ recs: { ...z.recs, [k]: !z.recs[k] } })) }; }),
+      floresLabel: st.flores ? 'Flores cada mes · programadas' : 'Programar flores', floresBg: st.flores ? '#8A5A3B' : '#FFFDF9', floresFg: st.flores ? '#fff' : '#74492F', toggleFlores: () => { this.setState(s => ({ flores: !s.flores })); if (!st.flores) this.log('Flores mensuales programadas · lote 14, Los Laureles'); },
+      planPend: !st.contratado, planDone: st.contratado, planNombre: P[0], planMens: fmt(P[2]),
+      planes: PLANES.map(([n, d, m], i) => ({ n, d, m: fmt(m), on: st.plan === i ? 'true' : 'false', border: st.plan === i ? '#8A5A3B' : '#E3D8C9', pick: () => this.setState({ plan: i }) })),
+      prefServ: [['inhumacion', 'Inhumación en Jardines'], ['cremacion', 'Cremación']].map(([k, l]) => ({ l, ...chip(st.serv === k), pick: () => this.setState({ serv: k }) })),
+      prefCer: [['religiosa', 'Misa'], ['sencilla', 'Ceremonia sencilla']].map(([k, l]) => ({ l, ...chip(st.cer === k), pick: () => this.setState({ cer: k }) })),
+      deseo: st.deseo, onDeseo: e => this.setState({ deseo: e.target.value }),
+      contratar: () => { this.setState({ contratado: true }); this.log('Laura Hernández contrató el plan ' + P[0] + ' para su mamá, Rosa'); },
+      carpeta: [{ k: 'Servicio', v: st.serv === 'cremacion' ? 'Cremación' : 'Inhumación en Jardines' }, { k: 'Ceremonia', v: st.cer === 'religiosa' ? 'Misa' : 'Ceremonia sencilla' }, { k: 'Deseos', v: st.deseo || '—' }, { k: 'Beneficiarios', v: 'Laura y Andrés' }],
+      tabs: TABS.map(([id, label, d]) => { const on = sc === id || (id === 'servicio' && ['ayuda', 'familia'].includes(sc)); return { label, d, cur: on ? 'page' : 'false', color: on ? '#8A5A3B' : '#8C7B69', go: () => this.setState({ screen: id, hist: id === 'inicio' ? [] : [...st.hist, sc] }) }; }),
+      aWide: wideA, aCols: wideA ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', aRows: wideA ? 'minmax(0,1fr)' : 'auto minmax(0,1fr)', navDir: wideA ? 'column' : 'row', navPad: wideA ? '14px 10px' : '8px',
+      aMods: AMODS.map(([id, label, d]) => { const on = st.amod === id; const badge = id === 'servicios' && st.ayuda ? '1' : id === 'familias' ? String(st.log.length - 1 || '') : id === 'prevision' && st.contratado ? '1' : ''; return { label, d, cur: on ? 'page' : 'false', badge: badge === '0' ? '' : badge, pick: () => this.setState({ amod: id }), bg: on ? '#40352D' : 'transparent', color: on ? '#fff' : '#E3D8C9' }; }),
+      aTitle: AT[st.amod][0], aSub: AT[st.amod][1],
+      aServicios: st.amod === 'servicios', aSalas: st.amod === 'salas', aFamilias: st.amod === 'familias', aSeguimiento: st.amod === 'seguimiento', aPrevision: st.amod === 'prevision',
+      alertaAyuda: st.ayuda && st.etapa === 0,
+      kpis: [{ l: 'Servicios en curso', v: String(3 + (hasServ ? 1 : 0)), s: 'Tepic y Puerto Vallarta', c: hasServ ? '#8A5A3B' : '#2E2620' }, { l: 'Respuesta a la familia', v: '2 min', s: 'desde «Necesito ayuda ahora»', c: '#2E2620' }, { l: 'Documentos recibidos', v: Object.values(st.docs).filter(Boolean).length + ' de 3', s: 'servicio S-1184', c: '#2E2620' }],
+      servicios: [...(hasServ ? [{ id: 'S-1184', f: 'Familia Hernández', a: 'Patricia Ramos', e: etapaTxt, sala: st.sala || 'Por elegir', bg: '#FBF4EE', w: 700 }] : []), { id: 'S-1181', f: 'Familia Ortiz', a: 'Jorge Lima', e: 'Velación', sala: 'Sala Jacarandas', bg: '#fff', w: 500 }, { id: 'S-1182', f: 'Familia Bañuelos', a: 'Patricia Ramos', e: 'Ceremonia hoy 12:00', sala: 'Capilla San José', bg: '#fff', w: 500 }, { id: 'S-1179', f: 'Familia Rentería', a: 'Ana Ceja', e: 'Cremación', sala: 'Vallarta · Sala 1', bg: '#fff', w: 500 }],
+      hasServicio: hasServ,
+      tareas: [['Llamar a la familia', st.ayuda], ['Enviar unidad', st.etapa >= 1], ['Recibir documentos', Object.values(st.docs).filter(Boolean).length >= 2], ['Confirmar sala y horario', !!(st.sala && st.hora)], ['Publicar esquela', st.shared], ['Activar transmisión', st.stream]].map(([t, ok]) => ({ t, m: ok ? '✓' : '', bg: ok ? '#8A5A3B' : '#D9CCBA' })),
+      salasAdm: SALAS.map(s => ({ n: s, slots: ['Hoy 18:00', ...HORARIOS].map(h => { const mine = st.sala === s && st.hora === h; const busy = (s === 'Sala Jacarandas' && h === 'Hoy 18:00') || (s === 'Capilla San José' && h === 'Mañana 10:00'); return { t: mine ? 'Hernández' : busy ? 'Ocupada' : h, bg: mine ? '#8A5A3B' : busy ? '#EFE7DC' : '#fff', c: mine ? '#fff' : busy ? '#6B5D50' : '#A89887', font: mine ? "700 12px/1.2 Inter,sans-serif" : "500 12px/1.2 Inter,sans-serif" }; }) })),
+      log: st.log,
+      seguimiento: [{ f: 'Familia Hernández', t: tramDone + ' de 3', r: st.recs.novena ? 'Misa de novenario' : st.recs.mes ? 'Primer mes' : '—', fl: st.flores ? 'Cada mes · lote 14' : 'Sin programar', bg: '#FBF4EE', w: 700 }, { f: 'Familia Medina', t: '3 de 3', r: 'Aniversario · 12 nov', fl: 'Cada mes', bg: '#fff', w: 500 }, { f: 'Familia Ruelas', t: '1 de 3', r: 'Primer mes · 28 oct', fl: 'Sin programar', bg: '#fff', w: 500 }],
+      kpisP: [{ l: 'Familias atendidas que contratan previsión', v: (st.contratado ? 12 : 11) + '%', s: 'en los 6 meses siguientes', c: st.contratado ? '#8A5A3B' : '#2E2620' }, { l: 'Planes nuevos del mes', v: String(23 + (st.contratado ? 1 : 0)), s: (4 + (st.contratado ? 1 : 0)) + ' en la app', c: '#2E2620' }, { l: 'Morosidad', v: '6.8%', s: 'cartera de previsión', c: '#2E2620' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

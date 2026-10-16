@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/colors_and_type.css">
+<script src="_ds/wigi-design-system-ef477c14-3c6e-4d00-bd78-9401c685bc3b/_ds_bundle.js"></script>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:16px;font-family:Inter,sans-serif;color:#0A0A0A">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 12px 10px 16px;border:1px solid #E5E5E5;border-radius:8px;background:#fff">
+    <span style="display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase"><span style="width:8px;height:8px;border-radius:50%;background:#0031EC"></span>Modo demo · datos ficticios</span>
+    <span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:#525252">{{ stepLabel }}</span>
+    <span style="flex:1"></span>
+    <button type="button" aria-expanded="{{ protectAria }}" onClick="{{ toggleProtect }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid {{ protectBorder }};background:#fff;font:600 13px/1 Inter,sans-serif"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1L1.5 3v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V3z"></path></svg>Cómo se protege</button>
+    <button type="button" onClick="{{ reset }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:4px;border:1px solid #E5E5E5;background:#fff;font:600 13px/1 Inter,sans-serif" style-hover="border-color:#0A0A0A"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 6.5a5 5 0 1 0 1.5-3.6M1.5 1.5v2.8h2.8"></path></svg>Reiniciar</button>
+  </div>
+  <sc-if value="{{ protect }}">
+    <div style="border:1px solid #0031EC;border-radius:8px;padding:18px 20px;background:#F4F6FE;display:flex;flex-direction:column;gap:10px">
+      <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.5">
+        <li>Cada sistema de cada empresa envía sus datos a la capa común por un túnel sellado; ninguno queda expuesto a internet.</li>
+        <li>El consejo ve indicadores consolidados; el detalle por transacción solo lo ve quien tiene el rol para hacerlo.</li>
+        <li>Las preguntas en lenguaje natural se responden con modelos que corren en la infraestructura del grupo (AktivIA), sin enviar datos financieros a servicios públicos.</li>
+      </ul>
+      <dc-import name="DatoChip" tipo="xiid" fuente="Arquitectura de referencia de Terniion y AktivIA; el diseño real se define en el sprint" hint-size="80px,22px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showUser }}" hint-placeholder-val="{{ true }}">
+    <div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">tablero · Grupo Empresarial Álica · Consejo</span>
+      </div>
+      <div style="flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding:12px clamp(14px,2vw,22px);border-bottom:1px solid #EBEBEB">
+        <span style="display:inline-flex;align-items:center;height:36px;padding:0 11px;border-radius:6px;background:#1B2E45;flex:none"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:15px;width:auto;display:block"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:700 17px/1.1 Satoshi,sans-serif">Tablero del consejo</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#525252">3T 2026 contra plan · actualizado hoy 7:00</span></span>
+        <span style="flex:1"></span>
+        <nav role="tablist" aria-label="Secciones del tablero" style="display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:100%">
+          <sc-for list="{{ uTabs }}" as="t" hint-placeholder-count="5">
+            <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="all:unset;cursor:pointer;flex:none;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:6px;font:600 13px/1 Inter,sans-serif;background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}<sc-if value="{{ t.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#D92D20;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ t.badge }}</span></sc-if></button>
+          </sc-for>
+        </nav>
+      </div>
+      <div data-scroll-top="tablero-user" style="flex:1;min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+
+        <sc-if value="{{ sGrupo }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+            <sc-for list="{{ consolidado }}" as="k">
+              <div style="padding:14px 16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:6px">
+                <span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ k.l }}</span>
+                <span style="font:600 30px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:{{ k.c }}">{{ k.v }}</span>
+                <span style="font:500 11.5px/1.3 Inter,sans-serif;color:#525252">{{ k.s }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between">
+            <span style="font:700 15px/1.2 Satoshi,sans-serif">Unidades de negocio, con una sola vara</span>
+            <div role="radiogroup" aria-label="Indicador" style="display:flex;gap:4px;flex-wrap:wrap">
+              <sc-for list="{{ metrics }}" as="m"><button type="button" role="radio" aria-checked="{{ m.on }}" onClick="{{ m.pick }}" style="all:unset;cursor:pointer;height:30px;padding:0 12px;border-radius:999px;font:600 12.5px/30px Inter,sans-serif;border:1px solid {{ m.border }};background:{{ m.bg }};color:{{ m.color }}">{{ m.label }}</button></sc-for>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr))">
+            <sc-for list="{{ unidades }}" as="u" hint-placeholder-count="9">
+              <button type="button" onClick="{{ u.open }}" style="all:unset;box-sizing:border-box;cursor:pointer;padding:14px;border-radius:8px;background:#fff;display:flex;flex-direction:column;gap:10px;transition:border-color 200ms;border:1.5px solid {{ u.border }}" style-hover="border-color:#0031EC" style-focus="outline:2px solid #0031EC;outline-offset:2px">
+                <span style="height:28px;display:flex;align-items:center"><sc-if value="{{ u.l_emb }}"><img src="assets/logos/nayar.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_polo }}"><img src="assets/logos/polo-sur.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_auto }}"><img src="assets/logos/alica-automotriz.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_fletes }}"><img src="assets/logos/fletes.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_pinsa }}"><img src="assets/logos/pinsa.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_fun }}"><img src="assets/logos/bello-recuerdo.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_fru }}"><img src="assets/logos/frutalica.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_medios }}"><img src="assets/logos/alica-medios.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if><sc-if value="{{ u.l_hosp }}"><img src="assets/logos/las-palomas.png" alt="" style="max-height:28px;max-width:110px;width:auto;height:auto;object-fit:contain;display:block"></sc-if></span><span style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><span style="font:700 14px/1.25 Satoshi,sans-serif">{{ u.n }}</span><span style="flex:none;display:inline-flex;align-items:center;gap:5px;font:600 10.5px/1 'Plus Jakarta Sans',sans-serif;color:{{ u.stColor }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ u.dot }}"></span>{{ u.st }}</span></span>
+                <span style="font:600 26px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:{{ u.vColor }}">{{ u.v }}</span>
+                <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;align-items:end;height:26px"><sc-for list="{{ u.spark }}" as="s"><span style="border-radius:1px;height:{{ s.h }};background:{{ s.c }}"></span></sc-for></div>
+                <span style="font:500 11px/1.3 Inter,sans-serif;color:#666">{{ u.seg }} · confianza del dato {{ u.conf }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <span style="font-size:12px;color:#666">Cifras ficticias expresadas contra plan. Las reales se conectan en el diagnóstico.</span>
+        </sc-if>
+
+        <sc-if value="{{ sSenales }}">
+          <p style="margin:0;font-size:14px;line-height:1.5;color:#333;max-width:760px">Cada señal llega con su cadena de causas: del indicador de negocio a la operación y a los sistemas que lo producen. Así el consejo discute qué hacer, no de dónde salió el número.</p>
+          <sc-if value="{{ noAlerts }}"><div style="padding:22px;border-radius:8px;background:#fff;border:1px dashed #D4D4D4;font-size:14px;color:#525252">Sin señales activas con las reglas actuales. Las reglas se ajustan en el centro de observabilidad.</div></sc-if>
+          <sc-for list="{{ alerts }}" as="a">
+            <div style="border-radius:10px;background:#fff;border:1.5px solid {{ a.border }};overflow:hidden">
+              <sc-if value="{{ a.isFru }}"><div style="position:relative;height:130px"><img src="assets/img/opt/huerta-mango.jpg" alt="Huerta de mango (ilustración)" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Huerta de mango · ilustración</span></div></sc-if>
+              <div style="padding:16px 18px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:flex-start;border-bottom:1px solid #F0F0F0">
+                <span style="flex:none;padding:4px 9px;border-radius:999px;font:700 10.5px/1.2 'Plus Jakarta Sans',sans-serif;background:{{ a.sevBg }};color:#fff">{{ a.sev }}</span>
+                <span style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:220px"><span style="font:700 17px/1.25 Satoshi,sans-serif">{{ a.t }}</span><span style="font-size:13px;color:#525252">{{ a.u }} · detectada {{ a.when }}</span></span>
+                <button type="button" onClick="{{ a.drill }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:4px;border:1px solid #0A0A0A;font:600 12.5px/30px Inter,sans-serif;box-sizing:border-box">Ver la unidad</button>
+              </div>
+              <div style="padding:14px 18px;display:flex;flex-direction:column;gap:0">
+                <span style="font:600 10px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666;padding-bottom:8px">Por qué se movió</span>
+                <sc-for list="{{ a.chain }}" as="c">
+                  <div style="display:grid;grid-template-columns:110px 18px minmax(0,1fr);gap:10px;align-items:start;padding:7px 0">
+                    <span style="font:600 11px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:{{ c.lc }}">{{ c.layer }}</span>
+                    <span style="display:flex;flex-direction:column;align-items:center;height:100%"><span style="width:10px;height:10px;border-radius:50%;margin-top:4px;background:{{ c.dot }}"></span><sc-if value="{{ c.line }}"><span style="flex:1;width:2px;background:#E5E5E5;margin-top:3px"></span></sc-if></span>
+                    <span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13.5px;line-height:1.45">{{ c.text }}</span><sc-if value="{{ c.chip }}"><dc-import name="DatoChip" tipo="{{ c.chipTipo }}" fuente="{{ c.chipFuente }}" hint-size="100px,22px"></dc-import></sc-if></span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:12px 18px 16px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:#FAFAFA;border-top:1px solid #F0F0F0">
+                <span style="font-size:13px;line-height:1.4;flex:1;min-width:220px"><strong>Qué lo atiende:</strong> {{ a.fix }}</span>
+                <sc-if value="{{ a.unassigned }}">
+                  <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ a.owners }}" as="o"><button type="button" onClick="{{ o.pick }}" style="all:unset;cursor:pointer;height:32px;padding:0 12px;border-radius:999px;border:1px solid #0031EC;color:#0031EC;font:600 12px/30px Inter,sans-serif;box-sizing:border-box">Asignar a {{ o.n }}</button></sc-for></div>
+                </sc-if>
+                <sc-if value="{{ a.assigned }}"><span style="padding:6px 10px;border-radius:999px;background:#0031EC;color:#fff;font:600 12px/1.2 Inter,sans-serif">Responsable: {{ a.owner }} · seguimiento en la próxima sesión</span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ sEmpresa }}">
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ unitPicker }}" as="p"><button type="button" onClick="{{ p.pick }}" style="all:unset;cursor:pointer;height:30px;padding:0 12px;border-radius:999px;font:600 12px/30px Inter,sans-serif;border:1px solid {{ p.border }};background:{{ p.bg }};color:{{ p.color }}">{{ p.n }}</button></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline"><span style="font:700 22px/1.2 Satoshi,sans-serif">{{ u.n }}</span><span style="display:inline-flex;align-items:center;gap:6px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:{{ u.stColor }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ u.dot }}"></span>{{ u.st }}</span></div>
+          <sc-if value="{{ u.isFru }}"><div style="position:relative;height:clamp(120px,14vw,170px);border-radius:8px;overflow:hidden"><img src="assets/img/opt/planta-frutalica.jpg" alt="Planta de Frutálica en Tepic" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Planta de Frutálica · Tepic · foto del sitio oficial</span></div></sc-if>
+          <sc-if value="{{ u.isEmb }}"><div style="position:relative;height:clamp(120px,14vw,170px);border-radius:8px;overflow:hidden"><img src="assets/img/reparto.jpg" alt="Unidad de reparto (ilustración)" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:8px;bottom:8px;padding:3px 7px;border-radius:999px;background:rgba(10,10,10,.72);color:#fff;font:600 10.5px/1.2 Inter,sans-serif">Reparto · ilustración</span></div></sc-if>
+          <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))">
+            <sc-for list="{{ u.kpis }}" as="k"><div style="padding:12px 14px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:5px"><span style="font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666">{{ k.l }}</span><span style="font:600 24px/1 'Plus Jakarta Sans',sans-serif;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+          </div>
+          <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+            <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px">
+              <span style="font:700 14px/1.2 Satoshi,sans-serif">Margen contra plan, últimos 12 meses (pp)</span>
+              <div style="position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:4px;height:150px">
+                <span style="position:absolute;left:0;right:0;top:50%;border-top:1px dashed #A3A3A3"></span>
+                <sc-for list="{{ u.trend }}" as="b">
+                  <div style="position:relative;height:100%">
+                    <span style="position:absolute;left:0;right:0;border-radius:2px;top:{{ b.top }};height:{{ b.hh }};background:{{ b.c }}"></span>
+                    <span style="position:absolute;bottom:-18px;left:0;right:0;text-align:center;font:500 10px/1 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.m }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <span style="font-size:11.5px;color:#666;padding-top:12px">Línea punteada: plan. Barras arriba: por encima del plan.</span>
+            </div>
+            <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:10px">
+              <span style="font:700 14px/1.2 Satoshi,sans-serif">{{ u.factTitle }}</span>
+              <sc-for list="{{ u.factores }}" as="f">
+                <div style="display:grid;grid-template-columns:minmax(110px,150px) minmax(0,1fr) 52px;gap:10px;align-items:center">
+                  <span style="font-size:12.5px">{{ f.n }}</span>
+                  <div style="position:relative;height:16px;background:#F5F5F5;border-radius:3px"><span style="position:absolute;top:0;bottom:0;left:50%;border-left:1px solid #A3A3A3"></span><span style="position:absolute;top:2px;bottom:2px;border-radius:2px;left:{{ f.left }};width:{{ f.w }};background:{{ f.c }}"></span></div>
+                  <span style="font:600 12.5px/1 'Plus Jakarta Sans',sans-serif;text-align:right;color:{{ f.c }}">{{ f.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ u.hasJourney }}">
+            <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px">
+              <span style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px"><span style="font:700 14px/1.2 Satoshi,sans-serif">{{ u.journeyTitle }}</span><span style="font-size:12px;color:#525252">Cumplimiento de cada etapa contra su meta de servicio</span></span>
+              <div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr))">
+                <sc-for list="{{ u.journey }}" as="j">
+                  <div style="padding:12px;border-radius:8px;display:flex;flex-direction:column;gap:6px;border:1.5px solid {{ j.border }};background:{{ j.bg }}">
+                    <span style="font:600 12px/1.3 Inter,sans-serif">{{ j.n }}</span>
+                    <span style="font:600 22px/1 'Plus Jakarta Sans',sans-serif;color:{{ j.c }}">{{ j.v }}</span>
+                    <span style="font-size:11px;color:#666">meta {{ j.meta }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ sPregunta }}">
+          <div style="padding:16px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px">
+            <form onSubmit="{{ ask }}" style="display:flex;gap:8px">
+              <input value="{{ q }}" onChange="{{ onQ }}" aria-label="Pregunta" placeholder="Pregunte como lo haría en el consejo…" style="flex:1;min-width:0;height:46px;border-radius:8px;border:1px solid #D4D4D4;padding:0 14px;font:400 15px Inter,sans-serif;outline:none" style-focus="border-color:#0031EC"></input>
+              <button type="submit" style="all:unset;cursor:pointer;height:46px;padding:0 18px;border-radius:8px;background:#0031EC;color:#fff;font:700 14px/46px Satoshi,sans-serif">Preguntar</button>
+            </form>
+            <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ sugeridas }}" as="s"><button type="button" onClick="{{ s.go }}" style="all:unset;cursor:pointer;padding:7px 12px;border-radius:999px;border:1px solid #D4D4D4;font:500 12.5px/1.3 Inter,sans-serif" style-hover="border-color:#0031EC;color:#0031EC">{{ s.t }}</button></sc-for></div>
+          </div>
+          <sc-if value="{{ thinking }}"><div style="padding:16px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;font:600 13px/1 'Plus Jakarta Sans',sans-serif;color:#666;letter-spacing:.12em">Consultando la capa común de datos · · ·</div></sc-if>
+          <sc-for list="{{ answers }}" as="r">
+            <div style="padding:18px;border-radius:10px;background:#fff;border:1px solid {{ r.border }};display:flex;flex-direction:column;gap:12px">
+              <span style="font:600 13px/1.4 Inter,sans-serif;color:#525252">«{{ r.q }}»</span>
+              <span style="font:500 16px/1.5 Satoshi,sans-serif;text-wrap:pretty">{{ r.a }}</span>
+              <sc-if value="{{ r.hasBars }}">
+                <div style="display:flex;flex-direction:column;gap:6px;max-width:560px">
+                  <sc-for list="{{ r.bars }}" as="b"><div style="display:grid;grid-template-columns:minmax(110px,150px) minmax(0,1fr) 56px;gap:10px;align-items:center"><span style="font-size:12.5px">{{ b.n }}</span><div style="position:relative;height:14px;background:#F5F5F5;border-radius:3px"><span style="position:absolute;top:0;bottom:0;left:50%;border-left:1px solid #A3A3A3"></span><span style="position:absolute;top:2px;bottom:2px;border-radius:2px;left:{{ b.left }};width:{{ b.w }};background:{{ b.c }}"></span></div><span style="font:600 12px/1 'Plus Jakarta Sans',sans-serif;text-align:right">{{ b.v }}</span></div></sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ r.gap }}"><div style="padding:10px 12px;border-radius:6px;background:#F5F5F5;font-size:13px;line-height:1.45">{{ r.gap }}</div></sc-if>
+              <span style="font:500 11.5px/1.4 Inter,sans-serif;color:#666">Fuentes: {{ r.src }}</span>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ sPaquete }}">
+          <div style="display:grid;gap:12px;grid-template-columns:{{ split }}">
+            <div style="padding:18px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:4px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif;padding-bottom:8px">Paquete mensual · septiembre 2026</span>
+              <sc-for list="{{ paquete }}" as="p"><div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid #F3F3F3;font-size:13.5px"><span style="width:18px;height:18px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:{{ p.bg }};color:#fff;font:700 10px/1 Inter,sans-serif">{{ p.mark }}</span><span style="flex:1">{{ p.t }}</span><span style="font-size:12px;color:#666">{{ p.s }}</span></div></sc-for>
+            </div>
+            <div style="padding:18px;border-radius:10px;background:#fff;border:1px solid #EBEBEB;display:flex;flex-direction:column;gap:12px">
+              <span style="font:700 15px/1.2 Satoshi,sans-serif">Generación automática (A-07)</span>
+              <span style="font-size:13.5px;line-height:1.5;color:#333">El paquete toma los indicadores de la capa común, arma una sección por unidad con sus señales y sus responsables, y queda listo para revisión de la dirección.</span>
+              <sc-if value="{{ pkIdle }}"><button type="button" onClick="{{ generar }}" style="all:unset;cursor:pointer;align-self:flex-start;height:44px;padding:0 18px;border-radius:4px;background:#0031EC;color:#fff;font:700 14px/44px Satoshi,sans-serif">Generar paquete del consejo</button></sc-if>
+              <sc-if value="{{ pkRunning }}"><span style="font:600 13px/1.4 'Plus Jakarta Sans',sans-serif;color:#0031EC">Generando · {{ pkProgress }}</span></sc-if>
+              <sc-if value="{{ pkDone }}">
+                <div style="padding:14px;border-radius:8px;border:1.5px solid #0031EC;display:flex;flex-direction:column;gap:6px"><span style="font:700 15px/1.3 Satoshi,sans-serif">Paquete listo · 18 páginas</span><span style="font-size:13px;color:#333">Generado en 40 segundos con {{ pkAlerts }} señales y {{ pkOwners }} responsables asignados.</span><span style="display:flex;gap:8px;align-items:center;font-size:12.5px;color:#525252">Tiempo actual de preparación: <dc-import name="DatoChip" tipo="confirmar" fuente="Horas o días que hoy toma armar el paquete del consejo; dato del corporativo" hint-size="120px,22px"></dc-import></span></div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showAdmin }}">
+    <div style="border:1px solid #D4D4D4;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.08);display:flex;flex-direction:column;height:{{ h }}">
+      <div style="height:38px;flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;background:#F2F2F2;border-bottom:1px solid #E5E5E5">
+        <span style="display:flex;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span><span style="width:10px;height:10px;border-radius:50%;background:#D4D4D4"></span></span>
+        <span style="flex:1;max-width:380px;height:24px;border-radius:5px;background:#fff;border:1px solid #E5E5E5;font:500 11.5px/22px Inter,sans-serif;color:#525252;padding:0 10px;overflow:hidden;white-space:nowrap">observabilidad · capa común de datos · equipo de datos</span>
+      </div>
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ aCols }};grid-template-rows:{{ aRows }}">
+        <nav aria-label="Módulos" style="background:#0A0A0A;color:#FAFAFA;display:flex;flex-direction:{{ navDir }};gap:2px;padding:{{ navPad }};overflow:auto;scrollbar-width:none">
+          <sc-if value="{{ aWide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px;padding:6px 10px 16px"><img src="assets/logos/grupo-alica-blanco.png" alt="Grupo Álica" style="height:18px;width:auto;display:block;align-self:flex-start"><span style="font:700 15px/1.2 Satoshi,sans-serif;margin-top:10px">Centro de observabilidad</span><span style="font:500 11.5px/1.2 Inter,sans-serif;color:#A3A3A3">Corporativo · equipo de datos</span></div></sc-if>
+          <sc-for list="{{ aMods }}" as="m"><button type="button" aria-current="{{ m.cur }}" onClick="{{ m.pick }}" style="all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;font:500 13.5px/1.2 Inter,sans-serif;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"></path></svg><span style="flex:1">{{ m.label }}</span><sc-if value="{{ m.badge }}"><span style="min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#0031EC;color:#fff;font:700 10px/18px 'Plus Jakarta Sans',sans-serif;text-align:center">{{ m.badge }}</span></sc-if></button></sc-for>
+        </nav>
+        <div data-scroll-top="tablero-admin" style="min-height:0;overflow-y:auto;padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:16px;background:#FAFAFA">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px"><h3 style="margin:0;font:700 22px/1.2 Satoshi,sans-serif">{{ aTitle }}</h3><span style="font:500 12.5px/1.3 Inter,sans-serif;color:#525252">{{ aSub }}</span></div>
+
+          <sc-if value="{{ aFuentes }}" hint-placeholder-val="{{ true }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;overflow-x:auto">
+              <div style="min-width:680px">
+                <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,1fr) 100px 110px 110px;gap:10px;padding:10px 14px;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #EBEBEB"><span>Unidad</span><span>Sistema</span><span>Conexión</span><span>Frecuencia</span><span>Última carga</span><span>Estado</span></div>
+                <sc-for list="{{ fuentes }}" as="f"><div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,1fr) 100px 110px 110px;gap:10px;padding:11px 14px;border-bottom:1px solid #F3F3F3;font-size:13px;align-items:center;background:{{ f.bg }}"><span style="font-weight:600">{{ f.u }}</span><span>{{ f.s }}</span><span>{{ f.c }}</span><span>{{ f.fr }}</span><span>{{ f.last }}</span><span style="display:inline-flex;align-items:center;gap:6px;font:600 12px/1.2 Inter,sans-serif;color:{{ f.stC }}"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:{{ f.dot }}"></span>{{ f.st }}</span></div></sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ cedisLate }}"><button type="button" onClick="{{ retry }}" style="all:unset;cursor:pointer;align-self:flex-start;height:40px;padding:0 16px;border-radius:4px;background:#0031EC;color:#fff;font:700 13.5px/40px Satoshi,sans-serif">Reintentar carga de CEDIS Vallarta y CEDIS Compostela</button></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ aCalidad }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:8px 16px">
+              <div style="display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.2fr) minmax(0,1.2fr) 80px;gap:12px;padding:8px 0;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666"><span>Unidad</span><span>Frescura</span><span>Completitud</span><span>Confianza</span></div>
+              <sc-for list="{{ calidad }}" as="c"><div style="display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,1.2fr) minmax(0,1.2fr) 80px;gap:12px;padding:9px 0;border-top:1px solid #F3F3F3;align-items:center;font-size:13px"><span style="font-weight:600">{{ c.u }}</span><span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:8px;border-radius:4px;background:#EFEFEF;overflow:hidden"><span style="display:block;height:8px;transition:width 300ms;width:{{ c.fr }};background:{{ c.frC }}"></span></span><span style="font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;width:34px">{{ c.fr }}</span></span><span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:8px;border-radius:4px;background:#EFEFEF;overflow:hidden"><span style="display:block;height:8px;width:{{ c.co }};background:#0A0A0A"></span></span><span style="font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;width:34px">{{ c.co }}</span></span><span style="font:600 12px/1 Inter,sans-serif;color:{{ c.confC }}">{{ c.conf }}</span></div></sc-for>
+            </div>
+            <span style="font-size:12.5px;color:#525252">La confianza del dato aparece junto a cada unidad en el tablero del consejo. Frutálica reporta en hojas de cálculo cada 15 días; su confianza sube cuando se conecte la trazabilidad (P-16).</span>
+          </sc-if>
+
+          <sc-if value="{{ aReglas }}">
+            <p style="margin:0;font-size:13.5px;line-height:1.5;color:#333;max-width:720px">Las reglas deciden qué ve el consejo como señal. Mueva un umbral y revise el tablero: las unidades y las señales cambian.</p>
+            <sc-for list="{{ reglas }}" as="r">
+              <div style="padding:16px;border-radius:8px;background:#fff;border:1px solid {{ r.border }};display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="font:700 15px/1.3 Satoshi,sans-serif;flex:1;min-width:200px">{{ r.t }}</span><span style="font-size:12px;color:#525252">{{ r.hits }}</span><button type="button" role="switch" aria-checked="{{ r.onAria }}" aria-label="Activar regla" onClick="{{ r.toggle }}" style="all:unset;cursor:pointer;width:40px;height:24px;border-radius:12px;position:relative;transition:background 200ms;background:{{ r.swBg }}"><span style="position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 200ms;left:{{ r.swLeft }}"></span></button></div>
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 80px;gap:12px;align-items:center"><input type="range" min="{{ r.min }}" max="{{ r.max }}" step="{{ r.step }}" value="{{ r.value }}" onChange="{{ r.change }}" aria-label="Umbral: {{ r.t }}" style="width:100%;accent-color:#0031EC"><span style="font:600 15px/1 'Plus Jakarta Sans',sans-serif;text-align:right">{{ r.display }}</span></div>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <sc-if value="{{ aLinaje }}">
+            <p style="margin:0;font-size:13.5px;line-height:1.5;color:#333;max-width:720px">De dónde sale cada número del tablero. Ejemplo: margen bruto por caja de la Embotelladora.</p>
+            <div style="display:flex;flex-direction:column;gap:0;max-width:720px">
+              <sc-for list="{{ linaje }}" as="l">
+                <div style="display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px">
+                  <span style="display:flex;flex-direction:column;align-items:center"><span style="width:14px;height:14px;border-radius:50%;box-sizing:border-box;margin-top:14px;background:{{ l.dot }};border:2px solid {{ l.ring }}"></span><sc-if value="{{ l.line }}"><span style="flex:1;width:2px;background:#D4D4D4"></span></sc-if></span>
+                  <div style="margin:6px 0;padding:12px 14px;border-radius:8px;background:#fff;border:1px solid {{ l.border }};display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline"><span style="font:700 14px/1.3 Satoshi,sans-serif;flex:1;min-width:200px">{{ l.t }}</span><span style="font-size:12px;color:#525252">{{ l.s }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ aBitacora }}">
+            <div style="border-radius:8px;background:#fff;border:1px solid #EBEBEB;padding:6px 16px">
+              <sc-for list="{{ bitacora }}" as="b"><div style="display:grid;grid-template-columns:54px 120px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid #F3F3F3;font-size:13px;line-height:1.4"><span style="font:600 12px/1.4 'Plus Jakarta Sans',sans-serif;color:#666">{{ b.t }}</span><span style="font-weight:600">{{ b.who }}</span><span>{{ b.text }}</span></div></sc-for>
+            </div>
+            <span style="font-size:12.5px;color:#525252">Cada consulta, asignación y cambio de regla queda registrado para auditoría.</span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ notBare }}">
+    <span style="font-size:13px;color:#525252">Prototipo de observabilidad de negocio para el consejo de Grupo Álica.</span>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;forceView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cliente&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;cliente&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;consoleHeight&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;760px&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;stageWidth&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1100,&quot;tsType&quot;:&quot;number&quot;}}">
+const UNITS = [
+  { id: 'emb', n: 'Embotelladora del Nayar', seg: 'Bebidas', ventas: 2.4, margen: -2.1, flujo: -4.0, roic: 11.2, conf: 'media' },
+  { id: 'polo', n: 'Polo Sur', seg: 'Bebidas', ventas: 5.1, margen: 0.4, flujo: 3.0, roic: 14.0, conf: 'alta' },
+  { id: 'auto', n: 'Álica Automotriz', seg: 'Movilidad', ventas: -3.8, margen: -0.9, flujo: -6.0, roic: 8.1, conf: 'alta' },
+  { id: 'fletes', n: 'Fletes Álica', seg: 'Movilidad', ventas: 1.0, margen: -0.3, flujo: 1.0, roic: 9.4, conf: 'alta' },
+  { id: 'pinsa', n: 'PINSA', seg: 'Inmobiliario', ventas: 7.2, margen: 1.1, flujo: 9.0, roic: 12.5, conf: 'alta' },
+  { id: 'fun', n: 'Funeraria Bello Recuerdo', seg: 'Funerario', ventas: 0.8, margen: -0.2, flujo: -2.0, roic: 10.3, conf: 'alta', mora: 7.4 },
+  { id: 'fru', n: 'Frutálica', seg: 'Agro', ventas: -12.4, margen: -3.5, flujo: -15.0, roic: 4.2, conf: 'baja' },
+  { id: 'medios', n: 'Álica Medios', seg: 'Medios', ventas: -1.5, margen: 0.2, flujo: 0.0, roic: 7.8, conf: 'alta' },
+  { id: 'hosp', n: 'Hospitalidad', seg: 'Hospitalidad', ventas: 9.6, margen: 1.8, flujo: 11.0, roic: 13.1, conf: 'alta' }
+];
+const UM = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const TREND = { emb: [0.4, 0.2, 0.3, -0.1, -0.6, -0.9, -1.1, -1.4, -1.6, -1.8, -2.0, -2.1], auto: [0.3, 0.1, 0.2, 0.0, -0.2, -0.3, -0.5, -0.4, -0.6, -0.7, -0.8, -0.9], fru: [0.5, 0.2, -0.4, -1.2, -2.0, -2.8, -3.1, -3.3, -3.6, -3.4, -3.5, -3.5] };
+const MESES = ['O', 'N', 'D', 'E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S'];
+const FACT = {
+  emb: { t: 'Qué explica el −2.1 pp de margen', f: [['Precio', 0.6], ['Mezcla de productos', -0.9], ['IEPS 2026', -1.2], ['Costo de servir', -0.6]] },
+  auto: { t: 'Qué explica el −0.9 pp de margen', f: [['Mezcla de modelos', -0.3], ['Descuentos por competencia', -0.5], ['Posventa', 0.2], ['Seminuevos', -0.3]] },
+  fru: { t: 'Qué explica el −3.5 pp de margen', f: [['Volumen cosechado', -2.6], ['Precio de venta', 0.4], ['Costo de cosecha', -0.8], ['Logística', -0.5]] }
+};
+const JOURNEY = {
+  emb: { t: 'Del pedido al cobro · Embotelladora', j: [['Toma de pedido', 96, 95], ['Preparación en CEDIS', 98, 97], ['Salida a ruta a tiempo', 91, 95], ['Entrega completa', 94, 95], ['Liquidación de ruta', 88, 97]] },
+  auto: { t: 'Del prospecto a la venta · Automotriz', j: [['Respuesta en menos de 1 hora', 41, 90], ['Prospecto con cita', 34, 40], ['Asistencia a la cita', 72, 75], ['Cierre de venta', 18, 20]] }
+};
+const OWNERS = { a1: ['Dirección comercial Embotelladora', 'Gestión de ingresos'], a2: ['Dirección Frutálica', 'Riesgos corporativos'], a3: ['Dirección Automotriz', 'Gerencia de agencia Tepic'], a4: ['Dirección de servicios funerarios', 'Cobranza'] };
+const FUENTES = [['Embotelladora', 'ERP y sistema de rutas', 'Túnel sellado', 'Cada hora'], ['CEDIS Vallarta y Compostela', 'Liquidación de ruta', 'Túnel sellado', 'Cada hora', 'late'], ['Álica Automotriz', 'DMS y CRM', 'Túnel sellado', 'Cada 4 horas'], ['Funeraria', 'Contratos y cobranza', 'Túnel sellado', 'Diaria'], ['PINSA', 'Ventas inmobiliarias', 'Túnel sellado', 'Diaria'], ['Frutálica', 'Hojas de cálculo', 'Carga manual', 'Cada 15 días', 'manual'], ['Corporativo', 'Contabilidad y nómina', 'Túnel sellado', 'Diaria']];
+const SUG = ['¿Qué unidad perdió margen este trimestre y por qué?', '¿Cómo va el flujo del grupo contra el plan?', '¿Qué clientes compran a más de una empresa del grupo?', '¿Dónde está el mayor riesgo para el próximo trimestre?'];
+const fmtPP = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + ' pp';
+const fmtPct = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + '%';
+const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const UTABS = [['grupo', 'Grupo'], ['senales', 'Señales'], ['empresa', 'Unidad'], ['pregunta', 'Preguntar'], ['paquete', 'Paquete del consejo']];
+const AMODS = [['fuentes', 'Fuentes de datos', 'M3 4c0-1.1 2.2-2 5-2s5 .9 5 2-2.2 2-5 2-5-.9-5-2zM3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2'], ['calidad', 'Calidad del dato', 'M3 8.5l3 3 7-7'], ['reglas', 'Reglas de señal', 'M2 4h12M2 8h8M2 12h5'], ['linaje', 'Linaje', 'M3 3h4v4H3zM9 9h4v4H9zM5 7v4h4'], ['bitacora', 'Bitácora', 'M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3M6 8h4M6 11h4']];
+const ATITLE = { fuentes: ['Fuentes de datos', 'Sistemas conectados a la capa común'], calidad: ['Calidad del dato', 'Frescura y completitud por unidad'], reglas: ['Reglas de señal', 'Qué se le muestra al consejo como señal'], linaje: ['Linaje del indicador', 'Del sistema de origen al tablero'], bitacora: ['Bitácora', 'Consultas, asignaciones y cambios'] };
+const RULES0 = { margen: { on: true, v: -1.5 }, ventas: { on: true, v: -3 }, resp: { on: true, v: 60 }, mora: { on: true, v: 7.5 } };
+
+class Component extends DCLogic {
+  state = this.fresh();
+  fresh() { return { screen: 'grupo', metric: 'margen', unit: 'emb', rules: JSON.parse(JSON.stringify(RULES0)), owners: {}, cedisOk: false, q: '', answers: [], thinking: false, pk: 'idle', pkStep: 0, amod: 'fuentes', protect: false, log: [{ t: '7:00', who: 'Sistema', text: 'Carga nocturna completa · 2 fuentes con retraso' }] }; }
+  componentDidMount() { this.componentDidUpdate(); }
+  componentWillUnmount() { (this._tm || []).forEach(clearTimeout); }
+  componentDidUpdate() {
+    const st = this.state, j = this.props.jump, aj = this.props.adminJump;
+    if (j && j.n !== this._jn) { this._jn = j.n; if (j.screen && UTABS.some(t => t[0] === j.screen)) this.setState({ screen: j.screen }); }
+    if (aj && aj.n !== this._ajn) { this._ajn = aj.n; if (aj.m && AMODS.some(m => m[0] === aj.m)) this.setState({ amod: aj.m }); }
+    if (this._rep !== st.screen) { this._rep = st.screen; if (typeof this.props.onStep === 'function') this.props.onStep(st.screen); requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="tablero-user"]').forEach(el => { el.scrollTop = 0; })); }
+    if (this._ram !== st.amod) { this._ram = st.amod; requestAnimationFrame(() => document.querySelectorAll('[data-scroll-top="tablero-admin"]').forEach(el => { el.scrollTop = 0; })); }
+  }
+  log(who, text) { this.setState(s => ({ log: [{ t: '7:' + String(10 + s.log.length * 3).padStart(2, '0'), who, text }, ...s.log] })); }
+  alerts() {
+    const r = this.state.rules, out = [];
+    if (r.margen.on && UM.emb.margen <= r.margen.v) out.push('a1');
+    if ((r.ventas.on && UM.fru.ventas <= r.ventas.v) || (r.margen.on && UM.fru.margen <= r.margen.v)) out.push('a2');
+    if (r.resp.on && 240 > r.resp.v) out.push('a3');
+    if (r.mora.on && UM.fun.mora > r.mora.v) out.push('a4');
+    return out;
+  }
+  status(u) {
+    const r = this.state.rules, al = this.alerts();
+    if (r.margen.on && u.margen <= r.margen.v) return 'alerta';
+    if ((r.ventas.on && u.ventas <= r.ventas.v) || (u.id === 'auto' && al.includes('a3')) || (u.id === 'fun' && al.includes('a4'))) return 'atencion';
+    return 'meta';
+  }
+  ask(q) {
+    const t = norm(q), gen = (this._g = (this._g || 0) + 1);
+    let r;
+    if (/(margen|perdio)/.test(t)) r = { a: 'La Embotelladora del Nayar perdió 2.1 puntos de margen contra plan en el trimestre. La mayor parte viene del IEPS 2026 y de una mezcla con más retornables y descuentos en tres rutas; el costo de servir también subió.', bars: FACT.emb.f, src: 'ERP y rutas de la Embotelladora · capa común de datos' + (this.state.cedisOk ? '' : ' · 2 CEDIS con 1 día de retraso') };
+    else if (/flujo/.test(t)) r = { a: 'El flujo del grupo va 1.8% abajo del plan. Frutálica y Álica Automotriz explican la mayor parte; Hospitalidad y PINSA compensan.', bars: UNITS.map(u => [u.n, u.flujo / 5]), barFmt: 'pct', src: 'Contabilidad corporativa y ERP de cada unidad' };
+    else if (/(cliente|mas de una|cruzad)/.test(t)) r = { a: 'Hoy no se puede responder con confianza.', gap: 'Cada empresa tiene su propio registro de clientes. Para responder se necesita el maestro de clientes único de la capa común (P-01), que entra en la oleada 2. La observabilidad también muestra lo que todavía no se ve.', src: 'Sin fuente consolidada' };
+    else if (/(riesgo|proximo|siguiente)/.test(t)) r = { a: 'Los dos riesgos con más impacto para el próximo trimestre: rendimiento de huertas de Frutálica por clima y presión de margen en bebidas por el IEPS. El primero tiene confianza baja porque se reporta cada 15 días.', bars: [['Frutálica · clima', -3.5], ['Embotelladora · IEPS', -1.2], ['Automotriz · competencia', -0.5]], src: 'Trazabilidad agrícola (manual) · ERP Embotelladora · CRM Automotriz' };
+    else if (/(venta|ingreso)/.test(t)) r = { a: 'Las ventas del grupo van 1.2% arriba del plan. Hospitalidad (+9.6%) y PINSA (+7.2%) crecen más; Frutálica (−12.4%) y Automotriz (−3.8%) quedan abajo.', bars: UNITS.map(u => [u.n, u.ventas / 5]), barFmt: 'pct', src: 'ERP de cada unidad · capa común de datos' };
+    else r = { a: 'Todavía estoy aprendiendo. Pruebe con margen, flujo, ventas, riesgo o clientes compartidos.', src: '—' };
+    this.setState({ thinking: true, q: '' });
+    this.log('Consejo', 'Preguntó: «' + q + '»');
+    (this._tm = this._tm || []).push(setTimeout(() => { if (gen !== this._g) return; this.setState(s => ({ thinking: false, answers: [{ q, ...r, k: Date.now() }, ...s.answers].slice(0, 4) })); }, 800));
+  }
+  renderVals() {
+    const st = this.state, fv = this.props.forceView, narrow = !!this.props.narrow;
+    const al = this.alerts(), wideA = (this.props.stageWidth || 1000) >= 760;
+    const stInfo = { alerta: ['Alerta', '#D92D20', '#D92D20'], atencion: ['Atención', '#0A0A0A', '#0A0A0A'], meta: ['En meta', '#0031EC', '#525252'] };
+    const val = (u, m) => m === 'roic' ? u.roic.toFixed(1) + '%' : m === 'margen' ? fmtPP(u.margen) : fmtPct(u[m]);
+    const confOf = u => u.id === 'emb' ? (st.cedisOk ? 'alta' : 'media') : u.conf;
+    const unitView = (u) => {
+      const s = this.status(u), si = stInfo[s];
+      const tr = TREND[u.id] || Array.from({ length: 12 }, (_, i) => +(u.margen * (i / 11)).toFixed(2));
+      const f = FACT[u.id] || { t: 'Indicadores contra plan', f: [['Ventas', u.ventas / 5], ['Margen', u.margen], ['Flujo', u.flujo / 5]] };
+      const J = JOURNEY[u.id];
+      return { ...u, ...Object.fromEntries(["emb","polo","auto","fletes","pinsa","fun","fru","medios","hosp"].map(k => ['l_' + k, k === u.id])), isFru: u.id === 'fru', isEmb: u.id === 'emb', st: si[0], dot: si[1], stColor: si[2], border: s === 'alerta' ? '#D92D20' : s === 'atencion' ? '#0A0A0A' : '#EBEBEB',
+        v: val(u, st.metric), vColor: (st.metric === 'roic' ? 1 : u[st.metric]) < 0 ? '#D92D20' : '#0A0A0A', conf: confOf(u),
+        spark: tr.map(x => ({ h: Math.max(8, Math.min(100, 50 + x * 12)) + '%', c: x < 0 ? '#D4D4D4' : '#9DAEF5' })),
+        open: () => { this.setState({ unit: u.id, screen: 'empresa' }); },
+        kpis: [['Ventas vs plan', fmtPct(u.ventas), u.ventas], ['Margen vs plan', fmtPP(u.margen), u.margen], ['Flujo vs plan', fmtPct(u.flujo), u.flujo], ['Rendimiento sobre capital', u.roic.toFixed(1) + '%', 1]].map(([l, v, n]) => ({ l, v, c: n < 0 ? '#D92D20' : '#0A0A0A' })),
+        trend: tr.map((x, i) => { const hh = Math.min(48, Math.abs(x) * 13); return { m: MESES[i], hh: hh + '%', top: x >= 0 ? (50 - hh) + '%' : '50%', c: x >= 0 ? '#0031EC' : '#D92D20' }; }),
+        factTitle: f.t, factores: f.f.map(([n, v]) => { const w = Math.min(50, Math.abs(v) * 18); return { n, v: fmtPP(v), w: w + '%', left: v >= 0 ? '50%' : (50 - w) + '%', c: v >= 0 ? '#0031EC' : '#D92D20' }; }),
+        hasJourney: !!J, journeyTitle: J ? J.t : '', journey: J ? J.j.map(([n, v, meta]) => { const ok = v >= meta; const late = u.id === 'emb' && n === 'Liquidación de ruta' && !st.cedisOk; return { n, v: v + '%', meta: meta + '%', c: ok ? '#0A0A0A' : '#D92D20', border: ok ? '#EBEBEB' : '#F3B4AE', bg: late ? '#FFF7F6' : '#fff' }; }) : [] };
+    };
+    const units = UNITS.map(unitView);
+    const nA = units.filter(u => u.st === 'Alerta').length, nT = units.filter(u => u.st === 'Atención').length;
+    const chainA1 = [
+      { layer: 'Negocio', text: 'Margen bruto por caja 2.1 pp abajo del plan en el trimestre.', dot: '#D92D20' },
+      { layer: 'Fiscal', text: 'El IEPS pasó de 1.6451 a 3.0818 pesos por litro en 2026 y ahora grava también bebidas sin azúcar.', dot: '#0A0A0A', chip: true, chipTipo: 'publico', chipFuente: 'Investigación Wigilabs «Diagnóstico Estratégico y Digital 2026», con fuentes públicas' },
+      { layer: 'Comercial', text: 'Más volumen en retornables y descuentos en las rutas 7, 9 y 14.', dot: '#0A0A0A' },
+      { layer: 'Operación', text: 'El costo de servir por caja subió 6% en esas tres rutas; la liquidación de ruta cumple 88% contra meta de 97%.', dot: '#0A0A0A' },
+      { layer: 'Sistemas', text: st.cedisOk ? 'Todas las fuentes al día. Confianza del dato: alta.' : 'CEDIS Vallarta y Compostela reportan con 1 día de retraso. Confianza del dato: media.', dot: st.cedisOk ? '#0031EC' : '#D92D20' }
+    ];
+    const A = {
+      a1: { sev: 'Alerta', u: 'Embotelladora del Nayar', t: 'Margen bruto por caja 2.1 pp abajo del plan', when: 'hace 3 días', chain: chainA1, fix: 'gestión de ingresos (P-07) y ruteo con costo de servir (P-08).', unit: 'emb' },
+      a2: { sev: 'Alerta', u: 'Frutálica', t: 'Ventas 12.4% abajo del plan por menor cosecha', when: 'hace 2 semanas', unit: 'fru', fix: 'trazabilidad y riesgo climático (P-16).',
+        chain: [{ layer: 'Negocio', text: 'Ventas 12.4% y margen 3.5 pp abajo del plan.', dot: '#D92D20' }, { layer: 'Clima', text: 'Pérdidas de hasta 80% en mango en 2026.', dot: '#0A0A0A', chip: true, chipTipo: 'publico', chipFuente: 'Investigación Wigilabs, con fuentes públicas citadas (AgroLatam)' }, { layer: 'Operación', text: 'Rendimiento por huerta abajo en 4 de 6 ranchos.', dot: '#0A0A0A' }, { layer: 'Sistemas', text: 'Reporte manual en hojas de cálculo cada 15 días. Confianza del dato: baja.', dot: '#D92D20' }] },
+      a3: { sev: 'Atención', u: 'Álica Automotriz', t: 'Conversión de prospecto a venta 1.2 pp abajo del plan', when: 'ayer', unit: 'auto', fix: 'agente de ventas y servicio con CRM omnicanal (P-10).',
+        chain: [{ layer: 'Negocio', text: 'Conversión 1.2 pp y ventas 3.8% abajo del plan.', dot: '#0A0A0A' }, { layer: 'Mercado', text: 'Marcas chinas con 11.2% del mercado nacional en el primer trimestre de 2026.', dot: '#0A0A0A', chip: true, chipTipo: 'publico', chipFuente: 'Investigación Wigilabs, con fuentes públicas citadas' }, { layer: 'Digital', text: '38% de los prospectos escribe fuera de horario; la primera respuesta tarda 4 horas en promedio.', dot: '#0A0A0A' }, { layer: 'Sistemas', text: 'CRM y DMS al día. Confianza del dato: alta.', dot: '#0031EC' }] },
+      a4: { sev: 'Atención', u: 'Funeraria Bello Recuerdo', t: 'Morosidad de 7.4% en Puerto Vallarta', when: 'hoy', unit: 'fun', fix: 'cobranza recurrente y recordatorios (A-04) y previsión en línea (P-13).',
+        chain: [{ layer: 'Negocio', text: 'Morosidad de la cartera de previsión en 7.4%, por encima del umbral.', dot: '#0A0A0A' }, { layer: 'Operación', text: 'Los recordatorios de pago dependen de llamadas; sin reintento automático.', dot: '#0A0A0A' }, { layer: 'Sistemas', text: 'Sistema de contratos al día. Confianza del dato: alta.', dot: '#0031EC' }] }
+    };
+    const alerts = al.map(id => { const a = A[id], ow = st.owners[id]; return { ...a, isFru: id === 'a2', sevBg: a.sev === 'Alerta' ? '#D92D20' : '#0A0A0A', border: a.sev === 'Alerta' ? '#F3B4AE' : '#D4D4D4', chain: a.chain.map((c, i) => ({ chip: false, chipTipo: 'publico', chipFuente: '', ...c, lc: i === 0 ? '#0A0A0A' : '#666', line: i < a.chain.length - 1 })), drill: () => this.setState({ unit: a.unit, screen: 'empresa' }), unassigned: !ow, assigned: !!ow, owner: ow || '', owners: OWNERS[id].map(n => ({ n, pick: () => { this.setState(s => ({ owners: { ...s.owners, [id]: n } })); this.log('Consejo', 'Asignó «' + a.t + '» a ' + n); } })) }; });
+    const u = unitView(UM[st.unit]);
+    const stepIdx = UTABS.findIndex(t => t[0] === st.screen);
+    const pkSteps = ['Leyendo indicadores de la capa común', 'Armando secciones por unidad', 'Agregando señales y responsables', 'Listo'];
+    const nOwners = Object.keys(st.owners).length;
+    const R = st.rules;
+    const ruleDefs = [
+      ['margen', 'Margen contra plan igual o menor a', -4, 0, 0.1, v => fmtPP(v), UNITS.filter(x => x.margen <= R.margen.v).length + ' unidades en alerta'],
+      ['ventas', 'Ventas contra plan igual o menor a', -15, 0, 0.5, v => fmtPct(v), UNITS.filter(x => x.ventas <= R.ventas.v).length + ' unidades en atención'],
+      ['resp', 'Primera respuesta a prospectos mayor a', 15, 300, 15, v => v + ' min', (240 > R.resp.v ? 'Automotriz: 240 min' : 'Sin señales')],
+      ['mora', 'Morosidad de previsión mayor a', 5, 10, 0.1, v => v.toFixed(1) + '%', (UM.fun.mora > R.mora.v ? 'Funeraria: 7.4%' : 'Funeraria en 7.4%, debajo del umbral')]
+    ];
+    return {
+      notBare: !this.props.bare,
+      stepLabel: fv === 'empresa' ? 'Administrador · ' + ATITLE[st.amod][0] : 'Paso ' + (stepIdx + 1) + ' de 5 · ' + UTABS[stepIdx][1],
+      protect: st.protect, protectAria: st.protect ? 'true' : 'false', protectBorder: st.protect ? '#0031EC' : '#E5E5E5', toggleProtect: () => this.setState(s => ({ protect: !s.protect })), reset: () => this.setState(this.fresh()),
+      showUser: fv !== 'empresa', showAdmin: fv === 'empresa' || !fv,
+      h: this.props.consoleHeight || '720px', split: wideA ? 'minmax(0,1.1fr) minmax(0,1fr)' : 'minmax(0,1fr)',
+      uTabs: UTABS.map(([id, label]) => { const on = st.screen === id; return { label, on: on ? 'true' : 'false', badge: id === 'senales' && al.length ? String(al.length) : '', pick: () => this.setState({ screen: id }), bg: on ? '#0A0A0A' : 'transparent', color: on ? '#fff' : '#333' }; }),
+      sGrupo: st.screen === 'grupo', sSenales: st.screen === 'senales', sEmpresa: st.screen === 'empresa', sPregunta: st.screen === 'pregunta', sPaquete: st.screen === 'paquete',
+      consolidado: [{ l: 'Ventas del grupo vs plan', v: '+1.2%', s: '3T 2026', c: '#0A0A0A' }, { l: 'Margen vs plan', v: '−0.6 pp', s: 'ponderado por ventas', c: '#D92D20' }, { l: 'Flujo vs plan', v: '−1.8%', s: 'antes de inversiones', c: '#D92D20' }, { l: 'Unidades con señal', v: String(nA + nT), s: nA + ' en alerta · ' + nT + ' en atención', c: nA ? '#D92D20' : '#0A0A0A' }],
+      metrics: [['margen', 'Margen'], ['ventas', 'Ventas'], ['flujo', 'Flujo'], ['roic', 'Rendimiento sobre capital']].map(([id, label]) => { const on = st.metric === id; return { label, on: on ? 'true' : 'false', pick: () => this.setState({ metric: id }), border: on ? '#0A0A0A' : '#D4D4D4', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; }),
+      unidades: units, alerts, noAlerts: !alerts.length, u,
+      unitPicker: UNITS.map(x => { const on = st.unit === x.id; return { n: x.n, pick: () => this.setState({ unit: x.id }), border: on ? '#0A0A0A' : '#D4D4D4', bg: on ? '#0A0A0A' : '#fff', color: on ? '#fff' : '#333' }; }),
+      q: st.q, onQ: e => this.setState({ q: e.target.value }), ask: e => { e.preventDefault(); const v = st.q.trim(); if (v) this.ask(v); },
+      sugeridas: SUG.map(t => ({ t, go: () => this.ask(t) })), thinking: st.thinking,
+      answers: st.answers.map((r, i) => ({ q: r.q, a: r.a, gap: r.gap || '', src: r.src, border: i === 0 ? '#0031EC' : '#EBEBEB', hasBars: !!r.bars,
+        bars: (r.bars || []).map(([n, v]) => { const w = Math.min(50, Math.abs(v) * 14); return { n, v: r.barFmt === 'pct' ? fmtPct(v * 5) : fmtPP(v), w: w + '%', left: v >= 0 ? '50%' : (50 - w) + '%', c: v >= 0 ? '#0031EC' : '#D92D20' }; }) })),
+      paquete: [['Resumen del grupo', 'automático'], ['Una sección por unidad', '9 unidades'], ['Señales activas y causas', al.length + ' señales'], ['Responsables y seguimiento', nOwners + ' asignados'], ['Avance de la hoja de ruta', 'oleada 0'], ['Anexo: calidad del dato', st.cedisOk ? 'todo al día' : '2 fuentes con retraso']].map(([t, s]) => ({ t, s, mark: st.pk === 'done' ? '✓' : '', bg: st.pk === 'done' ? '#0031EC' : '#D4D4D4' })),
+      pkIdle: st.pk === 'idle', pkRunning: st.pk === 'run', pkDone: st.pk === 'done', pkProgress: pkSteps[st.pkStep], pkAlerts: al.length, pkOwners: nOwners,
+      generar: () => { this.setState({ pk: 'run', pkStep: 0 }); this._tm = this._tm || []; [1, 2, 3].forEach(i => this._tm.push(setTimeout(() => this.setState(i === 3 ? { pk: 'done', pkStep: 3 } : { pkStep: i }), i * 700))); this.log('Sistema', 'Paquete del consejo generado automáticamente'); },
+      aWide: wideA, aCols: wideA ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', aRows: wideA ? 'minmax(0,1fr)' : 'auto minmax(0,1fr)', navDir: wideA ? 'column' : 'row', navPad: wideA ? '14px 10px' : '8px',
+      aMods: AMODS.map(([id, label, dd]) => { const on = st.amod === id; return { label, d: dd, cur: on ? 'page' : 'false', badge: id === 'fuentes' && !st.cedisOk ? '2' : id === 'bitacora' ? String(st.log.length) : '', pick: () => this.setState({ amod: id }), bg: on ? '#1F1F1F' : 'transparent', color: on ? '#fff' : '#C8C8C8' }; }),
+      aTitle: ATITLE[st.amod][0], aSub: ATITLE[st.amod][1],
+      aFuentes: st.amod === 'fuentes', aCalidad: st.amod === 'calidad', aReglas: st.amod === 'reglas', aLinaje: st.amod === 'linaje', aBitacora: st.amod === 'bitacora',
+      fuentes: FUENTES.map(([u0, s, c, fr, flag]) => { const late = flag === 'late' && !st.cedisOk, man = flag === 'manual'; return { u: u0, s, c, fr, last: late ? 'Ayer 23:00' : man ? 'Hace 9 días' : 'Hoy 6:45', st: late ? 'Con retraso' : man ? 'Manual' : 'Al día', dot: late ? '#D92D20' : man ? '#0A0A0A' : '#0031EC', stC: late ? '#D92D20' : '#0A0A0A', bg: late ? '#FFF7F6' : '#fff' }; }),
+      cedisLate: !st.cedisOk, retry: () => { this.setState({ cedisOk: true }); this.log('Equipo de datos', 'Reintentó la carga de CEDIS Vallarta y Compostela · al día'); },
+      calidad: UNITS.map(x => { const c = confOf(x); const fr = x.id === 'fru' ? 40 : x.id === 'emb' && !st.cedisOk ? 82 : 99; return { u: x.n, fr: fr + '%', frC: fr < 60 ? '#D92D20' : fr < 90 ? '#0A0A0A' : '#0031EC', co: (x.id === 'fru' ? 70 : 98) + '%', conf: c.charAt(0).toUpperCase() + c.slice(1), confC: c === 'baja' ? '#D92D20' : '#0A0A0A' }; }),
+      reglas: ruleDefs.map(([k, t, min, max, step, f, hits]) => ({ t, min, max, step, value: R[k].v, display: f(R[k].v), hits: R[k].on ? hits : 'Regla apagada', onAria: R[k].on ? 'true' : 'false', swBg: R[k].on ? '#0031EC' : '#D4D4D4', swLeft: R[k].on ? '19px' : '3px', border: R[k].on ? '#EBEBEB' : '#F0F0F0',
+        toggle: () => { this.setState(s => ({ rules: { ...s.rules, [k]: { ...s.rules[k], on: !s.rules[k].on } } })); this.log('Equipo de datos', (R[k].on ? 'Apagó' : 'Encendió') + ' la regla «' + t + '»'); },
+        change: e => { const v = parseFloat(e.target.value); this.setState(s => ({ rules: { ...s.rules, [k]: { ...s.rules[k], v } } })); clearTimeout(this._rl); this._rl = setTimeout(() => this.log('Equipo de datos', 'Cambió el umbral «' + t + '» a ' + f(v)), 600); } })),
+      linaje: [['ERP de la Embotelladora', 'Ventas por caja · cada hora'], ['Liquidación de ruta de 12 CEDIS', st.cedisOk ? 'Cada hora · al día' : 'Cada hora · 2 CEDIS con retraso'], ['Costos de producción y lista de precios', 'Diaria'], ['IEPS por litro', 'Tabla fiscal 2026'], ['Capa común de datos (P-01)', 'Modelo único por unidad, con la misma vara'], ['Tablero del consejo', 'Margen bruto por caja contra plan']].map(([t, s], i, arr) => { const bad = i === 1 && !st.cedisOk; return { t, s, line: i < arr.length - 1, dot: bad ? '#D92D20' : i === arr.length - 1 ? '#0031EC' : '#fff', ring: bad ? '#D92D20' : i === arr.length - 1 ? '#0031EC' : '#0A0A0A', border: bad ? '#F3B4AE' : '#EBEBEB' }; }),
+      bitacora: st.log
+    };
+  }
+}
+</script>
+</body>
+</html>

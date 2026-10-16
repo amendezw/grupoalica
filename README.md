@@ -1,10 +1,15 @@
 # Grupo Álica · Plataformas, IA y seguridad
 
-Propuesta interactiva de Wigilabs para Grupo Álica. Sitio estático de un solo archivo (`index.html`) con los prototipos incluidos; no requiere backend ni compilación.
+Propuesta interactiva de Wigilabs para Grupo Álica. Sitio estático: no requiere backend ni compilación.
 
 ## Contenido
 
-- `index.html` — sitio completo, con imágenes, fuentes y prototipos embebidos.
+- `index.html` — página principal de la propuesta.
+- `*.dc.html` — prototipos y componentes que la página carga.
+- `assets/` — imágenes y logos.
+- `_ds/` y `support.js` — sistema de diseño y motor de la página.
+
+Sube la carpeta completa: la página necesita todos los archivos.
 - `vercel.json` — configuración de Vercel (sin indexación en buscadores).
 - `robots.txt` — bloquea buscadores.
 
